@@ -10,3 +10,5 @@ app.use(express.urlencoded({ extended: false }));
 app.listen(PORT, () => {
   console.log("Escuchando en el puerto ", PORT);
 });
+
+app.use ('/api', routes)
