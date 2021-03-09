@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 "Añadi cosas" - Juli 
+Hago cambios 
 =======
 
 ESTRUCTURA DE PROYECTO: 
