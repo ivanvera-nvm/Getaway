@@ -1,3 +1,4 @@
+
 ESTRUCTURA DE PROYECTO: 
 
 -BACK (carpetas y contenido)
@@ -31,6 +32,7 @@ FRONT (carpetas y contenido)
 -public: archivos estáticos e index.html 
 
 -src: 
+
 
 
 
