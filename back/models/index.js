@@ -11,8 +11,5 @@ const Category = require("./Category")
 
 
 module.exports = { db, User, Cart, Product, Review, Order, Category }
-//acá exportar los modelos 
-=======
-// BASE DE DATOS
 
 
