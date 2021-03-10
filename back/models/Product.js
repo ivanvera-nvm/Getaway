@@ -5,11 +5,7 @@ class Product extends Model {}
 
 Product.init(
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    price: {
+  price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

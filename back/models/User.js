@@ -5,6 +5,9 @@ class User extends Model {}
 
 User.init(
   {
+    type: {
+      type: DataTypes.ENUM("user", "admin")
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
