@@ -25,7 +25,7 @@ User.init(
       allowNull: false
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
 
     },
     adress: {

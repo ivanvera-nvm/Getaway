@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // {force : true}
-db.sync({force : true})
+db.sync()
 .then(() => {
   app.listen(
     PORT, () => {
