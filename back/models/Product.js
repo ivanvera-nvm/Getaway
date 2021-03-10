@@ -5,16 +5,12 @@ class Product extends Model {}
 
 Product.init(
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    name: { type: DataTypes.STRING, allowNull: false },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    
-    name: { type: DataTypes.STRING, allowNull: false },
+
     stock: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
@@ -23,6 +19,9 @@ Product.init(
     expiry: {
       type: DataTypes.DATE,
     },
+    image : {
+      type: DataTypes.STRING
+    }
   },
   { sequelize: db, modelName: "product" }
 );

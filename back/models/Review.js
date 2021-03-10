@@ -5,14 +5,7 @@ class Review extends Model {}
 
 Review.init(
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    productId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+  
     rating: {
       type: DataTypes.INTEGER,
       allowNull: false,
