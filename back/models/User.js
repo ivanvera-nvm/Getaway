@@ -5,6 +5,10 @@ class User extends Model {}
 
 User.init(
   {
+    access: {
+      type: DataTypes.ENUM("user", "admin"),
+      defaultValue: "user"
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -22,7 +26,7 @@ User.init(
       allowNull: false
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
 
     },
     adress: {
