@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,15 @@ const useStyles = makeStyles((theme) => ({
   },
   rating: {
     paddingTop: "10%",
+  },
+  price: {
+    fontSize: 35,
+    color: "#357a38",
+    fontWeight: 150,
+  },
+  action: {
+    display: "flex",
+    justifyContent: "space-around",
   },
 }));
 
@@ -95,21 +105,11 @@ export default function ProductCard({ product }) {
         />
       </CardContent>
 
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        ></IconButton>
+      <CardActions className={classes.action}>
+        <Box className={classes.price}>$749</Box>
+        <Button variant="contained" color="secondary">
+          Comprar!
+        </Button>
       </CardActions>
     </Card>
   );
