@@ -14,7 +14,7 @@ import Admin from "../admin/Admin";
 import Login from "../login/Login";
 import Register from "../register/Register";
 import Categories from "../categories/Categories";
-import List from "../body/List.jsx";
+import Container from "../singleProduct/Container";
 
 export default function App() {
   return (
@@ -32,7 +32,7 @@ export default function App() {
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
-        <Route exact path="/products" component={List} />
+        <Route exact path="/product" component={Container} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">

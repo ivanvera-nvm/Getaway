@@ -5,7 +5,10 @@ class Cart extends Model {}
 
 Cart.init(
   {
-    
+    status:{
+      type:DataTypes.ENUM("pending","fulfilled"),
+      defaultValue:"pending"
+    }
   },
   { sequelize: db, modelName: "cart" }
 );
