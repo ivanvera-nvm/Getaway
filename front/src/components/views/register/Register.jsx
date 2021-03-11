@@ -14,6 +14,7 @@ import Typography from "@material-ui/core/Typography";
 
 import useStyles from "./style";
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -22,13 +23,17 @@ function Copyright() {
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
 
 const Register = () => {
+
   const classes = useStyles();
+
+  
+
+
   return (
     <div>
       <Grid container component="main" className={classes.root}>
