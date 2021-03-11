@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { addCartItem,deleteCartItem } = require("../controller/Cart");
+const { addCartItem,deleteCartItem } = require("../controllers/carro");
 // GET ROUTES
 router.get("/", (req, res) => {
   //Traigo todos los items del carro

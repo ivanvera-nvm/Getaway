@@ -2,10 +2,9 @@ const express = require("express");
 const app = express();
 const routes = require("./routes");
 
-/* const db = require("./config/index") */
+ const db = require("./config/index") 
 
-const { db } = require("./models/index");
-const router = require("./routes/cart");
+// const { db } = require("./models/index");
 
 
 const PORT = 3080;
@@ -16,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api",routes)
 // {force : true}
-db.sync()
+db.sync({force : false})
 .then(() => {
   app.listen(
     PORT, () => {
