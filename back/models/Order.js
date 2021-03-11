@@ -5,7 +5,7 @@ class Order extends Model {}
 
 Order.init(
   {
-   total: {
+   subtotal: {
      type: DataTypes.INTEGER
    }
   },
