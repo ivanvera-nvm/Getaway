@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 
@@ -11,27 +12,16 @@ import axios from "axios";
 
 const useStyles = makeStyles({});
 
-let source = "https://fakestoreapi.com/products";
-//Axios instance
-const api = axios.create({
-  baseURL: source,
-});
-
-// componentDidMount() {
-//   api.get(source).then((res) => {
-//     this.setState({ data: res.data });
-//     console.log(this.state.data);
-//   });
-// }
-
 const List = () => {
   const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
   useEffect(() => {
     axios
       .get("http://localhost:3080/api/products")
       .then((res) => {
         console.log(res.data);
-        setProducts(res.data);
+        dispatch(setProducts(res.data));
       })
       .catch((err) => {
         console.log("Error");

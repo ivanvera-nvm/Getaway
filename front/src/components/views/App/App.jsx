@@ -15,6 +15,7 @@ import Login from "../login/Login";
 import Register from "../register/Register";
 import Categories from "../categories/Categories";
 import Container from "../singleProduct/Container";
+import List from "../body/List";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/product" component={Container} />
+        <Route exact path="/products" component={List} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">
