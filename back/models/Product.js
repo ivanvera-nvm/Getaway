@@ -21,6 +21,10 @@ Product.init(
     },
     image : {
       type: DataTypes.STRING
+    },
+    quantity:{
+      type:DataTypes.INTEGER,
+      defaultValue:1
     }
   },
   { sequelize: db, modelName: "product" }
