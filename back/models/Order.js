@@ -5,16 +5,13 @@ class Order extends Model {}
 
 Order.init(
   {
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    cartId:{
-        type: DataTypes.INTEGER,
-      allowNull: false
-    }
+   total: {
+     type: DataTypes.INTEGER
+   }
   },
   { sequelize: db, modelName: "order" }
 );
+
+
 
 module.exports = Order
