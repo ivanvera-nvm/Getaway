@@ -15,7 +15,7 @@ import Typography from "@material-ui/core/Typography";
 
 import Container from "@material-ui/core/Container";
 
-import  useStyles from "./styles";
+import useStyles from "./styles";
 
 function Copyright() {
   return (
@@ -25,17 +25,18 @@ function Copyright() {
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
 
 const Register = () => {
 
+  ///VALIDACION
+
+
   const classes = useStyles();
 
   const handleSubmit = (e) => {
-    
     e.preventDefault();
     console.log("emai", e.target);
 
@@ -47,7 +48,7 @@ const Register = () => {
         adress: "blabla",
       })
       .then((res) => res.data)
-      .then(user => alert('user registrado'))
+      .then((user) => alert("user registrado"))
       .catch((err) => alert("hubo un error", err));
   };
 
@@ -61,7 +62,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit} >
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -95,6 +96,8 @@ const Register = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                type="email"
+               
               />
             </Grid>
             <Grid item xs={12}>
