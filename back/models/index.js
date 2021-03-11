@@ -18,10 +18,10 @@ Order.belongsTo(User) //userId en Cart
 // Order.hasMany(OrderItem) //orderId
 Order.belongsTo(Cart) //cartId
 
+Cart.belongsTo(User) 
+Cart.hasMany(Order) // cartId en Order
 
-Cart.hasOne(Order)
-
-Product.hasMany(Order)
+Product.hasMany(Order) // productId en Order
 Product.hasMany(Review) //productId en Review
 Product.belongsToMany(Review, {through: "product_reviews"})
 
