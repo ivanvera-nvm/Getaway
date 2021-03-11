@@ -27,8 +27,8 @@ export default function App() {
         <Route exact path="/sidebar" component={Sidebar} />
         <Route exact path="/categories" component={Categories} />
         <Route exact path="/user" component={User} />
-        <Route exact path="/login" component={Register} />
-        <Route exact path="/register" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
