@@ -1,26 +1,13 @@
 const express = require ('express')
 const router = express.Router()
+const Product = require ('../models/Product')
+const ProductController = require ('../controllers/products')
 
 
-router.get('/', (req, res, next) => {
-    res.status(200).send('Devuelvo todos los productos')
-})
-
-router.get('/:id', (req, res, next) => {
-    const id = req.params.id
-    res.send(`Devuelvo el producto ${id}`)
-})
-
-router.post('/', (req, res, next) => {
-    res.status(201).send('creando')
-})
-
-router.put('/:id', (req, res, next) => {
-    const id = req.params.id
-})
-
-router.delete('/:id', (req, res, next) => {
-    const id = req.params.id
-})
+router.get('/', ProductController.findAll)
+router.get('/:id', ProductController.findById)
+router.post('/', ProductController.createProduct)
+router.put('/:id', ProductController.editProduct)
+router.delete('/:id', ProductController.deleteProduct)
 
 module.exports = router
