@@ -16,5 +16,8 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.5.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
   }
 }
