@@ -12,6 +12,8 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 
+import {useInput }from '../../../hooks/useInput'
+
 import { useDispatch } from "react-redux";
 
 import axios from "axios";
@@ -34,25 +36,21 @@ function Copyright() {
 
 const Login = () => {
   const classes = useStyles();
-
   const dispatch = useDispatch();
 
-  const getEmail = (e) => {
-    console.log("EMAIL ====>", e.target);
-  };
 
-  const getPass = (e) => {
-    console.log("asdasdas");
-    console.log("PASSWORD ====>", e.target);
-  };
+  const email = useInput('email');
+  const password = useInput('password');
+
 
   const sendLoginRequest = (e) => {
+    
+
+    console.log(email.value, password.value)
+
     e.preventDefault();
     axios
-      .post("http://localhost:3080/api/users/login", {
-        email: "veraivandamian@gmail.com",
-        password: "123",
-      })
+      .post("http://localhost:3080/api/users/login", {email: email.value, password: password.value})
       .then((res) => res.data)
       .then((user) => {
         dispatch(setUser(user));
@@ -89,6 +87,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
+    q           {...email}
               />
               <TextField
                 variant="outlined"
@@ -100,6 +99,7 @@ const Login = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                {...password}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
