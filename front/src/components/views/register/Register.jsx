@@ -12,12 +12,14 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useHistory,NavLink  } from 'react-router-dom';
+import { NavLink  } from 'react-router-dom';
 
+
+import {useHistory} from 'react-router-dom'
 
 import Container from "@material-ui/core/Container";
 
-import  useStyles from "./styles";
+import useStyles from "./styles";
 
 function Copyright() {
   return (
@@ -27,16 +29,17 @@ function Copyright() {
         Your Website
       </Link>{" "}
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }
 
 const Register = () => {
 
-  const history = useHistory()
 
   const [input, setInput] = React.useState({})
+  const history = useHistory()
+  ///VALIDACION
+
 
   const classes = useStyles();
 
@@ -50,7 +53,6 @@ const Register = () => {
     
     e.preventDefault();
     const {name, lastName, email, password} = input
-    console.log(input);
 
     axios
       .post("http://localhost:3080/api/users/register", {
@@ -60,7 +62,7 @@ const Register = () => {
         password,
       })
       .then(res => alert('user registrado', res))
-      .then(userRegister => {history.push("/login")})
+      .then(register => history.push('/login'))
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
   
@@ -75,7 +77,7 @@ const Register = () => {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit} >
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -112,6 +114,8 @@ const Register = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                type="email"
+               
               />
             </Grid>
             <Grid item xs={12}>

@@ -11,11 +11,11 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useHistory,NavLink  } from 'react-router-dom';
+import { useHistory, NavLink } from "react-router-dom";
 
-import {useInput }from '../../../hooks/useInput'
+import { useInput } from "../../../hooks/useInput";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 
@@ -35,19 +35,27 @@ function Copyright() {
   );
 }
 
+// pusheo
+
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const email = useInput("email");
+  const password = useInput("password");
 
-  const email = useInput('email');
-  const password = useInput('password');
+  const history = useHistory();
 
+/*   const state = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
-    console.log(email.value, password.value)
+    console.log(email.value, password.value);
     e.preventDefault();
-    dispatch(loginRequest({email: email.value, password: password.value}))
+    dispatch(loginRequest({ email: email.value, password: password.value }))
+      .then((data) => {
+        !data.error ? history.push("/") : alert("Error al logear");
+      })
+      .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
   return (
@@ -66,7 +74,6 @@ const Login = () => {
             <form
               className={classes.form}
               noValidate
-              onTo
               onSubmit={sendLoginRequest}
             >
               <TextField
@@ -79,7 +86,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-               {...email}
+                {...email}
               />
               <TextField
                 variant="outlined"

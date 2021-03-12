@@ -14,12 +14,11 @@ app.use("/api", routes);
 
 // {force : true}
 
-db.sync()
-.then(() => {
-  app.listen(
-    PORT, () => {
+db.sync({ force: false })
+
+  .then(() => {
+    app.listen(PORT, () => {
       console.log("listening on port ", PORT);
-    })
-  
-})
-.catch(err => console.log(err))
+    });
+  })
+  .catch((err) => console.log(err));
