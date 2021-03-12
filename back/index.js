@@ -23,5 +23,3 @@ db.sync()
   
 })
 .catch(err => console.log(err))
-
-
