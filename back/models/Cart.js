@@ -8,6 +8,11 @@ Cart.init(
     status:{
       type:DataTypes.ENUM("pending","fulfilled"),
       defaultValue:"pending"
+    },
+    total : {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0
     }
   },
   { sequelize: db, modelName: "cart" }

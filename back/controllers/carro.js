@@ -55,12 +55,11 @@ OrderModel.findByPk(productId)
               .createOrder({
                 cartId,
                 productId,
+    
               })
 
               .then((orden) => res.status(201).send(orden));
           } else {
-            console.log(order[0].productQuantity);
-            console.log(Object.keys(order[0].__proto__));
             order[0]
               .update({ productQuantity: ++order[0].productQuantity })
               .then((orderExist) => {
