@@ -14,7 +14,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { NavLink  } from 'react-router-dom';
 
-import {useDispatch} from 'react-redux'
+
+import {useHistory} from 'react-router-dom'
 
 import Container from "@material-ui/core/Container";
 
@@ -36,7 +37,7 @@ const Register = () => {
 
 
   const [input, setInput] = React.useState({})
-
+  const history = useHistory()
   ///VALIDACION
 
 
@@ -61,6 +62,7 @@ const Register = () => {
         password,
       })
       .then(res => alert('user registrado', res))
+      .then(register => history.push('/login'))
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
   
