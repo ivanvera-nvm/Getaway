@@ -19,7 +19,7 @@ router.post("/logout", (req, res) => {
 //ruta para que devuelva el usuario loggeado en el caso que haya
 router.get("/:id"); //JWT
 
-
+router.post("/newcart", UserController.findOrCreateCart)
 
 
 module.exports = router;

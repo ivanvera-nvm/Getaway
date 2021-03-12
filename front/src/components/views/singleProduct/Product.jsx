@@ -47,7 +47,6 @@ export default function Product({ id }) {
     } else history.push("/404");
   }, []);
 
-  console.log("SINGLE PRODUCT =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", total);
 
   return (
     <>
