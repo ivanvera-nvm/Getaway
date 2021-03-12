@@ -5,7 +5,7 @@ import Home from "../home/Home";
 import Body from "../body/Body";
 import Card from "../card/Card";
 import Footer from "../footer/Footer";
-import Navbar from "../navbar/Navbar";
+import Navbar from "../navbar/Navb";
 import Sidebar from "../sidebar/Sidebar";
 import Error from "../error/Error";
 import User from "../user/User";
@@ -16,6 +16,7 @@ import Register from "../register/Register";
 import Categories from "../categories/Categories";
 import Container from "../singleProduct/Container";
 import List from "../body/List";
+import Carto from "../cart/Carto";
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/product" component={Container} />
         <Route exact path="/products" component={List} />
+        <Route exact path="/carto" component={Carto} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">

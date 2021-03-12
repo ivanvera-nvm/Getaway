@@ -32,11 +32,11 @@ const List = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container fixed alignItems="stretch">
+      <Container fixed alignItems="stretch" backgroundColor="white">
         <Grid container spacing={2}>
           {products.map((product, i) => {
             return (
-              <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Grid item xs={12} sm={6} md={4} lg={3} xl={3}>
                 <ProductCard product={product} key={i} />
               </Grid>
             );

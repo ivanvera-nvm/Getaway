@@ -17,7 +17,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import Rating from '@material-ui/lab/Rating';
+import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,9 +59,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 20,
     paddingBottom: 20,
   },
-  boxSize: {
-      
-  }
+  boxSize: {},
 }));
 
 export default function Product() {

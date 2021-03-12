@@ -11,7 +11,6 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 
-
 import { useHistory, NavLink } from "react-router-dom";
 
 import useStyles from "./style";
@@ -21,9 +20,8 @@ const Navbar = () => {
   const history = useHistory();
 
   return (
+    ///los divs de navegacion son solo para facilitar las pruebas
 
-  ///los divs de navegacion son solo para facilitar las pruebas
-   
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
@@ -36,40 +34,38 @@ const Navbar = () => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-        
-              <div  id="menu-outer">
-                <div className="table">
-                  <ul id="horizontal-list">
+            <div id="menu-outer">
+              <div className="table">
+                <ul id="horizontal-list">
+                  <li>
+                    <NavLink exact to="/" activeClassName="active">
+                      Home
+                    </NavLink>
                     <li>
-                      <NavLink exact to="/" activeClassName="active">
-                        Home
+                      <NavLink exact to="/user" activeClassName="active">
+                        User
                       </NavLink>
-                      <li>
-                        <NavLink exact to="/user" activeClassName="active">
-                          User
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink exact to="/login" activeClassName="active">
-                          Login
-                        </NavLink>
-                      </li>
-
-                      <li>
-                        <NavLink exact to="/register" activeClassName="active">
-                          Register
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink exact to="/admin" activeclassName="active">
-                          Admin
-                        </NavLink>
-                      </li>
                     </li>
-                  </ul>
-                </div>
+                    <li>
+                      <NavLink exact to="/login" activeClassName="active">
+                        Login
+                      </NavLink>
+                    </li>
+
+                    <li>
+                      <NavLink exact to="/register" activeClassName="active">
+                        Register
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink exact to="/admin" activeclassName="active">
+                        Admin
+                      </NavLink>
+                    </li>
+                  </li>
+                </ul>
               </div>
-          
+            </div>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>

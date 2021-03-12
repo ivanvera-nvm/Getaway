@@ -23,9 +23,21 @@ const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
+  header: {
+    height: "80px",
+    paddingTop: 16,
+    paddingLeft: 20,
+  },
+  title: {
+    width: "70%",
+    fontSize: 16,
+  },
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
+    "&:hover": {
+      border: "2px solid #cccccc",
+    },
   },
   expand: {
     transform: "rotate(0deg)",
@@ -46,13 +58,27 @@ const useStyles = makeStyles((theme) => ({
   cardHeaderHeight: {
     height: "120px",
   },
-  rating: {
-    paddingTop: "10%",
+  description: {
+    height: "80px",
   },
+  interact: {
+    display: "flex",
+    justifyContent: "space-around",
+  },
+  rating: {
+    alignItems: "center",
+  },
+  fav: {},
   price: {
-    fontSize: 35,
+    fontSize: 20,
     color: "#357a38",
     fontWeight: 150,
+  },
+  purchaseBtn: {
+    width: "120px",
+    fontSize: "12px",
+    color: "white",
+    backgroundColor: "#dd2c00",
   },
   action: {
     display: "flex",
@@ -70,45 +96,47 @@ export default function ProductCard({ product }) {
 
   return (
     <Card className={classes.root} className={classes.fullHeightCard}>
-      <CardHeader
-        className={classes.cardHeaderHeight}
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        //Aqui va el titulo del Producto/Servicio
-        title={product.title}
-        subheader="September 14, 2016"
-      />
+      <Box display="flex" className={classes.header}>
+        <Box className={classes.title}>{product.name}</Box>
+        <Box>
+          {/* <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton> */}
+        </Box>
+      </Box>
+
       <CardMedia
         className={classes.media}
         image={product.image}
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+        <Typography
+          className={classes.description}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {product.description}
         </Typography>
-        <Rating
-          name="read-only"
-          value="3"
-          readOnly
-          className={classes.rating}
-        />
+
+        <Box className={classes.interact}>
+          <Rating
+            name="read-only"
+            value="3"
+            readOnly
+            className={classes.rating}
+          />
+          <IconButton className={classes.fav} aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+        </Box>
       </CardContent>
 
       <CardActions className={classes.action}>
-        <Box className={classes.price}>$749</Box>
-        <Button variant="contained" color="secondary">
-          Comprar!
+        <Box className={classes.price}>${product.price},00</Box>
+        <Button variant="contained" className={classes.purchaseBtn}>
+          Comprar
         </Button>
       </CardActions>
     </Card>
