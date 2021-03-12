@@ -17,7 +17,6 @@ import { useEffect } from "react";
 import { setProduct } from "../../state/products";
 import { useHistory } from "react-router-dom";
 
-import axios from "axios";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";

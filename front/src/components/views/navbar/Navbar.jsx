@@ -4,28 +4,28 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+
 import MoreIcon from "@material-ui/icons/MoreVert";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
+
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
 import ListUsers from '../listUsers/listUsers'
 
 import { useHistory, NavLink } from "react-router-dom";
 
-import useStyles from "./style";
 import Cart from '../cart/Cart'
 
+import useStyles from "./style";
+
 const Navbar = () => {
+  
   const classes = useStyles();
   const history = useHistory();
 
-  return (
-    ///los divs de navegacion son solo para facilitar las pruebas
 
+  
+  return (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>

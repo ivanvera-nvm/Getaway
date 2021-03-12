@@ -42,26 +42,15 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const email = useInput("email");
+  const password = useInput("password");
 
-  const history = useHistory()
-  const email = useInput('email');
-  const password = useInput('password');
-
-  const sendLoginRequest = () => {
-    console.log(email.value, password.value)
-    // e.preventDefault();
-    dispatch(loginRequest({email: email.value, password: password.value}))
-    
-    // .then(()=> 
-
-  };
-  const handleSubmit = (e)=>{
+  const sendLoginRequest = (e) => {
+    console.log(email.value, password.value);
     e.preventDefault();
-    sendLoginRequest()
-    // history.push("/")
-
-  }
-
+    dispatch(loginRequest({ email: email.value, password: password.value }))
+      .then(()=> history.push("/"))
+  };
 
   return (
     <div>
@@ -80,7 +69,7 @@ const Login = () => {
               className={classes.form}
               noValidate
               onTo
-              onSubmit={(e)=> handleSubmit(e) }
+              onSubmit={sendLoginRequest}
             >
               <TextField
                 variant="outlined"
