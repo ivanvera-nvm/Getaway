@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 
@@ -28,7 +28,8 @@ const List = () => {
       });
   }, []);
 
-  console.log(products);
+  const productos = useSelector(state => state.products)
+
   return (
     <React.Fragment>
       <CssBaseline />
