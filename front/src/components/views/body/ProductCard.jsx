@@ -18,6 +18,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,6 +87,10 @@ export default function ProductCard({ product }) {
         title={product.title}
         subheader="September 14, 2016"
       />
+      <Link to={`/products/${product.id}`}>
+        {" "}
+        Detalle{" "}
+      </Link>
       <CardMedia
         className={classes.media}
         image={product.image}
