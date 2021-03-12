@@ -11,4 +11,7 @@ router.use('/products', productsRouter)
 router.use("/users", usersRouter)
 router.use("/admin", adminRouter)
 
+const cartRouter = require("./cart")
+router.use("/cart",cartRouter)
+
 module.exports = router
