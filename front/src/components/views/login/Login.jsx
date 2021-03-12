@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import { useHistory,NavLink  } from 'react-router-dom';
 
 import {useInput }from '../../../hooks/useInput'
 
@@ -18,7 +19,7 @@ import { useDispatch } from "react-redux";
 
 import axios from "axios";
 
-import { setUser } from "../../state/user";
+import { setUser, loginRequest } from "../../state/user";
 
 import useStyles from "./style";
 
@@ -44,18 +45,9 @@ const Login = () => {
 
 
   const sendLoginRequest = (e) => {
-    
-
     console.log(email.value, password.value)
-
     e.preventDefault();
-    axios
-      .post("http://localhost:3080/api/users/login", {email: email.value, password: password.value})
-      .then((res) => res.data)
-      .then((user) => {
-        dispatch(setUser(user));
-      })
-      .catch((err) => alert("hubo un error", err));
+    dispatch(loginRequest({email: email.value, password: password.value}))
   };
 
   return (
@@ -87,7 +79,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-    q           {...email}
+               {...email}
               />
               <TextField
                 variant="outlined"
@@ -121,9 +113,9 @@ const Login = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <NavLink to="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </NavLink>
                 </Grid>
               </Grid>
               <Box mt={5}>

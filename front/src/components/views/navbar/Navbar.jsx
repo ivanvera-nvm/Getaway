@@ -10,7 +10,8 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-
+import Button from "@material-ui/core/Button";
+import HomeIcon from "@material-ui/icons/Home";
 
 import { useHistory, NavLink } from "react-router-dom";
 
@@ -21,58 +22,29 @@ const Navbar = () => {
   const history = useHistory();
 
   return (
+    ///los divs de navegacion son solo para facilitar las pruebas
 
-  ///los divs de navegacion son solo para facilitar las pruebas
-   
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
+          <NavLink to="/">
+            <HomeIcon></HomeIcon>
+          </NavLink>
           <Typography className={classes.title} variant="h6" noWrap>
-        
-              <div  id="menu-outer">
-                <div className="table">
-                  <ul id="horizontal-list">
-                    <li>
-                      <NavLink exact to="/" activeClassName="active">
-                        Home
-                      </NavLink>
-                      <li>
-                        <NavLink exact to="/user" activeClassName="active">
-                          User
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink exact to="/login" activeClassName="active">
-                          Login
-                        </NavLink>
-                      </li>
-
-                      <li>
-                        <NavLink exact to="/register" activeClassName="active">
-                          Register
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink exact to="/admin" activeclassName="active">
-                          Admin
-                        </NavLink>
-                      </li>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-          
+            <div id="menu-outer"></div>
           </Typography>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <NavLink to="/register">
+              <Button variant="contained" color="primary">
+                Register
+              </Button>
+            </NavLink>
+            <NavLink to="/login">
+              <Button variant="contained" color="primary">
+                Login
+              </Button>
+            </NavLink>
             <IconButton aria-label="show 2 new notifications" color="inherit">
               <Badge badgeContent={2} color="secondary">
                 <ShoppingCartIcon />
