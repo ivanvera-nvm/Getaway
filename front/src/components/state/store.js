@@ -13,6 +13,7 @@ const store = configureStore({
     favs: favsReducer,
     admin: adminReducer,
     products: productsReducer,
+    product: productsReducer,
   },
 });
 
