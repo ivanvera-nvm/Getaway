@@ -41,14 +41,14 @@ const Login = () => {
   const dispatch = useDispatch();
 
 
-  const history = useHistory()
+  
   const email = useInput('email');
   const password = useInput('password');
 
   const sendLoginRequest = () => {
     console.log(email.value, password.value)
     // e.preventDefault();
-    dispatch(loginRequest({email: email.value, password: password.value}))
+    dispatch(loginRequest({email: email.value, password: password.value})).then(() => history.push("/products"))
     
     // .then(()=> 
 

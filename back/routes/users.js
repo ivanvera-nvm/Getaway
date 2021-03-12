@@ -19,6 +19,12 @@ router.post("/logout", (req, res) => {
 //ruta para que devuelva el usuario loggeado en el caso que haya
 router.get("/:id"); //JWT
 
+//añadir un nuevo  carrito en el login en caso de que no exista
+router.post("/newcart", UserController.findOrCreateCart)
+
+ 
+
+
 
 
 

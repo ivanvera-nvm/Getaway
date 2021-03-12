@@ -11,20 +11,21 @@ const Cart = require("../models/Cart")
 router.post("/addproduct", CartController.addProduct)
 
 //actualizar la cantidad de un producto
-//router.post("/modifycart", CartController.updateProduct)
-
 router.post("/modifycart", CartController.editProduct)
 
+//eliminar la cantidad de un producto
 router.delete("/deleteproduct", CartController.deleteProduct)
 
 
 
- router.post("/newcart", (req, res) => {
+/*  router.post("/newcart", (req, res) => {
   console.log(req.body);
   const newCart = Cart.create(req.body).then((cart) =>
     res.status(201).json(cart)
   );
-}); 
+});  */
+
+
 
 
 
