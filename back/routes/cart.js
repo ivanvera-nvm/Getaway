@@ -13,25 +13,18 @@ router.post("/addproduct", CartController.addProduct)
 //actualizar la cantidad de un producto
 //router.post("/modifycart", CartController.updateProduct)
 
-router.post("/modifycart", (req, res, next) => {
-  const {productId, orderId} = req.body
-  console.log(req.body)
-  Cart.findOne(orderId)
-  .then((order) => {
-    console.log(order)
-    res.send("probando update")
-  })
-})
+router.post("/modifycart", CartController.editProduct)
+
+router.delete("/deleteproduct", CartController.deleteProduct)
 
 
 
-
-/* router.post("/newcart", (req, res) => {
+ router.post("/newcart", (req, res) => {
   console.log(req.body);
   const newCart = Cart.create(req.body).then((cart) =>
     res.status(201).json(cart)
   );
-}); */
+}); 
 
 
 

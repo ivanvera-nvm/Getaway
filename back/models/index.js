@@ -10,7 +10,7 @@ const Category = require("./Category")
 
 
 //RELACIONES
-User.hasOne(Cart) //userId en Cart
+User.hasMany(Cart) //userId en Cart
 User.hasMany(Review) //userId en Review
 User.hasMany(Order) //userId en Order
 
