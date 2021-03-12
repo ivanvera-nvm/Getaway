@@ -15,9 +15,8 @@ import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setProduct } from "../../state/products";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 
-import axios from "axios";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
@@ -36,26 +35,16 @@ export default function Product({ id }) {
     setExpanded(!expanded);
   };
 
-  const history = useHistory()
+  const history = useHistory();
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   const total = useSelector((state) => state.totalProducts);
 
   useEffect(() => {
-
-
     if (id < total) {
-
-      axios
-        .get(`http://localhost:3080/api/products/${id}`)
-        .then((res) => res.data)
-        .then((product) => dispatch(setProduct(product)))
-        .catch((error) => console.log(error));
-    }
-
-    else  history.push('/404')
-
+      dispatch(setProduct(id)).catch((error) => console.log(error));
+    } else history.push("/404");
   }, []);
 
   console.log("SINGLE PRODUCT =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", total);

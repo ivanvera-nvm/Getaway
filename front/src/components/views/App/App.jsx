@@ -42,6 +42,8 @@ export default function App() {
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/users" component={listUsers} />
+
+        <Route exact path="/cart" component={Cart} />
         <Route exact path="/products" component={List} />
         <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
         <Route exact path="/cart" component={Cart} />

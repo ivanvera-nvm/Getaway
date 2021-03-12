@@ -10,6 +10,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
+import ListUsers from '../listUsers/listUsers'
 
 import { useHistory, NavLink } from "react-router-dom";
 
@@ -46,10 +47,14 @@ const Navbar = () => {
                 Login
               </Button>
             </NavLink>
-            <IconButton aria-label="show 2 new notifications" color="inherit" >
+            <NavLink to="/users">
+              <Button variant="contained" color="primary">
+                List Users
+              </Button>
+            </NavLink>
+            <IconButton aria-label="show 2 new notifications" color="inherit">
               <Badge badgeContent={2} color="secondary">
-              <Cart></Cart>
-              
+                <Cart />
               </Badge>
             </IconButton>
             <IconButton
