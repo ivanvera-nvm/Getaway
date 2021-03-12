@@ -5,7 +5,6 @@ export const setUser = createAction("SET_USER");
 
 export const loginRequest = createAsyncThunk('LOGIN_REQUEST', (user) => {
   return axios.post("http://localhost:3080/api/users/login", user)
-    //.then(res => res.data)
     .then((res) => {
       localStorage.setItem('user', JSON.stringify(res.data))
       return res.data
