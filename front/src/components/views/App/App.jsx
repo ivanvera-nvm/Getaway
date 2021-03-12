@@ -17,7 +17,7 @@ import Categories from '../categories/Categories'
 import listUsers from '../listUsers/listUsers';
 import Product from "../singleProduct/Product";
 import List from "../body/List";
-
+import Cart from '../cart/Cart'
 
 export default function App() {
   
@@ -41,12 +41,10 @@ export default function App() {
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
-
         <Route exact path="/users" component={listUsers} />
-
-
         <Route exact path="/products" component={List} />
         <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
+        <Route exact path="/cart" component={Cart} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">

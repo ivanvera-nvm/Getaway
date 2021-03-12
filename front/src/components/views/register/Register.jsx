@@ -12,8 +12,9 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useHistory,NavLink  } from 'react-router-dom';
+import { NavLink  } from 'react-router-dom';
 
+import {useDispatch} from 'react-redux'
 
 import Container from "@material-ui/core/Container";
 
@@ -33,7 +34,6 @@ function Copyright() {
 
 const Register = () => {
 
-  const history = useHistory()
 
   const [input, setInput] = React.useState({})
 
@@ -61,7 +61,6 @@ const Register = () => {
         password,
       })
       .then(res => alert('user registrado', res))
-      .then(userRegister => {history.push("/login")})
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
   

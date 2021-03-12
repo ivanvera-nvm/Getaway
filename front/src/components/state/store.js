@@ -6,6 +6,7 @@ import favsReducer from "./favs";
 import adminReducer from "./admin";
 import productsReducer from "./products";
 import listUsersReducer from "./listUsers"
+import totalProducts from './totalProducts'
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -15,7 +16,8 @@ const store = configureStore({
     admin: adminReducer,
     products: productsReducer,
     product: productsReducer,
-    listUsers: listUsersReducer
+    listUsers: listUsersReducer,
+    totalProducts: totalProducts,
   },
 });
 

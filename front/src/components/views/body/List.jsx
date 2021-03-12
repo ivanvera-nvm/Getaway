@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-
+import {setTotal} from '../../state/totalProducts'
 import Container from "@material-ui/core/Container";
 
 import ProductCard from "./ProductCard.jsx";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 
-const useStyles = makeStyles({});
 
 const List = () => {
+
   const [products, setProducts] = useState([]);
   const dispatch = useDispatch();
 
@@ -26,9 +24,14 @@ const List = () => {
       .catch((err) => {
         console.log("Error");
       });
+
+      
+
   }, []);
 
-  const productos = useSelector(state => state.products)
+  const totalProducts = products.length
+ 
+  dispatch(setTotal(totalProducts))
 
   return (
     <React.Fragment>
@@ -37,8 +40,8 @@ const List = () => {
         <Grid container spacing={2}>
           {products.map((product, i) => {
             return (
-              <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                <ProductCard product={product} key={i} />
+              <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={product.id}>
+                <ProductCard product={product} key={product.id} />
               </Grid>
             );
           })}

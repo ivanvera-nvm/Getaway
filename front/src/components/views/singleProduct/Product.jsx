@@ -1,5 +1,4 @@
 import React from "react";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -9,27 +8,25 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
-import useStyles from "./useStyles";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { setProduct } from "../../state/products";
-import { useLocation } from "react-router-dom";
+import {useHistory} from 'react-router-dom'
+
 import axios from "axios";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import InboxIcon from "@material-ui/icons/Inbox";
-import DraftsIcon from "@material-ui/icons/Drafts";
+
+import useStyles from "./useStyles";
 
 export default function Product({ id }) {
   const classes = useStyles();
@@ -39,19 +36,30 @@ export default function Product({ id }) {
     setExpanded(!expanded);
   };
 
+  const history = useHistory()
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
-  console.log(id);
+
+  const total = useSelector((state) => state.totalProducts);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3080/api/products/${id}`)
-      .then((res) => res.data)
-      .then((product) => dispatch(setProduct(product)))
-      .catch((error) => console.log(error));
+
+
+    if (id < total) {
+
+      axios
+        .get(`http://localhost:3080/api/products/${id}`)
+        .then((res) => res.data)
+        .then((product) => dispatch(setProduct(product)))
+        .catch((error) => console.log(error));
+    }
+
+    else  history.push('/404')
+
   }, []);
 
-  console.log("productttttttttttt", product);
+  console.log("SINGLE PRODUCT =>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>", total);
+
   return (
     <>
       <CssBaseline />
@@ -115,7 +123,7 @@ export default function Product({ id }) {
                       component="nav"
                       aria-label="secondary mailbox folders"
                     >
-                        <ListItemIcon>Expira:</ListItemIcon>
+                      <ListItemIcon>Expira:</ListItemIcon>
                       <ListItemText primary={Date(product.expiry)} />
                     </List>
                   </Typography>

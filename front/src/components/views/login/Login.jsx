@@ -11,15 +11,15 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useHistory,NavLink  } from 'react-router-dom';
+import {NavLink  } from 'react-router-dom';
 
 import {useInput }from '../../../hooks/useInput'
 
 import { useDispatch } from "react-redux";
 
-import axios from "axios";
 
-import { setUser, loginRequest } from "../../state/user";
+
+import { loginRequest } from "../../state/user";
 
 import useStyles from "./style";
 
@@ -45,7 +45,6 @@ const Login = () => {
 
 
   const sendLoginRequest = (e) => {
-    console.log(email.value, password.value)
     e.preventDefault();
     dispatch(loginRequest({email: email.value, password: password.value}))
   };
