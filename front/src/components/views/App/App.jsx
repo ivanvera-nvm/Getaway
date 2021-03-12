@@ -13,12 +13,20 @@ import Profile from "../profile/Profile";
 import Admin from "../admin/Admin";
 import Login from "../login/Login";
 import Register from "../register/Register";
-import Categories from "../categories/Categories";
+
+import Categories from '../categories/Categories'
+import listUsers from '../listUsers/listUsers';
 import Product from "../singleProduct/Product";
 import List from "../body/List";
 
 
 export default function App() {
+  
+  
+  React.useEffect(()=> {
+    console.log('fetch me')
+  })
+  
   return (
     <>
       <Navbar />
@@ -34,6 +42,10 @@ export default function App() {
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
+
+        <Route exact path="/users" component={listUsers} />
+
+
         <Route exact path="/products" component={List} />
         <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
 
