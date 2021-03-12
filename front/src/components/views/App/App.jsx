@@ -14,8 +14,15 @@ import Admin from "../admin/Admin";
 import Login from "../login/Login";
 import Register from "../register/Register";
 import Categories from '../categories/Categories'
+import listUsers from '../listUsers/listUsers'
 
 export default function App() {
+  
+  
+  React.useEffect(()=> {
+    console.log('fetch me')
+  })
+  
   return (
     <>
       <Navbar />
@@ -31,7 +38,7 @@ export default function App() {
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
-
+        <Route exact path="/users" component={listUsers} />
         <Route path="/404" component={Error}></Route>
         <Route path="*">
           <Redirect to="/404"></Redirect>

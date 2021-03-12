@@ -65,6 +65,11 @@ const Navbar = () => {
                           Admin
                         </NavLink>
                       </li>
+                      <li>
+                        <NavLink exact to="/users" activeclassName="active">
+                          Users
+                        </NavLink>
+                      </li>
                     </li>
                   </ul>
                 </div>
