@@ -11,9 +11,9 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useHistory,NavLink  } from 'react-router-dom';
+import { useHistory, NavLink } from "react-router-dom";
 
-import {useInput }from '../../../hooks/useInput'
+import { useInput } from "../../../hooks/useInput";
 
 import { useDispatch } from "react-redux";
 
@@ -36,8 +36,10 @@ function Copyright() {
 }
 
 const Login = () => {
+  const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
+
 
   const history = useHistory()
   const email = useInput('email');
@@ -49,6 +51,7 @@ const Login = () => {
     dispatch(loginRequest({email: email.value, password: password.value}))
     
     // .then(()=> 
+
   };
   const handleSubmit = (e)=>{
     e.preventDefault();
@@ -87,7 +90,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-               {...email}
+                {...email}
               />
               <TextField
                 variant="outlined"

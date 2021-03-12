@@ -9,14 +9,17 @@ import { useHistory, NavLink } from "react-router-dom";
 export const setUser = createAction("SET_USER");
 
 
-export const loginRequest = createAsyncThunk("LOGIN_REQUEST", (user) => {
-  return axios
-  .post("http://localhost:3080/api/users/login", user)
-  .then((res) => {
-    console.log(res);
-      return res.data;
-    });
-});
+export const loginRequest = createAsyncThunk('LOGIN_REQUEST', (user) => {
+  return axios.post("http://localhost:3080/api/users/login", user)
+    .then((res) => {
+      localStorage.setItem('user', JSON.stringify(res.data))
+      return res.data
+    })
+    .catch('Error en las credenciales')
+})
+
+
+
 
 const userReducer = createReducer([], {
   [setUser]: (state, action) => action.payload,

@@ -12,10 +12,12 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
+import ListUsers from '../listUsers/listUsers'
 
 import { useHistory, NavLink } from "react-router-dom";
 
 import useStyles from "./style";
+import Cart from '../cart/Cart'
 
 const Navbar = () => {
   const classes = useStyles();
@@ -45,9 +47,14 @@ const Navbar = () => {
                 Login
               </Button>
             </NavLink>
+            <NavLink to="/users">
+              <Button variant="contained" color="primary">
+                List Users
+              </Button>
+            </NavLink>
             <IconButton aria-label="show 2 new notifications" color="inherit">
               <Badge badgeContent={2} color="secondary">
-                <ShoppingCartIcon />
+                <Cart />
               </Badge>
             </IconButton>
             <IconButton
