@@ -73,34 +73,30 @@ export default function ProductCard({ product }) {
     <Card className={classes.root} className={classes.fullHeightCard}>
       <CardHeader
         className={classes.cardHeaderHeight}
-        avatar={
+        /* avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
             R
           </Avatar>
-        }
+        } */
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
         //Aqui va el titulo del Producto/Servicio
-        title={product.title}
-        subheader="September 14, 2016"
+        title={product.name}
+        subheader={product.expiry}
       />
       <Link to={`/products/${product.id}`}>
-        {" "}
-        Detalle{" "}
-      </Link>
       <CardMedia
         className={classes.media}
         image={product.image}
-        title="Paella dish"
-      />
+        title={product.title}
+        />
+        </Link>
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the
-          mussels, if you like.
+        {product.description}
         </Typography>
         <Rating
           name="read-only"
@@ -111,7 +107,7 @@ export default function ProductCard({ product }) {
       </CardContent>
 
       <CardActions className={classes.action}>
-        <Box className={classes.price}>$749</Box>
+        <Box className={classes.price}>${product.price}</Box>
         <Button variant="contained" color="secondary">
           Comprar!
         </Button>

@@ -116,7 +116,7 @@ export default function Product({ id }) {
                       aria-label="secondary mailbox folders"
                     >
                         <ListItemIcon>Expira:</ListItemIcon>
-                      <ListItemText primary={product.expiry} />
+                      <ListItemText primary={Date(product.expiry)} />
                     </List>
                   </Typography>
 
