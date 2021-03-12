@@ -1,9 +1,11 @@
 const express = require("express")
 const router = express.Router()
 const UserController = require("../controllers/users")
+const checkJWT = require ('../utils/checkJwt')
+
 
 //ruta para ver todos los usuarios (admin)
-router.get("/", UserController.allUsers)
+router.get("/" , checkJWT, UserController.allUsers)
 
 //ruta para ver un usuario por su id
 router.get("/:id", UserController.findById)

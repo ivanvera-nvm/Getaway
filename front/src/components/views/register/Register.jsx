@@ -31,25 +31,34 @@ function Copyright() {
 }
 
 const Register = () => {
+  
+  const [input, setInput] = React.useState({})
 
   const classes = useStyles();
+
+  const handleChange = (e) => {
+    const key = e.target.name;
+    const value = e.target.value;
+    setInput({...input, [key]: value})
+  }
 
   const handleSubmit = (e) => {
     
     e.preventDefault();
-    console.log("emai", e.target);
+    const {name, lastName, email, password} = input
+    console.log(input);
 
     axios
       .post("http://localhost:3080/api/users/register", {
-        name: "ivan",
-        email: "veraivandamian@gmail.com",
-        password: "123",
-        adress: "blabla",
+        name,
+        lastName,
+        email,
+        password,
       })
-      .then((res) => res.data)
-      .then(user => alert('user registrado'))
-      .catch((err) => alert("hubo un error", err));
+      .then(res => alert('user registrado', res))
+      .catch((err) => alert("Ingrese un correo de email valido", err));
   };
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -65,8 +74,9 @@ const Register = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange={handleChange}
                 autoComplete="fname"
-                name="firstName"
+                name="name"
                 variant="outlined"
                 required
                 fullWidth
@@ -77,6 +87,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -88,6 +99,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
@@ -99,6 +111,7 @@ const Register = () => {
             </Grid>
             <Grid item xs={12}>
               <TextField
+                onChange={handleChange}
                 variant="outlined"
                 required
                 fullWidth
