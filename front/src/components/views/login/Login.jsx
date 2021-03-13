@@ -7,43 +7,27 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import Footer from '../footer/Footer';
+
 import { useHistory, NavLink } from "react-router-dom";
-
 import { useInput } from "../../../hooks/useInput";
+import { useDispatch} from "react-redux";
 
-import { useDispatch, useSelector } from "react-redux";
-
-import axios from "axios";
-
-import { setUser, loginRequest } from "../../state/user";
+import { loginRequest } from "../../../state/user";
 
 import useStyles from "./style";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
 
 // pusheo
 
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const email = useInput("email");
   const password = useInput("password");
-
   const history = useHistory();
 
 /*   const state = useSelector((state) => state.user); */
@@ -125,9 +109,7 @@ const Login = () => {
                   </NavLink>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
+              <Footer/>
             </form>
           </div>
         </Grid>

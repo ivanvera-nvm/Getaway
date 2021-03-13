@@ -53,6 +53,7 @@ export default function App() {
           <Redirect to="/404"></Redirect>
         </Route>
       </Switch>
+      <Footer/>
     </>
   );
 }
