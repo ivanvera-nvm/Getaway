@@ -1,27 +1,15 @@
 import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MoreIcon from "@material-ui/icons/MoreVert";
-import Button from "@material-ui/core/Button";
-import HomeIcon from "@material-ui/icons/Home";
-
-import { fade, makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
-
 import InputBase from "@material-ui/core/InputBase";
-
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 
 import { useHistory, NavLink } from "react-router-dom";
 
@@ -132,11 +120,10 @@ const Navbar = () => {
           inputProps={{ "aria-label": "search" }}
         />
 
-        <IconButton aria-label="show 2 new notifications" color="inherit">
-          <Badge badgeContent={2} color="secondary">
-            <Cart />
-          </Badge>
-        </IconButton>
+        <Badge badgeContent={2} color="secondary">
+          <Cart />
+        </Badge>
+
         <IconButton
           edge="end"
           aria-label="account of current user"
@@ -192,7 +179,7 @@ const Navbar = () => {
         <NavLink
           exact
           to="/admin"
-          activeclassName="active"
+          activeClassName="active"
           className={classes.links}
         >
           Admin

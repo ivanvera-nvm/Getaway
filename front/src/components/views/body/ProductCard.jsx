@@ -1,25 +1,15 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-
-import clsx from "clsx";
 
 import useStyles from "./style";
 
@@ -32,7 +22,7 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <Card className={classes.root} className={classes.fullHeightCard}>
+    <Card className={classes.root}>
       <Box display="flex" className={classes.header}>
         <Box className={classes.title}>{product.name}</Box>
         <Box>
@@ -61,7 +51,7 @@ export default function ProductCard({ product }) {
         <Box className={classes.interact}>
           <Rating
             name="read-only"
-            value="3"
+            value={3}
             readOnly
             className={classes.rating}
           />

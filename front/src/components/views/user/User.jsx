@@ -1,13 +1,8 @@
 import React from "react";
-import {NavLink} from 'react-router-dom';
-import {useSelector} from 'react-redux'
+import { NavLink } from "react-router-dom";
 
 const User = () => {
-
-  const testUser = 'GlaDos'
-
- 
-
+  const testUser = "GlaDos";
 
   return (
     <div>
@@ -18,6 +13,5 @@ const User = () => {
     </div>
   );
 };
-
 
 export default User;
