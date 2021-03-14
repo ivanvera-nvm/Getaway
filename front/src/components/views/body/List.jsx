@@ -11,14 +11,13 @@ import Grid from "@material-ui/core/Grid";
 const List = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  console.log(products);
+
 
   useEffect(() => {
     dispatch(setProducts()).catch((err) => {
       console.log(err);
     });
   }, [dispatch]);
-
   const totalProducts = products.length;
 
   dispatch(setTotal(totalProducts));
