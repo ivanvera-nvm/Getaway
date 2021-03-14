@@ -7,10 +7,10 @@ Category.init(
   {
     name: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   { sequelize: db, modelName: "category" }
 );
 
-module.exports = Category
+module.exports = Category;
