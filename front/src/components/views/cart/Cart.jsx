@@ -14,19 +14,23 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 
 const Cart = () => {
+
   const dispatch = useDispatch();
   const classes = useStyles();
-  const userOrders = useSelector((state) => state.userOrders);
 
-  const [state, setState] = useState({
-    right: false,
-  });
+  const userOrders = useSelector((state) => state.userOrders);
+  const products = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(setUserOrders()).catch((err) => {
       console.log(err);
     });
-  }, []);
+  }, [dispatch]);
+
+  ///Solo config de Material UI (tremenda pereza refactorizar)
+  const [state, setState] = useState({
+    right: false,
+  });
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -38,7 +42,32 @@ const Cart = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  console.log(userOrders);
+  ///La funcion recibe por parametro un array de productos y lo filtra en base al segundo parametro orderId.
+  ///Devuelve un objeto con informacion del producto dentro de un array
+  /* Ejemplo=> [{"id": 4,"name": "Home Spa","price": 200,"stock": 105,}] */
+
+  /// UPDATE: Le agregue un parametro mas, quantity, para poder mostrar cuantos items hay de cada tipo.
+
+  const productsFilter = (products, orderId, quantity, i) => {
+    let filtered = products.filter((elem) => elem.id === orderId);
+    return (
+      <div key={i}>
+        <ListItem button key={filtered.id}>
+          <ListItemText
+            key={filtered.id}
+            primary={`Order ${orderId}: ${filtered[0].name} x${quantity}`}
+          />
+        </ListItem>
+      </div>
+    );
+  };
+
+  const fillCart = () =>
+    userOrders.map((order, i) =>
+      productsFilter(products, order.id, order.productQuantity, i)
+    );
+
+    
   return (
     <div>
       {["right"].map((anchor) => (
@@ -63,19 +92,13 @@ const Cart = () => {
               {userOrders ? (
                 <div>
                   <List>
-                    <ListItem button key={'FULLFILLED'}>
-                      <ListItemText primary={`Cart ID: ${userOrders[0].cartId}`} />
+                    <ListItem button key={"FULLFILLED"}>
+                      <ListItemText
+                        primary={`Cart ID: ${userOrders[0].cartId}`}
+                      />
                     </ListItem>
                   </List>
-                  <List>
-                    {userOrders.map(
-                      (order, index) => (
-                        <ListItem button key={order.id}>
-                          <ListItemText primary={`Order N: ${order.id}`} />
-                        </ListItem>
-                      )
-                    )}
-                  </List>
+                  <List>{fillCart()}</List>
                 </div>
               ) : (
                 <div>
