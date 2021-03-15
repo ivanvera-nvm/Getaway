@@ -2,7 +2,7 @@ const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
 const CartModel = require("../models/Cart");
 
-const UserController = {
+const   UserController = {
   //ver todos los usuarios desde /admin
   allUsers(req, res, next) {
     UserModel.findAll(req.body)

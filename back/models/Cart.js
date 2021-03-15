@@ -11,7 +11,6 @@ Cart.init(
     },
     total: {
       type: DataTypes.FLOAT,
-      allowNull: true,
       defaultValue: 0,
     },
   },
