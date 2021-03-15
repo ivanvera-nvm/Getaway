@@ -66,8 +66,9 @@ const UserController = {
 
   findOrCreateCart(req, res, next) {
     const { userId, cartId } = req.body;
-
+    console.log(userId);
     CartModel.findOne({ where: { userId } }).then((cart) => {
+      console.log(cart);
       if (!cart) {
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);

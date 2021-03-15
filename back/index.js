@@ -3,9 +3,7 @@ const app = express();
 const routes = require("./routes");
 var cors = require("cors");
 
- const db = require("./config/index") 
-
-// const { db } = require("./models/index");
+const { db } = require("./models/index");
 
 
 const PORT = 3080;
