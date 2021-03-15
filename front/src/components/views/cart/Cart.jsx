@@ -64,14 +64,14 @@ const Cart = () => {
                 <div>
                   <List>
                     <ListItem button key={'FULLFILLED'}>
-                      <ListItemText primary={userOrders[0].cartId} />
+                      <ListItemText primary={`Cart ID: ${userOrders[0].cartId}`} />
                     </ListItem>
                   </List>
                   <List>
                     {userOrders.map(
                       (order, index) => (
                         <ListItem button key={order.id}>
-                          <ListItemText primary={order.id} />
+                          <ListItemText primary={`Order N: ${order.id}`} />
                         </ListItem>
                       )
                     )}
@@ -80,7 +80,7 @@ const Cart = () => {
               ) : (
                 <div>
                   <ListItem button key={"empty"}>
-                    <ListItemText primary={"Update Cart"} />
+                    <ListItemText primary={"The cart is empty :("} />
                   </ListItem>
                 </div>
               )}

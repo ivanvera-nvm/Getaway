@@ -22,6 +22,7 @@ const store = configureStore({
     totalProducts: totalProductsReducer,
     orders: ordersReducer,
     userOrders: userOrdersReducer,
+    
   },
 });
 

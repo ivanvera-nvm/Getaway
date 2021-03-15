@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -10,8 +10,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import Cart from "../cart/Cart";
 
@@ -20,89 +22,16 @@ import useStyles from "./style";
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
+  const user = useSelector((state) => state.user);
 
-  ///CONFIG
+  /// Dejo preparada esta estructura para cuando toque agregar a favoritos!
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
-  const isMenuOpen = Boolean(anchorEl);
-
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
+  /*  if (user) {
+    /// Pedido axios => Post => Ruta de favoritos
+    /// then => mensaje cuando lo agrega exitosamente
+    /// catch => mesaje cuando no puede agregarlo (posiblemente por no estar logged)
+    ///* no olvidar pasarlo a react-redux
+  } */
 
   return (
     <div className={classes.stack}>
@@ -119,25 +48,37 @@ const Navbar = () => {
           }}
           inputProps={{ "aria-label": "search" }}
         />
-
-        <Badge badgeContent={2} color="secondary">
-          <Cart />
-        </Badge>
-
-        <IconButton
-          edge="end"
-          aria-label="account of current user"
-          aria-haspopup="true"
-          onClick={() => {
-            history.push("/profile/algunUser");
-          }}
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-
-        {renderMobileMenu}
-        {renderMenu}
+        {!user.user ? (
+          <>
+            Not logged
+            <AccountCircle />
+          </>
+        ) : (
+          <>
+            <div className={classes.root}>
+              <Badge badgeContent={2} color="secondary">
+                <Cart />
+              </Badge>
+            </div>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-haspopup="true"
+              onClick={() => {
+                history.push(`/profile/${user.user.name}`);
+              }}
+              color="inherit"
+            >
+              <div className={classes.root}>
+                <Avatar
+                  alt={`${user.user.name}`}
+                  src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
+                />
+                <span>{`${user.user.name}`}</span>
+              </div>
+            </IconButton>
+          </>
+        )}
       </Box>
       <Box className={classes.navLinks}>
         <NavLink
@@ -151,39 +92,44 @@ const Navbar = () => {
 
         <NavLink
           exact
-          to="/user"
-          activeClassName="active"
-          className={classes.links}
-        >
-          User
-        </NavLink>
-
-        <NavLink
-          exact
-          to="/login"
-          activeClassName="active"
-          className={classes.links}
-        >
-          Login
-        </NavLink>
-
-        <NavLink
-          exact
-          to="/register"
-          activeClassName="active"
-          className={classes.links}
-        >
-          Register
-        </NavLink>
-
-        <NavLink
-          exact
           to="/admin"
           activeClassName="active"
           className={classes.links}
         >
           Admin
         </NavLink>
+        {!user.user ? (
+          <>
+            <NavLink
+              exact
+              to="/login"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Login
+            </NavLink>
+
+            <NavLink
+              exact
+              to="/register"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Register
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink
+              exact
+              to="/login"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Logout
+            </NavLink>
+          </>
+        )}
       </Box>
     </div>
   );
