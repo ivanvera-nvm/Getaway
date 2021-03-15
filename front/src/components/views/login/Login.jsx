@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -14,10 +14,10 @@ import Footer from "../footer/Footer";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { loginRequest } from "../../../state/user";
-
+import axios from "axios";
 import useStyles from "./style";
 
 // pusheo
@@ -28,6 +28,23 @@ const Login = () => {
   const email = useInput("email");
   const password = useInput("password");
   const history = useHistory();
+  const user = useSelector((state) => state.user);
+
+  const userId = "6";
+
+  const createCart = () => {
+    if (userId) {
+      axios
+        .post("http://localhost:3080/api/cart/new", { userId })
+        .then((newCart) => {
+          alert("creado");
+          history.push("/");
+        })
+        .catch((err) => alert("error", err));
+    } else {
+      console.log("No hay nadaaaaaaaa");
+    }
+  };
 
   /*   const state = useSelector((state) => state.user); */
 
@@ -36,8 +53,12 @@ const Login = () => {
 
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
-        !data.error ? history.push("/") : alert("Error al logear");
+        if (!data.error) alert("OK");
+        else {
+          alert("Error al logear");
+        }
       })
+      .then((cart) => createCart())
       .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 

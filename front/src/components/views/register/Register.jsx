@@ -43,7 +43,8 @@ const Register = () => {
       .then((register) => history.push("/login"))
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
-  
+
+
 
   return (
     <Container component="main" maxWidth="xs">

@@ -9,10 +9,8 @@ const OrderController = {
   },
 
   findUserOrders(req, res, next) {
-
     const userId = req.params.userId
- 
-
+    
     CartModel.findOne({ where: { userId } })
       .then((userCart) => {
         const { id } = userCart;

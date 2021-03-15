@@ -46,7 +46,6 @@ export default function App() {
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/products" component={List} />
         <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
-        <Route exact path="/cart" component={Cart} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">
