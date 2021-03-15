@@ -2,7 +2,6 @@
 
 const CartModel = require("../models/Cart");
 const Order = require("../models/Order");
-const OrderModel = require("../models/Order");
 
 const CartController = {
   editProduct(req, res, next) {
@@ -74,7 +73,10 @@ OrderModel.findByPk(productId)
 
       .catch(next);
   },
+  removeProduct(){
 
+  }
+,
   deleteProduct(req, res, next) {
     const { productId, cartId } = req.body;
     Order.findOne({ where: { productId, cartId } })
@@ -82,6 +84,22 @@ OrderModel.findByPk(productId)
       .then(() => res.sendStatus(200))
       .catch((err) => res.status(500).send(err));
   },
+
+
+  findUserOrders(req, res, next) {
+    const userId = req.params.id;
+
+    CartModel.findOne({where: {userId}})
+      .then((userCart) => {
+        const {id} = userCart;
+        Order.findAll({where: {cartId: id}})
+          .then((userOrders) => res.send(userOrders))
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => next(err));
+  },
+
+
 };
 
 module.exports = CartController;

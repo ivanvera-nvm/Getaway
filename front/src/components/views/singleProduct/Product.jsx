@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setProduct } from "../../state/products";
+import { setProduct } from "../../../state/products"
 import { useHistory } from "react-router-dom";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
