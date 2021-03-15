@@ -24,6 +24,8 @@ const Navbar = () => {
   const history = useHistory();
   const user = useSelector((state) => state.user);
 
+  const userOrders = useSelector((state) => state.userOrders);
+
   /// Dejo preparada esta estructura para cuando toque agregar a favoritos!
 
   /*  if (user) {
@@ -32,6 +34,24 @@ const Navbar = () => {
     /// catch => mesaje cuando no puede agregarlo (posiblemente por no estar logged)
     ///* no olvidar pasarlo a react-redux
   } */
+
+  const total = (userOrders) => {
+    let totalItems = 0;
+    userOrders.forEach((order) => {
+      totalItems += order.productQuantity;
+    });
+
+
+    return (
+      <Badge badgeContent={totalItems} color="secondary">
+        <Cart />
+      </Badge>
+    );
+  };
+
+  const loggout = () => {
+    return localStorage.setItem("user", {});
+  };
 
   return (
     <div className={classes.stack}>
@@ -56,9 +76,13 @@ const Navbar = () => {
         ) : (
           <>
             <div className={classes.root}>
-              <Badge badgeContent={2} color="secondary">
-                <Cart />
-              </Badge>
+              {userOrders ? (
+                <div>{total(userOrders)}</div>
+              ) : (
+                <>
+                  <Cart />
+                </>
+              )}
             </div>
             <IconButton
               edge="end"
@@ -122,9 +146,10 @@ const Navbar = () => {
           <>
             <NavLink
               exact
-              to="/login"
+              to="/"
               activeClassName="active"
               className={classes.links}
+              onClick={loggout}
             >
               Logout
             </NavLink>
