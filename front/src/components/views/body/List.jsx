@@ -1,25 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { setTotal } from "../../state/totalProducts";
-import {setProducts} from "../../state/products";
+import { setTotal } from "../../../state/totalProducts";
+import { setProducts } from "../../../state/products";
 import Container from "@material-ui/core/Container";
 
 import ProductCard from "./ProductCard.jsx";
 import Grid from "@material-ui/core/Grid";
-import axios from "axios";
 
 const List = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  console.log(products)
+
 
   useEffect(() => {
     dispatch(setProducts()).catch((err) => {
       console.log(err);
     });
-  }, []);
-
+  }, [dispatch]);
   const totalProducts = products.length;
 
   dispatch(setTotal(totalProducts));
@@ -27,7 +25,7 @@ const List = () => {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container fixed alignItems="stretch">
+      <Container fixed alignitems="stretch">
         <Grid container spacing={2}>
           {products.map((product, i) => {
             return (

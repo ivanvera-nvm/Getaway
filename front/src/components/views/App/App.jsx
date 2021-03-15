@@ -8,7 +8,6 @@ import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
 import Error from "../error/Error";
-import User from "../user/User";
 import Profile from "../profile/Profile";
 import Admin from "../admin/Admin";
 import Login from "../login/Login";
@@ -18,14 +17,17 @@ import listUsers from '../listUsers/listUsers';
 import Product from "../singleProduct/Product";
 import List from "../body/List";
 import Cart from '../cart/Cart'
+import { useSelector, useDispatch } from "react-redux";
 
 export default function App() {
   
+  const user = useSelector((state) => state.user);
   
   React.useEffect(()=> {
     console.log('fetch me')
   })
-  
+
+
   return (
     <>
       <Navbar />
@@ -35,14 +37,12 @@ export default function App() {
         <Route exact path="/body" component={Body} />
         <Route exact path="/sidebar" component={Sidebar} />
         <Route exact path="/categories" component={Categories} />
-        <Route exact path="/user" component={User} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/profile/:username" component={Profile} />
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/users" component={listUsers} />
-
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/products" component={List} />
         <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
@@ -53,6 +53,7 @@ export default function App() {
           <Redirect to="/404"></Redirect>
         </Route>
       </Switch>
+      <Footer/>
     </>
   );
 }

@@ -9,4 +9,6 @@ router.post("/modifycart", CartController.editProduct);
 
 router.delete("/deleteproduct", CartController.deleteProduct);
 
+router.get("/:id/order", CartController.findUserOrders);
+
 module.exports = router;

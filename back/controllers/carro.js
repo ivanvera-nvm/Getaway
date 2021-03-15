@@ -1,6 +1,5 @@
 const CartModel = require("../models/Cart");
 const Order = require("../models/Order");
-const OrderModel = require("../models/Order");
 
 const CartController = {
   editProduct(req, res, next) {
@@ -68,6 +67,22 @@ const CartController = {
       .then(() => res.sendStatus(200))
       .catch((err) => res.status(500).send(err));
   },
+
+
+  findUserOrders(req, res, next) {
+    const userId = req.params.id;
+
+    CartModel.findOne({where: {userId}})
+      .then((userCart) => {
+        const {id} = userCart;
+        Order.findAll({where: {cartId: id}})
+          .then((userOrders) => res.send(userOrders))
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => next(err));
+  },
+
+
 };
 
 module.exports = CartController;
