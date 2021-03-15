@@ -30,15 +30,6 @@ const Login = () => {
   const history = useHistory();
   const user = useSelector(state => state.user)
 
-  const userId = user.user.id
-
-  useEffect(() => {
-    axios
-      .post("http://localhost:3080/api/cart/new", { userId })
-      .then((newCart) => alert("Creado"))
-      .catch((err) => alert("error", err));
-  }, []);
-
   /*   const state = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {

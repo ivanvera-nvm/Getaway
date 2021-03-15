@@ -19,11 +19,12 @@ const Cart = () => {
 
   const userOrders = useSelector((state) => state.userOrders);
   const products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
 
-  console.log(products);
+  const userId = user.user.id
 
   useEffect(() => {
-    dispatch(setUserOrders()).catch((err) => {
+    dispatch(setUserOrders(userId)).catch((err) => {
       console.log(err);
     });
   }, [dispatch]);
@@ -44,15 +45,12 @@ const Cart = () => {
 
   const productsFilter = (products, orderId, quantity, i) => {
     let filtered = products.filter((product) => {
-      console.log(product);
       return product.id === orderId;
     });
 
-    /*    console.log(filtered);
-     */
     return (
       <div key={i}>
-        {!filtered ? (
+        {filtered ? (
           <>
             <ListItem button key={filtered.id}>
               <ListItemText
@@ -69,9 +67,6 @@ const Cart = () => {
       </div>
     );
   };
-
-  /*  ${filtered[0].name}   */
-
   const fillCart = () =>
     userOrders.map((order, i) => {
       console.log("PRODCUT ID", order.productId);
