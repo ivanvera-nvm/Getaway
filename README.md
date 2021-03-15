@@ -32,4 +32,18 @@ FRONT (carpetas y contenido)
 
 -src: 
 
+--------------------------------------------------------------------------------------------
 
+Post review:
+
+1. Se corrigieron todos los warnings (en rojo), que habia hasta el momento, a excepcion de los del componente `ProductCard`.
+2. Las carpetas se movieron de lugar en base a la review. Pero aun faltan agruparlas en grupos mas grandes.
+3. Controller para busqueda de ordenes y rutas.
+4. Al ingresar a la pagina, se comprueba que el usuario este logeado.
+    No logeado: Se muestran los enlaces a: HOME - ADMIN - LOGIN - REGISTER
+    Logeado: Se muestra HOME - ADMIN - Logout (aunque falta crear la ruta tanto para front como para back, y su interaccion)
+    y el icono del Carrito
+5. Al clikear en el carro se muestra el cartID y las respectivas ordersID
+
+*IMPORTANTE* como todavia el carrito esta incompleto, cuando creen uno nuevo, haganlo con el USER ID: 2, fijense: src=>state=>orders.js
+PD: Si ven alguna falta de ortografia corrijanla de inmediato asi no nos sangran los ojos. Con las tildes no sean exquisitos, tengo el teclado en ingles y me da pereza ir cambiando.  >:|

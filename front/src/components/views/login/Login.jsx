@@ -7,55 +7,38 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Paper from "@material-ui/core/Paper";
-import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
+import Footer from "../footer/Footer";
 
-import {useInput }from '../../../hooks/useInput'
-
+import { useHistory, NavLink } from "react-router-dom";
+import { useInput } from "../../../hooks/useInput";
 import { useDispatch } from "react-redux";
 
-import axios from "axios";
-
-import { setUser } from "../../state/user";
+import { loginRequest } from "../../../state/user";
 
 import useStyles from "./style";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-    </Typography>
-  );
-}
+// pusheo
 
 const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const email = useInput("email");
+  const password = useInput("password");
+  const history = useHistory();
 
-
-  const email = useInput('email');
-  const password = useInput('password');
-
+  /*   const state = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
-    
-
-    console.log(email.value, password.value)
-
     e.preventDefault();
-    axios
-      .post("http://localhost:3080/api/users/login", {email: email.value, password: password.value})
-      .then((res) => res.data)
-      .then((user) => {
-        dispatch(setUser(user));
+
+    dispatch(loginRequest({ email: email.value, password: password.value }))
+      .then((data) => {
+        !data.error ? history.push("/") : alert("Error al logear");
       })
-      .catch((err) => alert("hubo un error", err));
+      .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
   return (
@@ -74,7 +57,6 @@ const Login = () => {
             <form
               className={classes.form}
               noValidate
-              onTo
               onSubmit={sendLoginRequest}
             >
               <TextField
@@ -87,7 +69,7 @@ const Login = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-    q           {...email}
+                {...email}
               />
               <TextField
                 variant="outlined"
@@ -121,14 +103,12 @@ const Login = () => {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <NavLink to="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
-                  </Link>
+                  </NavLink>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
+              <Footer />
             </form>
           </div>
         </Grid>

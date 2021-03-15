@@ -5,13 +5,15 @@ class Order extends Model {}
 
 Order.init(
   {
-   subtotal: {
-     type: DataTypes.INTEGER
-   }
+    subtotal: {
+      type: DataTypes.INTEGER,
+    },
+    productQuantity: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
   },
   { sequelize: db, modelName: "order" }
 );
 
-
-
-module.exports = Order
+module.exports = Order;

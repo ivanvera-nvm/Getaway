@@ -1,68 +1,33 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setProduct } from "../../../state/products";
+import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: 1200,
-  },
-  media: {
-    width: 800,
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  header: {
-    fontSize: 35,
-  },
-  boxInfo: {
-    width: 400,
-    fontSize: 22,
-  },
-  price: {
-    paddingTop: 20,
-    paddingBottom: 20,
-    width: 400,
-    fontSize: 35,
-    color: "#66bb6a",
-  },
-  description: {
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-  boxSize: {},
-}));
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+import List from "@material-ui/core/List";
 
-export default function Product() {
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import Divider from "@material-ui/core/Divider";
+
+import useStyles from "./useStyles";
+
+export default function Product({ id }) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -70,104 +35,99 @@ export default function Product() {
     setExpanded(!expanded);
   };
 
+  const history = useHistory();
+  const product = useSelector((state) => state.product);
+  const dispatch = useDispatch();
+
+  const total = useSelector((state) => state.totalProducts);
+
+  useEffect(() => {
+    if (id < total) {
+      dispatch(setProduct(id)).catch((error) => console.log(error));
+    } else history.push("/404");
+  }, []);
+
   return (
-    <Card className={classes.root}>
-      <CardHeader
-        avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        title={
-          <Box className={classes.header}>"Shrimp and Chorizo Paella"</Box>
-        }
-        subheader="September 14, 2016"
-      />
-      <Box display="flex" className={classes.boxSize}>
-        <CardMedia
-          className={classes.media}
-          image="https://cdn.needish.tools/is-prod-deals/H9bBKCBY3BpN4DhBbi0Xnw/scale/900x600.jpg"
-          title="Paella dish"
-        />
+    <>
+      <CssBaseline />
+      <Container fixed>
+        <Box display="flex" justifyContent="center">
+          <Card className={classes.root}>
+            <CardHeader
+              avatar={
+                <Avatar aria-label="recipe" className={classes.avatar}>
+                  R
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title={<Box className={classes.header}>{product.name}</Box>}
+              subheader="September 14, 2016"
+            />
+            <Box display="flex" className={classes.boxSize}>
+              <CardMedia
+                className={classes.media}
+                image={product.image}
+                title={product.name}
+              />
 
-        <Box className={classes.boxInfo}>
-          <CardContent>
-            <Box className={classes.boxInfo}>"Shrimp and Chorizo Paella"</Box>
-            <Box className={classes.price}>$3000</Box>
+              <Box className={classes.boxInfo}>
+                <CardContent>
+                  <Box className={classes.boxInfo}>{product.name}</Box>
+                  <Box className={classes.price}>${product.price}</Box>
 
-            <Button variant="contained" color="secondary">
-              Comprar
-            </Button>
+                  <Button variant="contained" color="secondary">
+                    Comprar
+                  </Button>
 
-            <Typography
-              className={classes.description}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            >
-              This impressive paella is a perfect party dish and a fun meal to
-              cook together with your guests. Add 1 cup of frozen peas along
-              with the mussels, if you like.
-            </Typography>
-            <Rating name="read-only" value="3" readOnly />
-          </CardContent>
+                  <Typography
+                    className={classes.description}
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {product.description}
+                  </Typography>
+
+                  <Typography
+                    className={classes.description}
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    <List component="nav" aria-label="main mailbox folders">
+                      <ListItemIcon>Cantidad:</ListItemIcon>
+                      <ListItemText primary={product.quantity} />
+
+                      <ListItemIcon>Stock:</ListItemIcon>
+                      <ListItemText primary={product.stock} />
+                    </List>
+                    <Divider />
+                    <List
+                      component="nav"
+                      aria-label="secondary mailbox folders"
+                    >
+                      <ListItemIcon>Expira:</ListItemIcon>
+                      <ListItemText primary={Date(product.expiry)} />
+                    </List>
+                  </Typography>
+
+                  <Rating name="read-only" value="3" readOnly />
+                </CardContent>
+              </Box>
+            </Box>
+
+            <CardActions disableSpacing>
+              <IconButton aria-label="add to favorites">
+                <FavoriteIcon />
+              </IconButton>
+            </CardActions>
+          </Card>
         </Box>
-      </Box>
-
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet
-            over medium-high heat. Add chicken, shrimp and chorizo, and cook,
-            stirring occasionally until lightly browned, 6 to 8 minutes.
-            Transfer shrimp to a large plate and set aside, leaving chicken and
-            chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes,
-            onion, salt and pepper, and cook, stirring often until thickened and
-            fragrant, about 10 minutes. Add saffron broth and remaining 4 1/2
-            cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and
-            peppers, and cook without stirring, until most of the liquid is
-            absorbed, 15 to 18 minutes. Reduce heat to medium-low, add reserved
-            shrimp and mussels, tucking them down into the rice, and cook again
-            without stirring, until mussels have opened and rice is just tender,
-            5 to 7 minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+      </Container>
+    </>
   );
 }

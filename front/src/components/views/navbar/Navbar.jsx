@@ -1,105 +1,160 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
+import React, { useEffect } from "react";
+
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import Box from "@material-ui/core/Box";
+import InputBase from "@material-ui/core/InputBase";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
+import MailIcon from "@material-ui/icons/Mail";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import Cart from "../cart/Cart";
 
 import useStyles from "./style";
 
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
+  const user = useSelector((state) => state.user);
+
+  const userOrders = useSelector((state) => state.userOrders);
+
+  /// Dejo preparada esta estructura para cuando toque agregar a favoritos!
+
+  /*  if (user) {
+    /// Pedido axios => Post => Ruta de favoritos
+    /// then => mensaje cuando lo agrega exitosamente
+    /// catch => mesaje cuando no puede agregarlo (posiblemente por no estar logged)
+    ///* no olvidar pasarlo a react-redux
+  } */
+
+  const total = (userOrders) => {
+    let totalItems = 0;
+    userOrders.forEach((order) => {
+      totalItems += order.productQuantity;
+    });
+
+    return (
+      <Badge badgeContent={totalItems} color="secondary">
+        <Cart />
+      </Badge>
+    );
+  };
+
+  const loggout = () => {
+    return localStorage.setItem("user", {});
+  };
 
   return (
-    ///los divs de navegacion son solo para facilitar las pruebas
+    <div className={classes.stack}>
+      <Box className={classes.navMain}>
+        <Typography className={classes.title} variant="h6" noWrap>
+          GetAway
+        </Typography>
 
-    <div className={classes.grow}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            <div id="menu-outer">
-              <div className="table">
-                <ul id="horizontal-list">
-                  <li>
-                    <NavLink exact to="/" activeClassName="active">
-                      Home
-                    </NavLink>
-                    <li>
-                      <NavLink exact to="/user" activeClassName="active">
-                        User
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink exact to="/login" activeClassName="active">
-                        Login
-                      </NavLink>
-                    </li>
-
-                    <li>
-                      <NavLink exact to="/register" activeClassName="active">
-                        Register
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink exact to="/admin" activeclassName="active">
-                        Admin
-                      </NavLink>
-                    </li>
-                  </li>
-                </ul>
-              </div>
+        <InputBase
+          placeholder="Search…"
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ "aria-label": "search" }}
+        />
+        {!user.user ? (
+          <>
+            Not logged
+            <AccountCircle />
+          </>
+        ) : (
+          <>
+            <div className={classes.root}>
+              {userOrders ? (
+                <div>{total(userOrders)}</div>
+              ) : (
+                <>
+                  <Cart />
+                </>
+              )}
             </div>
-          </Typography>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 2 new notifications" color="inherit">
-              <Badge badgeContent={2} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
             <IconButton
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
               onClick={() => {
-                history.push("/profile/algunUser");
+                history.push(`/profile/${user.user.name}`);
               }}
               color="inherit"
             >
-              <AccountCircle />
+              <div className={classes.root}>
+                <Avatar
+                  alt={`${user.user.name}`}
+                  src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
+                />
+                <span>{`${user.user.name}`}</span>
+              </div>
             </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              /*           aria-controls={mobileMenuId} */
-              aria-haspopup="true"
-              /*        onClick={handleMobileMenuOpen} */
-              color="inherit"
+          </>
+        )}
+      </Box>
+      <Box className={classes.navLinks}>
+        <NavLink
+          exact
+          to="/"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Home
+        </NavLink>
+
+        <NavLink
+          exact
+          to="/admin"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Admin
+        </NavLink>
+        {!user.user ? (
+          <>
+            <NavLink
+              exact
+              to="/login"
+              activeClassName="active"
+              className={classes.links}
             >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {/*    {renderMobileMenu}  */}
+              Login
+            </NavLink>
+
+            <NavLink
+              exact
+              to="/register"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Register
+            </NavLink>
+          </>
+        ) : (
+          <>
+            <NavLink
+              exact
+              to="/"
+              activeClassName="active"
+              className={classes.links}
+              onClick={loggout}
+            >
+              Logout
+            </NavLink>
+          </>
+        )}
+      </Box>
     </div>
   );
 };

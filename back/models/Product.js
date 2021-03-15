@@ -10,22 +10,22 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
     stock: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     description: { type: DataTypes.STRING, allowNull: false },
+
     expiry: {
       type: DataTypes.DATE,
     },
-    image : {
-      type: DataTypes.STRING
+    image: {
+      type: DataTypes.STRING,
     },
-    quantity:{
-      type:DataTypes.INTEGER,
-      defaultValue:1
-    }
+    quantity: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+    },
   },
   { sequelize: db, modelName: "product" }
 );
