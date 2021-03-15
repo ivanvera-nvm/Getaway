@@ -28,7 +28,7 @@ const List = () => {
         <Grid container spacing={2}>
           {products.map((product, i) => {
             return (
-              <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={product.id}>
+              <Grid item xs={12} sm={6} md={4} lg={3} xl={3} key={product.id}>
                 <ProductCard product={product} key={product.id} />
               </Grid>
             );
