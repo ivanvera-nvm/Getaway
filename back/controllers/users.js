@@ -1,5 +1,6 @@
 const UserModel = require("../models/User");
-const jwt = require ('jsonwebtoken')
+const jwt = require("jsonwebtoken");
+const CartModel = require("../models/Cart");
 
 const   UserController = {
   //ver todos los usuarios desde /admin
@@ -40,6 +41,41 @@ const   UserController = {
       .catch(next);
   },
 
+  loginUser(req, res, next) {
+    const { email, password } = req.body;
+    UserModel.findOne({
+      where: { email },
+    })
+      .then((user) => {
+        //console.log(user.validPassword(password))
+        if (!user) return res.status(401).send("El usuario no existe");
+        user.validPassword(password).then((hash) => {
+          if (user.password !== hash)
+            return res.status(401).send("Pass incorrecto");
+          else {
+            const token = jwt.sign(
+              { email, exp: Math.floor(Date.now() / 1000) + 60 * 60 },
+              "getaway"
+            );
+            return res.status(200).json({ token, user });
+          }
+        });
+      })
+      .catch((e) => res.status(401).send("Error en autenticación"));
+  },
+
+  findOrCreateCart(req, res, next) {
+    const { userId, cartId } = req.body;
+
+    CartModel.findOne({ where: { userId } }).then((cart) => {
+      if (!cart) {
+        CartModel.create({ userId }).then((cart) => {
+          return res.status(200).send(cart);
+        });
+      }
+    });
+  },
+
   //editar otros usuarios para promoverlos a administradores
   //si busco por pk updeteo de a uno, si busco por findAll la variable id pasa a ser ids y me retorna un arreglo de ids
 
@@ -49,45 +85,11 @@ const   UserController = {
     console.log(access);
     UserModel.findByPk(id)
       .then((users) => {
-        return users.update(req.body, { access: "admin" })
+        return users.update(req.body, { access: "admin" });
       })
-      .then("user updated to admin successfully").status(201)
-
+      .then("user updated to admin successfully")
+      .status(201);
   },
-
-  loginUser (req, res, next) {
-    const { email, password } = req.body;
-    UserModel.findOne({
-      where: { email }
-    })
-      .then(user => {
-        //console.log(user.validPassword(password))
-        if (!user) return res.status(401).send('El usuario no existe');
-        user.validPassword(password)
-        .then(hash => {
-          if (user.password !== hash) return res.status(401).send('Pass incorrecto');
-          else {
-            const token = jwt.sign({ email, exp: Math.floor(Date.now() / 1000) + 60 * 60 }, 'getaway');
-            return res.status(200).json({ token, user })
-          }
-        })
-      })
-      .catch(e => res.status(401).send('Error en autenticación'))
-  }
-}
-/* 
-checkAccess(req, res, next) {
-    const id = req.params.id;
-    const accessType = [];
-    if (!accessType.includes(req.user.access)) {
-      console.log("usuario con acceso user");
-      UserModel.update(req.body.access, {
-        where: {
-          id,
-        },
-      });
-    }
-  }, */
-
+};
 
 module.exports = UserController;

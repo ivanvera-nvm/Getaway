@@ -1,65 +1,17 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 0,
-    paddingTop: "56.25%", // 16:9
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: red[500],
-  },
-  fullHeightCard: {
-    height: "100%",
-  },
-  cardHeaderHeight: {
-    height: "120px",
-  },
-  rating: {
-    paddingTop: "10%",
-  },
-  price: {
-    fontSize: 35,
-    color: "#357a38",
-    fontWeight: 150,
-  },
-  action: {
-    display: "flex",
-    justifyContent: "space-around",
-  },
-}));
+import useStyles from "./style";
 
 export default function ProductCard({ product }) {
   const classes = useStyles();
@@ -70,46 +22,49 @@ export default function ProductCard({ product }) {
   };
 
   return (
-    <Card className={classes.root} className={classes.fullHeightCard}>
-      <CardHeader
-        className={classes.cardHeaderHeight}
-        /* avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
-        } */
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
-        //Aqui va el titulo del Producto/Servicio
-        title={product.name}
-        subheader={product.expiry}
-      />
+    <Card className={classes.root}>
+      <Box display="flex" className={classes.header}>
+        <Box className={classes.title}>{product.name}</Box>
+        <Box>
+          {/* <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton> */}
+        </Box>
+      </Box>
       <Link to={`/products/${product.id}`}>
-      <CardMedia
-        className={classes.media}
-        image={product.image}
-        title={product.title}
+        <CardMedia
+          className={classes.media}
+          image={product.image}
+          title="Paella dish"
         />
-        </Link>
+      </Link>
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-        {product.description}
+        <Typography
+          className={classes.description}
+          variant="body2"
+          color="textSecondary"
+          component="p"
+        >
+          {product.description}
         </Typography>
-        <Rating
-          name="read-only"
-          value="3"
-          readOnly
-          className={classes.rating}
-        />
+
+        <Box className={classes.interact}>
+          <Rating
+            name="read-only"
+            value={3}
+            readOnly
+            className={classes.rating}
+          />
+          <IconButton className={classes.fav} aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+        </Box>
       </CardContent>
 
       <CardActions className={classes.action}>
-        <Box className={classes.price}>${product.price}</Box>
-        <Button variant="contained" color="secondary">
-          Comprar!
+        <Box className={classes.price}>${product.price},00</Box>
+        <Button variant="contained" className={classes.purchaseBtn}>
+          Comprar
         </Button>
       </CardActions>
     </Card>

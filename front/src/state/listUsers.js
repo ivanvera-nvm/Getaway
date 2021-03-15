@@ -15,4 +15,4 @@ const listUsersReducer = createReducer([], {
     [fetchUsers.fulfilled]: (state, action) => action.payload
 })
 
-export default listUsersReducer
+export default listUsersReducer;
