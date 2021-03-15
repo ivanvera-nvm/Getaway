@@ -1,30 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const CartController = require("../controllers/carro");
 
-const { addCartItem,deleteCartItem } = require("../controllers/carro");
-// GET ROUTES
-router.get("/", (req, res) => {
-  //Traigo todos los items del carro
-});
+//añadir un producto al carrito
+router.post("/addproduct", CartController.addProduct);
 
-// POST ROUTES
+router.post("/modifycart", CartController.editProduct);
 
-router.post("/", addCartItem);
-
-// PUT ROUTES
-router.put("/:productId", (req, res) => {
-  //Modifico la cantidad del mismo producto
-});
-
-// DELETE ROUTES
-
-router.delete("/:id",deleteCartItem);
+router.delete("/deleteproduct", CartController.deleteProduct);
 
 module.exports = router;
-
-
-/* Lo que puede pasar en el Carrito
-
-1.
-
-*/

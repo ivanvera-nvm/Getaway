@@ -3,16 +3,17 @@ const router = express.Router()
 
 const productsRouter = require ('./products')
 const cartRouter = require('./cart')
-
-router.use('/products', productsRouter)
-router.use('/cart',cartRouter)
-
-
 const usersRouter = require("./users")
-router.use("/users", usersRouter)
-
 const adminRouter = require("./admin")
+const meRouter = require("./me")
+
+router.use('/me', meRouter)
+router.use('/products', productsRouter)
+router.use("/users", usersRouter)
 router.use("/admin", adminRouter)
+
+
+router.use("/cart",cartRouter)
 
 module.exports = router
 

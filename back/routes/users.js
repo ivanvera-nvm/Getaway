@@ -9,10 +9,7 @@ router.post("/register", UserController.createUser);
 router.put("/:id", UserController.updateUser)
 
 //ruta para login --> JWT lógica
-router.post("/login", (req, res) => {
-  const userLogged = req.user;
-  res.send("estoy en ruta login");
-});
+router.post("/login", UserController.loginUser)
 
 //ruta para logout
 router.post("/logout", (req, res) => {
@@ -22,10 +19,7 @@ router.post("/logout", (req, res) => {
 //ruta para que devuelva el usuario loggeado en el caso que haya
 router.get("/:id"); //JWT
 
-
-
-
-
+router.post("/newcart", UserController.findOrCreateCart)
 
 
 module.exports = router;

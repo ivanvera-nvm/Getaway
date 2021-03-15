@@ -6,12 +6,13 @@ class Cart extends Model {}
 Cart.init(
   {
     status:{
-      type:DataTypes.ENUM(["pending","fulfilled"]),
+      type:DataTypes.ENUM("pending","fulfilled"),
       defaultValue:"pending"
     },
-    total:{
-      type:DataTypes.INTEGER,
-      allowNull:false
+    total : {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+      defaultValue: 0
     }
   },
   { sequelize: db, modelName: "cart" }
