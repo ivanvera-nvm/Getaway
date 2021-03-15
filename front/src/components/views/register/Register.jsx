@@ -30,7 +30,6 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, lastName, email, password, phone, address } = input;
-
     axios
       .post("http://localhost:3080/api/users/register", {
         name,
@@ -44,6 +43,7 @@ const Register = () => {
       .then((register) => history.push("/login"))
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
+  
 
   return (
     <Container component="main" maxWidth="xs">
