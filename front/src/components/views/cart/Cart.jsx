@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 
 const Cart = () => {
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -66,6 +67,7 @@ const Cart = () => {
       productsFilter(products, order.id, order.productQuantity, i)
     );
 
+    
   return (
     <div>
       {["right"].map((anchor) => (
