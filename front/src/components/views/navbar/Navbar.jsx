@@ -14,6 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../../../state/user";
 
 import Cart from "../cart/Cart";
 
@@ -23,24 +24,17 @@ const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  console.log(user);
 
   const userOrders = useSelector((state) => state.userOrders);
-
-  /// Dejo preparada esta estructura para cuando toque agregar a favoritos!
-
-  /*  if (user) {
-    /// Pedido axios => Post => Ruta de favoritos
-    /// then => mensaje cuando lo agrega exitosamente
-    /// catch => mesaje cuando no puede agregarlo (posiblemente por no estar logged)
-    ///* no olvidar pasarlo a react-redux
-  } */
 
   const total = (userOrders) => {
     let totalItems = 0;
     userOrders.forEach((order) => {
       totalItems += order.productQuantity;
     });
-
 
     return (
       <Badge badgeContent={totalItems} color="secondary">
@@ -50,7 +44,8 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    return localStorage.setItem("user", {});
+    dispatch(clearUser());
+    return localStorage.clear();
   };
 
   return (
@@ -68,6 +63,7 @@ const Navbar = () => {
           }}
           inputProps={{ "aria-label": "search" }}
         />
+        {console.log("USER NOT LOGGED", user)}
         {!user.user ? (
           <>
             Not logged
@@ -121,6 +117,14 @@ const Navbar = () => {
           className={classes.links}
         >
           Admin
+        </NavLink>
+        <NavLink
+          exact
+          to="/listUsers"
+          activeClassName="active"
+          className={classes.links}
+        >
+          List
         </NavLink>
         {!user.user ? (
           <>
