@@ -16,8 +16,8 @@ import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginRequest } from "../../../state/user";
-import axios from "axios";
+import { loginRequest, fetchMe } from "../../../state/user";
+
 import useStyles from "./style";
 
 // pusheo
@@ -46,7 +46,9 @@ const Login = () => {
     }
   };
 
-  /*   const state = useSelector((state) => state.user); */
+  const user = useSelector((state) => state.user);
+
+  
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
