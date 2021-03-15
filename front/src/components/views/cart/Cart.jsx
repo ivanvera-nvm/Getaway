@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 // Components
 
 const Cart = () => {
-
   const dispatch = useDispatch();
   const classes = useStyles();
 
@@ -42,6 +41,35 @@ const Cart = () => {
     setState({ ...state, [anchor]: open });
   };
 
+  //mterial ui config
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === "top" || anchor === "bottom",
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {["User"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["Order A", "Order B", "Order C", "Order D"].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
   ///La funcion recibe por parametro un array de productos y lo filtra en base al segundo parametro orderId.
   ///Devuelve un objeto con informacion del producto dentro de un array
   /* Ejemplo=> [{"id": 4,"name": "Home Spa","price": 200,"stock": 105,}] */
@@ -49,7 +77,12 @@ const Cart = () => {
   /// UPDATE: Le agregue un parametro mas, quantity, para poder mostrar cuantos items hay de cada tipo.
 
   const productsFilter = (products, orderId, quantity, i) => {
-    let filtered = products.filter((elem) => elem.id === orderId);
+   
+    let filtered = products.filter((product) => 
+      product.id === orderId
+    
+    )
+
     return (
       <div key={i}>
         <ListItem button key={filtered.id}>
@@ -64,10 +97,9 @@ const Cart = () => {
 
   const fillCart = () =>
     userOrders.map((order, i) =>
-      productsFilter(products, order.id, order.productQuantity, i)
+      productsFilter(products, order.productId, order.productQuantity, i)
     );
 
-    
   return (
     <div>
       {["right"].map((anchor) => (
