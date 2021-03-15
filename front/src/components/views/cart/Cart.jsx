@@ -70,7 +70,7 @@ const Cart = () => {
       .then((res) => setProduct(res.data));
   }, []);
 
-  console.log(product);
+
 
   return (
     <div>

@@ -33,17 +33,6 @@ const CartController = {
       .catch(next);
   },
 
-  //ruta para editar la cantidad de producto en el carrito --> tiene que buscar en la orden el id del product
-  /*   updateProduct(req, res, next) {
-const {productId, orderId} = req.body
-OrderModel.findByPk(productId)
-.then((product) => {
-    console.log(product)
-  //  console.log(Object.keys(product.__proto__))
-    res.send("probando update")
-})
-  } */
-
   addProduct(req, res, next) {
     const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
@@ -55,7 +44,6 @@ OrderModel.findByPk(productId)
               .createOrder({
                 cartId,
                 productId,
-    
               })
 
               .then((orden) => res.status(201).send(orden));
@@ -83,7 +71,3 @@ OrderModel.findByPk(productId)
 };
 
 module.exports = CartController;
-
-/* 
-
-*/
