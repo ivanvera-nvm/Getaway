@@ -16,7 +16,7 @@ import Register from "../register/Register";
 import Categories from "../categories/Categories";
 import Container from "../singleProduct/Container";
 import List from "../body/List";
-import Carto from "../cart/Carto";
+
 import CartList from "../cart/CartList";
 
 export default function App() {
@@ -37,7 +37,7 @@ export default function App() {
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/product" component={Container} />
         <Route exact path="/products" component={List} />
-        <Route exact path="/carto" component={Carto} />
+
         <Route exact path="/carrito" component={CartList} />
 
         <Route path="/404" component={Error}></Route>
