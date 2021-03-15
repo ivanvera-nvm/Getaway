@@ -99,6 +99,10 @@ const CartController = {
       .catch(next);
   },
 
+  submitCart(req, res){
+
+  }
+
  
 
   
