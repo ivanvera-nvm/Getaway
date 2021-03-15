@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
-
   navMain: {
     display: "flex",
     justifyContent: "space-around",
@@ -97,6 +96,21 @@ const useStyles = makeStyles((theme) => ({
     "&:active": {
       color: "gray",
     },
+  },
+
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
   },
 }));
 

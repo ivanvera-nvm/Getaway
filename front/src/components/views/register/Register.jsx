@@ -9,45 +9,41 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { NavLink  } from 'react-router-dom';
-import {useHistory} from 'react-router-dom'
+import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
 
-
 const Register = () => {
-
-
-  const [input, setInput] = React.useState({})
-  const history = useHistory()
+  const [input, setInput] = React.useState({});
+  const history = useHistory();
   ///VALIDACION
-
 
   const classes = useStyles();
 
   const handleChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
-    setInput({...input, [key]: value})
-  }
+    setInput({ ...input, [key]: value });
+  };
 
   const handleSubmit = (e) => {
-    
     e.preventDefault();
-    const {name, lastName, email, password} = input
+    const { name, lastName, email, password, phone, address } = input;
 
     axios
       .post("http://localhost:3080/api/users/register", {
         name,
         lastName,
+        phone,
+        address,
         email,
         password,
       })
-      .then(res => alert('user registrado', res))
-      .then(register => history.push('/login'))
+      .then((res) => alert("user registrado", res))
+      .then((register) => history.push("/login"))
       .catch((err) => alert("Ingrese un correo de email valido", err));
   };
-  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -92,12 +88,35 @@ const Register = () => {
                 variant="outlined"
                 required
                 fullWidth
+                id="address"
+                label="Address"
+                name="address"
+                autoComplete="address"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                variant="outlined"
+                required
+                fullWidth
+                id="phone"
+                label="Phone"
+                name="phone"
+                autoComplete="phone"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                onChange={handleChange}
+                variant="outlined"
+                required
+                fullWidth
                 id="email"
                 label="Email Address"
                 name="email"
                 autoComplete="email"
                 type="email"
-               
               />
             </Grid>
             <Grid item xs={12}>
@@ -113,12 +132,7 @@ const Register = () => {
                 autoComplete="current-password"
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+            <Grid item xs={12}></Grid>
           </Grid>
           <Button
             type="submit"

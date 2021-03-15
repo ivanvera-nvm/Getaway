@@ -10,16 +10,15 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import Footer from '../footer/Footer';
+import Footer from "../footer/Footer";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { loginRequest } from "../../../state/user";
 
 import useStyles from "./style";
-
 
 // pusheo
 
@@ -30,11 +29,11 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-/*   const state = useSelector((state) => state.user); */
+  /*   const state = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
-    console.log(email.value, password.value);
     e.preventDefault();
+
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
         !data.error ? history.push("/") : alert("Error al logear");
@@ -109,7 +108,7 @@ const Login = () => {
                   </NavLink>
                 </Grid>
               </Grid>
-              <Footer/>
+              <Footer />
             </form>
           </div>
         </Grid>
