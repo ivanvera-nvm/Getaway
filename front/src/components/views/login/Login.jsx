@@ -32,7 +32,6 @@ const Login = () => {
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
-
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
         !data.error ? history.push("/") : alert("Error al logear");

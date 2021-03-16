@@ -39,7 +39,8 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    dispatch(clearUser());
+    dispatch(clearUser())
+    history.push("/") // Redireccionar a un componente de muchas gracias, vuelva prontos.
     return localStorage.clear();
   };
 
