@@ -4,6 +4,7 @@ const routes = require("./routes");
 var cors = require("cors");
 
 const { db } = require("./models/index");
+const { truncate } = require("./models/Product");
 
 const PORT = 3080;
 
@@ -14,7 +15,7 @@ app.use("/api", routes);
 
 // {force : true}
 
-db.sync({ force: false})
+db.sync({ force: false })
   .then(() => {
     app.listen(PORT, () => {
       console.log("listening on port ", PORT);

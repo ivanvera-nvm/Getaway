@@ -120,6 +120,14 @@ const Navbar = () => {
         >
           List
         </NavLink>
+        <NavLink
+          exact
+          to="/cartDetails"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Cart Details
+        </NavLink>
         {!user.user ? (
           <>
             <NavLink
