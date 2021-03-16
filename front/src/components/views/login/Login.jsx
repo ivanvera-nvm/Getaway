@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -17,9 +17,9 @@ import { useInput } from "../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 
 import { loginRequest } from "../../../state/user";
-import axios from "axios";
-import useStyles from "./style";
 
+import useStyles from "./style";
+import axios from "axios";
 // pusheo
 
 const Login = () => {
@@ -28,9 +28,8 @@ const Login = () => {
   const email = useInput("email");
   const password = useInput("password");
   const history = useHistory();
-  const user = useSelector(state => state.user)
 
-  /*   const state = useSelector((state) => state.user); */
+ /*  const user = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
@@ -42,6 +41,15 @@ const Login = () => {
       .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
+ /*  const userId = user.user.id;
+
+  const createCart = () => {
+    return axios
+      .post("http://localhost:3080/api/cart/new", { userId })
+      .then((newCart) => alert("Creado"))
+      .catch((err) => alert("error", err));
+  };
+ */
   return (
     <div>
       <Grid container component="main" className={classes.root}>

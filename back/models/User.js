@@ -29,7 +29,7 @@ User.init(
     phone: {
       type: DataTypes.BIGINT,
     },
-    adress: {
+    address: {
       type: DataTypes.STRING,
     },
     salt: {
