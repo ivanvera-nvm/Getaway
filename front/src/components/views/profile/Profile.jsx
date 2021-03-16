@@ -7,7 +7,7 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { useParams } from "react-router-dom"; ///nunca va a ser necesario, a menos que se intente hacer busquedas por querys
+// import { useParams } from "react-router-dom"; ///nunca va a ser necesario, a menos que se intente hacer busquedas por querys
 import { useSelector } from "react-redux";
 
 import useStyles from "./styles";
@@ -31,12 +31,12 @@ const Profile = () => {
               alt="ninja-cat"
             />
             <Typography variant="overline">
-              {userInfo.user.name}
+              {/* {userInfo.user.name} */}
               <ul>
                 <li>{`Name: ${userInfo.user.name}`}</li>
                 <li>{`Last Name: ${userInfo.user.lastName}`}</li>
                 <li>{`Phone: ${userInfo.user.phone}`}</li>
-                <li>{`Address: ${userInfo.user.adress}`}</li>
+                <li>{`Address: ${userInfo.user.address}`}</li>
                 <li>{`Access type: ${userInfo.user.access}`}</li>
               </ul>
             </Typography>

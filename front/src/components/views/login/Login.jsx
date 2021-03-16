@@ -14,9 +14,9 @@ import Footer from "../footer/Footer";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { loginRequest } from "../../../state/user";
+import { loginRequest, fetchMe } from "../../../state/user";
 
 import useStyles from "./style";
 
@@ -29,7 +29,9 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-  /*   const state = useSelector((state) => state.user); */
+  const user = useSelector((state) => state.user);
+
+  
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
