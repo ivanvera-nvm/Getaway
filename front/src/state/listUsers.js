@@ -1,8 +1,8 @@
 import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchUsers = createAsyncThunk('FETCH_USERS', (value, thunkAPI) => {
-    const loginToken = thunkAPI.getState().user.token
+export const fetchUsers = createAsyncThunk('FETCH_USERS', () => {
+    const loginToken = JSON.parse(localStorage.getItem('user')).token;
     console.log(loginToken)
     return axios.get(`http://localhost:3080/api/admin`,
     {

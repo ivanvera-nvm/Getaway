@@ -1,5 +1,3 @@
-
-
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
@@ -39,7 +37,8 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    dispatch(clearUser());
+    dispatch(clearUser())
+    history.push("/") // Redireccionar a un componente de muchas gracias, vuelva prontos.
     return localStorage.clear();
   };
 
@@ -111,14 +110,6 @@ const Navbar = () => {
           className={classes.links}
         >
           Admin
-        </NavLink>
-        <NavLink
-          exact
-          to="/listUsers"
-          activeClassName="active"
-          className={classes.links}
-        >
-          List
         </NavLink>
         {!user.user ? (
           <>

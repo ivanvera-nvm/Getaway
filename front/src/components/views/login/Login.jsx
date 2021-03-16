@@ -29,16 +29,13 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-
   const sendLoginRequest = (e) => {
     e.preventDefault();
-
-      dispatch(loginRequest({ email: email.value, password: password.value }))
-        .then((data) => {
-          !data.error ? history.push("/") : alert("Error al logear");
-        })
-        .catch((err) => alert("ESTE ES EL ERROR", err));
-   
+    dispatch(loginRequest({ email: email.value, password: password.value }))
+      .then((data) => {
+        !data.error ? history.push("/") : alert("Error al logear");
+      })
+      .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
   return (
