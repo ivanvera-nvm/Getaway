@@ -13,8 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api", routes);
 
-// {force : true}
-
 db.sync({ force: false })
   .then(() => {
     app.listen(PORT, () => {
