@@ -29,11 +29,8 @@ import useStyles from "./useStyles";
 
 export default function Product({ id }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   const history = useHistory();
   const product = useSelector((state) => state.product);
@@ -45,7 +42,7 @@ export default function Product({ id }) {
     if (id < total) {
       dispatch(setProduct(id)).catch((error) => console.log(error));
     } else history.push("/404");
-  }, []);
+  }, [dispatch, history, id, total]);
 
 
   return (

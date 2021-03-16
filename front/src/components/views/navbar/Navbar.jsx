@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -6,10 +6,7 @@ import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import InputBase from "@material-ui/core/InputBase";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+
 import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
@@ -25,8 +22,6 @@ const Navbar = () => {
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  console.log(user);
 
   const userOrders = useSelector((state) => state.userOrders);
 
@@ -63,7 +58,6 @@ const Navbar = () => {
           }}
           inputProps={{ "aria-label": "search" }}
         />
-        {console.log("USER NOT LOGGED", user)}
         {!user.user ? (
           <>
             Not logged
