@@ -15,7 +15,4 @@ router.delete("/product", CartController.deleteProduct)
 router.put("/", CartController.editProduct);
 
 
-
-
-
 module.exports = router;

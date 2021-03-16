@@ -78,4 +78,8 @@ const List = () => {
   );
 };
 
+<<<<<<< HEAD
 export default List;
+=======
+export default List;
+>>>>>>> 74e4f448bbb53eefcbc252d953e2f2110347c10a

@@ -18,16 +18,17 @@ import Product from "../singleProduct/Product";
 import List from "../body/List";
 import Cart from "../cart/Cart";
 import { fetchMe } from "../../../state/user";
+import CartList from "../cart/CartList";
 
-import {useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function App() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(fetchMe())
+    dispatch(fetchMe());
   }, [dispatch]);
-  
+
   return (
     <>
       <Navbar />
@@ -44,6 +45,7 @@ export default function App() {
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/users" component={listUsers} />
         <Route exact path="/products" component={List} />
+        <Route exact path="/cartDetails" component={CartList} />
         <Route
           exact
           path="/products/:id"
