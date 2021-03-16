@@ -8,8 +8,9 @@ import {
 } from "@material-ui/core";
 
 import { useSelector } from "react-redux";
-
 import useStyles from "./styles";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 
 const Profile = () => {
   const classes = useStyles();
@@ -21,24 +22,26 @@ const Profile = () => {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="sm" className={classes.container}>
-        <Typography component="div" />
-        <Box>
-          <Paper className={classes.root}>
-            <img
-              src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
-              alt="ninja-cat"
-            />
-            <Typography variant="overline">
-              <ul>
-                <li>{`Name: ${userInfo.user.name}`}</li>
-                <li>{`Last Name: ${userInfo.user.lastName}`}</li>
-                <li>{`Phone: ${userInfo.user.phone}`}</li>
-                <li>{`Address: ${userInfo.user.address}`}</li>
-                <li>{`Access type: ${userInfo.user.access}`}</li>
-              </ul>
-            </Typography>
-          </Paper>
+      <Container fixed className={classes.contenedor}>
+        <Box className={classes.avatar}>
+          <Avatar className={classes.orange}>{userInfo.user.name[0]}</Avatar>
+        </Box>
+
+        <Box className={classes.details}>
+          <Typography variant="overline">
+            <ul>
+              <li>{`Name: ${userInfo.user.name}`}</li>
+              <li>{`Last Name: ${userInfo.user.lastName}`}</li>
+              <li>{`Phone: ${userInfo.user.phone}`}</li>
+              <li>{`Address: ${userInfo.user.address}`}</li>
+              <li>{`Access type: ${userInfo.user.access}`}</li>
+            </ul>
+          </Typography>
+        </Box>
+        <Box className={classes.edit}>
+          <Button variant="contained" className={classes.buttonColor}>
+            Edit
+          </Button>
         </Box>
       </Container>
     </>

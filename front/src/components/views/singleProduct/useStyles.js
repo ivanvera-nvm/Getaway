@@ -42,9 +42,6 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: 20,
       paddingBottom: 20,
     },
-    boxSize: {
-        
-    }
   }));
 
   export default useStyles

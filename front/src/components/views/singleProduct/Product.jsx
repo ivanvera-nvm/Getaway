@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setProduct } from "../../../state/products"
+import { setProduct } from "../../../state/products";
 import { useHistory } from "react-router-dom";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -29,8 +29,6 @@ import useStyles from "./useStyles";
 
 export default function Product({ id }) {
   const classes = useStyles();
-  
-
 
   const history = useHistory();
   const product = useSelector((state) => state.product);
@@ -43,7 +41,6 @@ export default function Product({ id }) {
       dispatch(setProduct(id)).catch((error) => console.log(error));
     } else history.push("/404");
   }, [dispatch, history, id, total]);
-
 
   return (
     <>
@@ -109,7 +106,7 @@ export default function Product({ id }) {
                       aria-label="secondary mailbox folders"
                     >
                       <ListItemIcon>Expira:</ListItemIcon>
-                      <ListItemText primary={Date(product.expiry)} />
+                      <ListItemText primary={product.expiry} />
                     </List>
                   </Typography>
 

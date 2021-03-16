@@ -69,11 +69,11 @@ const Navbar = () => {
                 <div>{total(userOrders)}</div>
               ) : (
                 <>
-                  <Cart />
+                  <Cart className={classes.cartColor}/>
                 </>
               )}
             </div>
-            <IconButton
+            <Box className={classes.userContainer}
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
@@ -82,14 +82,14 @@ const Navbar = () => {
               }}
               color="inherit"
             >
-              <div className={classes.root}>
-                <Avatar
-                  alt={`${user.user.name}`}
-                  src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
-                />
-                <span>{`${user.user.name}`}</span>
-              </div>
-            </IconButton>
+             
+              <Avatar aria-label="recipe" className={classes.orange}>
+              {user.user.name[0]}
+                </Avatar>
+            
+              <Box >{`${user.user.name} ${user.user.lastName}`}</Box>
+                
+            </Box>
           </>
         )}
       </Box>

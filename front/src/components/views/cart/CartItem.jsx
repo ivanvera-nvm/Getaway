@@ -95,8 +95,4 @@ export default function ProductCard({ product }) {
       </Box>
     </Card>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 74e4f448bbb53eefcbc252d953e2f2110347c10a

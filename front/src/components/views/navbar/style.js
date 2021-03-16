@@ -1,4 +1,5 @@
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { deepOrange } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   stack: {
@@ -111,6 +112,24 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(7),
     height: theme.spacing(7),
   },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: "#f57c00",
+    width: "50px",
+    height: "50px",
+    fontSize: "25px",
+    marginRight: "0.5em"
+    
+  },
+  userContainer: {
+   display: "flex",
+   flexDirection: "row",
+   alignItems: "center",
+   
+  },
+  cartColor: {
+    backgroundColor: "black"
+   },
 }));
 
 export default useStyles;

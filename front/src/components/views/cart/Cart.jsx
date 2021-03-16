@@ -11,6 +11,7 @@ import clsx from "clsx";
 import { setUserOrders } from "../../../state/orders";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import Box from "@material-ui/core/Box";
 
 // Components
 
@@ -28,12 +29,10 @@ const Cart = () => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => alert("carro creado"));
-      
 
     dispatch(setUserOrders(userId)).catch((err) => {
       console.log(err);
     });
-
   }, [userId, dispatch]);
 
   const [state, setState] = useState({
@@ -91,12 +90,14 @@ const Cart = () => {
           <Button onClick={toggleDrawer(anchor, true)}>
             <ShoppingCartIcon />
           </Button>
-          <Drawer
+          <Drawer 
+            
             anchor={anchor}
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
             <div
+           
               className={clsx(classes.list, {
                 [classes.fullList]: anchor === "top" || anchor === "bottom",
               })}
@@ -106,23 +107,33 @@ const Cart = () => {
             >
               <Divider />
               {userOrders.lenght < 0 ? (
-               <div>
+                <div>
                   <ListItem button key={"empty"}>
                     <ListItemText primary={"The cart is empty :("} />
                   </ListItem>
                 </div>
               ) : (
-                <div>
-                <List>
-                  {console.log('ORDENES DE USUARIO =>>>>>',userOrders)}
-                  <ListItem button key={"FULLFILLED"}>
-                    <ListItemText
-                      primary={`${user.user.name}'s cart`}
-                    />
-                  </ListItem>
-                </List>
-                <List>{fillCart()}</List>
-              </div>
+                <div className={classes.drawer}>
+                  <List className={classes.mainList}>
+                    {console.log("ORDENES DE USUARIO =>>>>>", userOrders)}
+                    <ListItem 
+                    button key={"FULLFILLED"}>
+                   <Box className={classes.name}>{`${user.user.name}'s cart`}</Box>
+                      <ListItemText className={classes.titleCart} 
+                   /*    primary={`${user.user.name}'s cart`} */ />
+                    </ListItem>
+                   
+                  </List>
+                  <List className={classes.componentList}>{fillCart()}</List>
+                  <Box className={classes.button}>
+                      <Button
+                        variant="contained"
+                        className={classes.purchaseBtn}
+                      >
+                        Cart Detail
+                      </Button>
+                    </Box>
+                </div>
               )}
             </div>
           </Drawer>
