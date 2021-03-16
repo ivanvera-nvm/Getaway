@@ -14,7 +14,4 @@ router.get("/:id"); //JWT
 
 
 
-// router.post("/newcart", UserController.findOrCreateCart)
-
-
 module.exports = router;

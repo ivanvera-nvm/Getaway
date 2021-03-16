@@ -2,7 +2,7 @@ const UserModel = require("../models/User");
 const jwt = require("jsonwebtoken");
 const CartModel = require("../models/Cart");
 
-const   UserController = {
+const UserController = {
   //ver todos los usuarios desde /admin
   allUsers(req, res, next) {
     UserModel.findAll(req.body)
@@ -63,8 +63,6 @@ const   UserController = {
       })
       .catch((e) => res.status(401).send("Error en autenticación"));
   },
-
- 
 
   //editar otros usuarios para promoverlos a administradores
   //si busco por pk updeteo de a uno, si busco por findAll la variable id pasa a ser ids y me retorna un arreglo de ids
