@@ -12,22 +12,22 @@ import Profile from "../profile/Profile";
 import Admin from "../admin/Admin";
 import Login from "../login/Login";
 import Register from "../register/Register";
-import Categories from '../categories/Categories'
-import listUsers from '../listUsers/listUsers';
+import Categories from "../categories/Categories";
+import listUsers from "../listUsers/listUsers";
 import Product from "../singleProduct/Product";
 import List from "../body/List";
-import Cart from '../cart/Cart'
-import { useSelector, useDispatch } from "react-redux";
+import Cart from "../cart/Cart";
+import { fetchMe } from "../../../state/user";
+
+import {useDispatch } from "react-redux";
 
 export default function App() {
-  
-  const user = useSelector((state) => state.user);
-  
-  React.useEffect(()=> {
-    console.log('fetch me')
-  })
+  const dispatch = useDispatch();
 
-
+  React.useEffect(() => {
+    dispatch(fetchMe())
+  }, [dispatch]);
+  
   return (
     <>
       <Navbar />
@@ -44,15 +44,20 @@ export default function App() {
         <Route exact path="/footer" component={Footer} />
         <Route exact path="/users" component={listUsers} />
         <Route exact path="/products" component={List} />
-        <Route exact path="/products/:id" render={(props)=> <Product id={props.match.params.id}/>} />
+        <Route
+          exact
+          path="/products/:id"
+          render={(props) => <Product id={props.match.params.id} />}
+        />
         <Route exact path="/cart" component={Cart} />
+        <Route exact path="/listUsers" component={listUsers} />
 
         <Route path="/404" component={Error}></Route>
         <Route path="*">
           <Redirect to="/404"></Redirect>
         </Route>
       </Switch>
-      <Footer/>
+      <Footer />
     </>
   );
 }

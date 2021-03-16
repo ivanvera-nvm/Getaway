@@ -14,7 +14,7 @@ import Footer from "../footer/Footer";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { loginRequest } from "../../../state/user";
 
@@ -29,16 +29,16 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-  /*   const state = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
 
-    dispatch(loginRequest({ email: email.value, password: password.value }))
-      .then((data) => {
-        !data.error ? history.push("/") : alert("Error al logear");
-      })
-      .catch((err) => alert("ESTE ES EL ERROR", err));
+      dispatch(loginRequest({ email: email.value, password: password.value }))
+        .then((data) => {
+          !data.error ? history.push("/") : alert("Error al logear");
+        })
+        .catch((err) => alert("ESTE ES EL ERROR", err));
+   
   };
 
   return (

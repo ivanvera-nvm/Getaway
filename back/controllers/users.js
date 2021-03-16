@@ -64,18 +64,6 @@ const UserController = {
       .catch((e) => res.status(401).send("Error en autenticación"));
   },
 
-  findOrCreateCart(req, res, next) {
-    const { userId, cartId } = req.body;
-
-    CartModel.findOne({ where: { userId } }).then((cart) => {
-      if (!cart) {
-        CartModel.create({ userId }).then((cart) => {
-          return res.status(200).send(cart);
-        });
-      }
-    });
-  },
-
   //editar otros usuarios para promoverlos a administradores
   //si busco por pk updeteo de a uno, si busco por findAll la variable id pasa a ser ids y me retorna un arreglo de ids
 
