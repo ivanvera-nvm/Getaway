@@ -1,5 +1,3 @@
-
-
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
@@ -23,8 +21,6 @@ const Navbar = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-
-
   const userOrders = useSelector((state) => state.userOrders);
 
   const total = (userOrders) => {
@@ -32,10 +28,6 @@ const Navbar = () => {
     userOrders.forEach((order) => {
       totalItems += order.productQuantity;
     });
-
-
-// Probando controlando el input 
-
 
     return (
       <Badge badgeContent={totalItems} color="secondary">
@@ -46,6 +38,7 @@ const Navbar = () => {
 
   const loggout = () => {
     dispatch(clearUser());
+    history.push("/"); // Redireccionar a un componente de muchas gracias, vuelva pronto.
     return localStorage.clear();
   };
 
@@ -72,12 +65,13 @@ const Navbar = () => {
         ) : (
           <>
             <div className={classes.root}>
-              {userOrders ? (
-                <div>{total(userOrders)}</div>
-              ) : (
-                <>
-                  <Cart />
-                </>
+              {!userOrders && user.user.access!== "admin" ? (
+                ""
+                ) : (
+                  
+                  <div>{total(userOrders)}</div>
+                 
+                
               )}
             </div>
             <IconButton
@@ -109,23 +103,28 @@ const Navbar = () => {
         >
           Home
         </NavLink>
+        {user.user && user.user.access === "admin" ? (
+          <NavLink
+            exact
+            to="/admin"
+            activeClassName="active"
+            className={classes.links}
+          >
+            Admin
+          </NavLink>
+        ) : (
+          
+        <NavLink
+          exact
+          to="/cartDetails"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Cart Details
+        </NavLink>
+        )}
 
-        <NavLink
-          exact
-          to="/admin"
-          activeClassName="active"
-          className={classes.links}
-        >
-          Admin
-        </NavLink>
-        <NavLink
-          exact
-          to="/listUsers"
-          activeClassName="active"
-          className={classes.links}
-        >
-          List
-        </NavLink>
+     
         {!user.user ? (
           <>
             <NavLink

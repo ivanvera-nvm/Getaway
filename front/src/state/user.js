@@ -9,7 +9,6 @@ export const setUser = createAction("SET_USER");
 
 export const fetchMe = createAsyncThunk('FETCH_ME', () => {
   const loginToken = JSON.parse(localStorage.getItem('user')).token;
-  console.log(loginToken);
   return axios.get(`http://localhost:3080/api/me`,  
   {
       headers: { Authorization: `Bearer ${loginToken}`}
@@ -32,13 +31,12 @@ export const loginRequest = createAsyncThunk("LOGIN_REQUEST", (user) => {
 export const clearUser = createAction('CLEAR_USER')
 
 
-
 const userReducer = createReducer([], {
   [fetchMe.fulfilled]: (state, action) => action.payload,
   [setUser]: (state, action) => action.payload,
   [loginRequest.fulfilled]: (state, action) => action.payload,
   [clearUser]:(state, action) => {
-    return {} 
+    return {}
   }
 });
 

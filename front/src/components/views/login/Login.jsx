@@ -29,16 +29,23 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-
   const sendLoginRequest = (e) => {
     e.preventDefault();
+    dispatch(loginRequest({ email: email.value, password: password.value }))
+      .then((data) => {
+        !data.error ? history.push("/") : alert("Error al logear");
+      })
+      .catch((err) => alert("ESTE ES EL ERROR", err));
+  };
 
-      dispatch(loginRequest({ email: email.value, password: password.value }))
+  const adminLogin = () => {
+    dispatch(
+      loginRequest({ email: "admin@gmail.com", password: "admin" }))
         .then((data) => {
           !data.error ? history.push("/") : alert("Error al logear");
         })
-        .catch((err) => alert("ESTE ES EL ERROR", err));
-   
+        .catch((err) => alert("ESTE ES EL ERROR", err))
+    
   };
 
   return (
@@ -95,6 +102,13 @@ const Login = () => {
                 className={classes.submit}
               >
                 Sign In
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={adminLogin}
+              >
+                ADMIN LOGIN
               </Button>
               <Grid container>
                 <Grid item xs>
