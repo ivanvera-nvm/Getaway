@@ -16,10 +16,10 @@ import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginRequest, fetchMe } from "../../../state/user";
+import { loginRequest } from "../../../state/user";
 
 import useStyles from "./style";
-
+import axios from "axios";
 // pusheo
 
 const Login = () => {
@@ -29,9 +29,7 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-  const user = useSelector((state) => state.user);
-
-  
+ /*  const user = useSelector((state) => state.user); */
 
   const sendLoginRequest = (e) => {
     e.preventDefault();
@@ -43,6 +41,15 @@ const Login = () => {
       .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
+ /*  const userId = user.user.id;
+
+  const createCart = () => {
+    return axios
+      .post("http://localhost:3080/api/cart/new", { userId })
+      .then((newCart) => alert("Creado"))
+      .catch((err) => alert("error", err));
+  };
+ */
   return (
     <div>
       <Grid container component="main" className={classes.root}>

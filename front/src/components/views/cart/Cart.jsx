@@ -19,14 +19,16 @@ const Cart = () => {
 
   const userOrders = useSelector((state) => state.userOrders);
   const products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
+
+  const userId = user.user.id
 
   useEffect(() => {
-    dispatch(setUserOrders()).catch((err) => {
+    dispatch(setUserOrders(userId)).catch((err) => {
       console.log(err);
     });
   }, [dispatch]);
 
-  ///Solo config de Material UI (tremenda pereza refactorizar)
   const [state, setState] = useState({
     right: false,
   });
@@ -41,64 +43,40 @@ const Cart = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  //mterial ui config
-
-  const list = (anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {["User"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["Order A", "Order B", "Order C", "Order D"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-    </div>
-  );
-
-  ///La funcion recibe por parametro un array de productos y lo filtra en base al segundo parametro orderId.
-  ///Devuelve un objeto con informacion del producto dentro de un array
-  /* Ejemplo=> [{"id": 4,"name": "Home Spa","price": 200,"stock": 105,}] */
-
-  /// UPDATE: Le agregue un parametro mas, quantity, para poder mostrar cuantos items hay de cada tipo.
-
   const productsFilter = (products, orderId, quantity, i) => {
-   
-    let filtered = products.filter((product) => 
-      product.id === orderId
-    
-    )
+    let filtered = products.filter((product) => {
+      return product.id === orderId;
+    });
 
     return (
       <div key={i}>
-        <ListItem button key={filtered.id}>
-          <ListItemText
-            key={filtered.id}
-            primary={`Order ${orderId}: ${filtered[0].name} x${quantity}`}
-          />
-        </ListItem>
+        {filtered ? (
+          <>
+            <ListItem button key={filtered.id}>
+              <ListItemText
+                key={filtered.id}
+                primary={`Order ${orderId}: ${filtered[0].name} x${quantity}`}
+              />
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <h1>NO TENGO NADAAAAA</h1>
+          </>
+        )}
       </div>
     );
   };
-
   const fillCart = () =>
-    userOrders.map((order, i) =>
-      productsFilter(products, order.productId, order.productQuantity, i)
-    );
+    userOrders.map((order, i) => {
+      console.log("PRODCUT ID", order.productId);
+      return productsFilter(
+        products,
+        order.productId,
+        order.productQuantity,
+        i
+      );
+    });
 
   return (
     <div>
