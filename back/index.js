@@ -4,6 +4,7 @@ const routes = require("./routes");
 var cors = require("cors");
 
 const { db } = require("./models/index");
+const { truncate } = require("./models/Product");
 
 const PORT = 3080;
 

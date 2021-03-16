@@ -111,6 +111,22 @@ const Navbar = () => {
         >
           Admin
         </NavLink>
+        <NavLink
+          exact
+          to="/listUsers"
+          activeClassName="active"
+          className={classes.links}
+        >
+          List
+        </NavLink>
+        <NavLink
+          exact
+          to="/cartDetails"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Cart Details
+        </NavLink>
         {!user.user ? (
           <>
             <NavLink
