@@ -1,5 +1,3 @@
-
-
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
@@ -119,6 +117,14 @@ const Navbar = () => {
           className={classes.links}
         >
           List
+        </NavLink>
+        <NavLink
+          exact
+          to="/cartDetails"
+          activeClassName="active"
+          className={classes.links}
+        >
+          Cart Details
         </NavLink>
         {!user.user ? (
           <>
