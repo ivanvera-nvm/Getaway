@@ -14,12 +14,8 @@ import { Link } from "react-router-dom";
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
+  
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   return (
     <Card className={classes.root}>
