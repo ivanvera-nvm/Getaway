@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
+import {
+  ListItemText,
+  ListItem,
+  Divider,
+  Drawer,
+  Button,
+  List,
+} from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import useStyles from "./style";
-import clsx from "clsx";
+
 import { setUserOrders } from "../../../state/orders";
 import { useDispatch, useSelector } from "react-redux";
+
+import useStyles from "./style";
+import clsx from "clsx";
 import axios from "axios";
 
 // Components
@@ -28,12 +32,10 @@ const Cart = () => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => alert("carro creado"));
-      
 
     dispatch(setUserOrders(userId)).catch((err) => {
       console.log(err);
     });
-
   }, [userId, dispatch]);
 
   const [state, setState] = useState({
@@ -106,23 +108,21 @@ const Cart = () => {
             >
               <Divider />
               {userOrders.lenght < 0 ? (
-               <div>
+                <div>
                   <ListItem button key={"empty"}>
                     <ListItemText primary={"The cart is empty :("} />
                   </ListItem>
                 </div>
               ) : (
                 <div>
-                <List>
-                  {console.log('ORDENES DE USUARIO =>>>>>',userOrders)}
-                  <ListItem button key={"FULLFILLED"}>
-                    <ListItemText
-                      primary={`${user.user.name}'s cart`}
-                    />
-                  </ListItem>
-                </List>
-                <List>{fillCart()}</List>
-              </div>
+                  <List>
+                    {console.log("ORDENES DE USUARIO =>>>>>", userOrders)}
+                    <ListItem button key={"FULLFILLED"}>
+                      <ListItemText primary={`${user.user.name}'s cart`} />
+                    </ListItem>
+                  </List>
+                  <List>{fillCart()}</List>
+                </div>
               )}
             </div>
           </Drawer>
