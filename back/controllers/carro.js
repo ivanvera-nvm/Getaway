@@ -71,8 +71,36 @@ const CartController = {
 
       .catch(next);
   },
+  /*
 
-  deleteProduct(req, res, next) {
+  Si la orden del producto existe   --> si la cantidad es mayor a 1 , le saco uno. 
+                                    --> Si la cantidad es 1 , elimino la orden. 
+                                    
+  */
+  removeProduct(req, res, next) {
+    const { productId, cartId } = req.body;
+    CartModel.findByPk(cartId)
+      .then((cart) => {
+        //  console.log(Object.keys(cart.__proto__))
+        cart.getOrders({ where: { productId } }).then((order) => {
+          if (order[0].productQuantity > 1) {
+            order[0]
+              .update({ productQuantity: --order[0].productQuantity })
+              .then((orderExist) => {
+                res.status(200).send(orderExist);
+              })
+              .catch((e) => console.log(e));
+          } else {
+            order[0]
+              .destroy()
+              .then(() => res.status(200).json("Pedido eliminado"));
+          }
+        });
+      })
+      .catch(next);
+  },
+  
+  deleteOrder(req, res, next) {
     const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
       .then((cart) => {

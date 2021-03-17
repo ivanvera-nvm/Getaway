@@ -9,7 +9,7 @@ router.post("/new", CartController.findOrCreateCart)
 router.post("/product", CartController.addProduct);
 
 //remueve una unidad de producto
-router.delete("/product", CartController.deleteProduct)
+// router.delete("/product", CartController.deleteProduct)
 
 //actualizar la cantidad de producto
 router.put("/", CartController.editProduct);

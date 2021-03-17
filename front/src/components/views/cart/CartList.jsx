@@ -29,9 +29,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
-  checkout: {
-    paddingTop: "5px",
-
+  checkout: {veraivandamian@gmail.com
     display: "flex",
     flexDirection: "column",
   },

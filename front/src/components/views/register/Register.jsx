@@ -12,6 +12,7 @@ import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
 
+
 const Register = () => {
   const [input, setInput] = React.useState({});
   const history = useHistory();

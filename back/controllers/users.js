@@ -5,7 +5,7 @@ const CartModel = require("../models/Cart");
 const UserController = {
   //ver todos los usuarios desde /admin
   allUsers(req, res, next) {
-    UserModel.findAll(req.body)
+    UserModel.findAll({ where: req.body, order: [["id", "ASC"]] })
       .then((users) => res.status(200).send(users))
       .catch(next);
   },
@@ -37,7 +37,10 @@ const UserController = {
   deleteUser(req, res, next) {
     const id = req.params.id;
     UserModel.destroy({ where: { id } })
-      .then(() => res.send("usuario eliminado exitosamente").status(200))
+      .then(() => {
+        
+        res.send("usuario eliminado exitosamente").status(200);
+      })
       .catch(next);
   },
 
@@ -50,6 +53,7 @@ const UserController = {
         //console.log(user.validPassword(password))
         if (!user) return res.status(401).send("El usuario no existe");
         user.validPassword(password).then((hash) => {
+          console.log(hash);
           if (user.password !== hash)
             return res.status(401).send("Pass incorrecto");
           else {
@@ -69,13 +73,16 @@ const UserController = {
 
   checkAccess(req, res, next) {
     const id = req.params.id;
-    const access = req.params.access;
+    const { access } = req.body;
+    console.log("--------------------- ACCESSS", access);
+    console.log("--------------------- ID ", id);
     UserModel.findByPk(id)
       .then((users) => {
-        return users.update(req.body, { access: "admin" });
+        return users.update({ access }, { returning: true });
       })
-      .then("user updated to admin successfully")
-      .status(201);
+      .then((users) => {
+        res.status(201).json(users);
+      });
   },
 };
 
