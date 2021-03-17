@@ -58,9 +58,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard({ order }) {
   const classes = useStyles();
+  const user = useSelector((state) => state.user).token;
 
   const removeItem = async (productId, cartId, productName) => {
-    console.log("hereeeeeeeeeeeeeee=>", cartId, productId);
     try {
       await axios.delete("http://localhost:3080/api/cart/product", {
         data: { productId, cartId },

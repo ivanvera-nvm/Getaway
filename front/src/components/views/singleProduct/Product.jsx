@@ -28,19 +28,18 @@ import Divider from "@material-ui/core/Divider";
 import axios from "axios";
 import useStyles from "./useStyles";
 
-
 export default function Product({ id }) {
   const classes = useStyles();
 
-  const history = useHistory(); 
+  const history = useHistory();
   const total = useSelector((state) => state.totalProducts);
-  
+  const user = useSelector(state => state.user)
+
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
- 
   const cartId = useSelector((state) => state.userCart).id;
-  const productId = product.id
+  const productId = product.id;
 
   console.log("productId ==>", product.id, "cartId==>", cartId);
 
@@ -50,17 +49,22 @@ export default function Product({ id }) {
     } else history.push("/404");
   }, []);
 
-
   const addItem = async () => {
-    try {
-      await axios.post("http://localhost:3080/api/cart/product", {productId,cartId});
-      alert('Added to cart!')
-    } catch (err) {
-      console.log(err);
+    if (user.token) {
+      try {
+        await axios.post("http://localhost:3080/api/cart/product", {
+          productId,
+          cartId,
+        });
+        alert("Added to cart!");
+      } catch (err) {
+        console.log(err);
+      }
+      console.log("CLICK ADD PRODUCT");
+    } else {
+      alert("Necesitas estar logueado");
     }
-    console.log("CLICK ADD PRODUCT");
   };
-
 
   return (
     <>
