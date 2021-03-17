@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setProduct } from "../../../state/products"
+import { setProduct } from "../../../state/products";
 import { useHistory } from "react-router-dom";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -25,24 +25,38 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 
+import axios from "axios";
 import useStyles from "./useStyles";
+
 
 export default function Product({ id }) {
   const classes = useStyles();
-  
-
 
   const history = useHistory();
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
   const total = useSelector((state) => state.totalProducts);
+  const cartId = useSelector((state) => state.userCart).id;
+  const productId = product.id
+
+  console.log("productId ==>", product.id, "cartId==>", cartId);
 
   useEffect(() => {
     if (id < total) {
       dispatch(setProduct(id)).catch((error) => console.log(error));
     } else history.push("/404");
-  }, [dispatch, history, id, total]);
+  }, []);
+
+  const addItem = async () => {
+    try {
+      await axios.post("http://localhost:3080/api/cart/product", {productId,cartId});
+      alert('Added to cart!')
+    } catch (err) {
+      console.log(err);
+    }
+    console.log("CLICK ADD PRODUCT");
+  };
 
 
   return (
@@ -77,7 +91,11 @@ export default function Product({ id }) {
                   <Box className={classes.boxInfo}>{product.name}</Box>
                   <Box className={classes.price}>${product.price}</Box>
 
-                  <Button variant="contained" color="secondary">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={addItem}
+                  >
                     Comprar
                   </Button>
 

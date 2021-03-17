@@ -19,22 +19,24 @@ import List from "../body/List";
 import Cart from "../cart/Cart";
 import { fetchMe } from "../../../state/user";
 import { setUserOrders } from "../../../state/orders";
+import { setUserCart } from "../../../state/cart";
 import CartList from "../cart/CartList";
 
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
   const dispatch = useDispatch();
-
   const getUser = () => {
     return JSON.parse(localStorage.getItem("user"));
   };
-
   const user = getUser();
+
   React.useEffect(() => {
     dispatch(fetchMe());
-    if (user !== null) dispatch(setUserOrders(user.user.id));
-    else {
+    if (user !== null) {
+      dispatch(setUserCart(user.user.id));
+      dispatch(setUserOrders(user.user.id));
+    } else {
       return null;
     }
   }, []);

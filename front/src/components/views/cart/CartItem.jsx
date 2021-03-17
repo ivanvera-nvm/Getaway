@@ -56,56 +56,70 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductCard(order) {
-
+export default function ProductCard({ order }) {
   const classes = useStyles();
 
+  const removeItem = async (productId, cartId, productName) => {
+    console.log("hereeeeeeeeeeeeeee=>", cartId, productId);
+    try {
+      await axios.delete("http://localhost:3080/api/cart/product", {
+        data: { productId, cartId },
+      });
+      alert(`removed ${productName}from cart!`);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
- /*  const removeItem = () => {
-
-    axios.post("http://localhost:3080/api/")
-
-  }
- */
   return (
     <Card className={classes.root}>
-      <Box display="flex" className={classes.product}>
-        {order.order.id ? (
-          <Box>{`${order.order.nameProduct[0]} x ${order.order.productQuantity}`}</Box>
-        ) : (
-          <Box>{"No products"}</Box>
-        )}
-      </Box>
-      <Box className={classes.action}>
-        <Box className={classes.qty}>
-          <Box className={classes.inputQty}>
-            <TextField
-              id="outlined-basic"
-              variant="outlined"
-              type="number"
-              inputProps={{
-                min: 0,
-                style: {
-                  textAlign: "center",
-                  height: "15px",
-                  fontWeight: "600",
-                },
-              }} // the change is here
-            />
+      {order.id ? (
+        <Box display="flex" className={classes.product}>
+          <Box>{`${order.nameProduct[0]} x ${order.productQuantity}`}</Box>
+          <Box className={classes.action}>
+            <Box className={classes.qty}>
+              <Box className={classes.inputQty}>
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  type="number"
+                  inputProps={{
+                    min: 0,
+                    style: {
+                      textAlign: "center",
+                      height: "15px",
+                      fontWeight: "600",
+                    },
+                  }} // the change is here
+                />
+              </Box>
+            </Box>
+            {order.id ? (
+              <Box className={classes.price}>{`$${order.subtotal}`} </Box>
+            ) : (
+              <Box></Box>
+            )}
+
+            <Box className={classes.trashIcon}>
+              {console.log(order.productId, order.cartId)}
+              <IconButton
+                aria-label="delete"
+                onClick={() =>
+                  removeItem(
+                    order.productId,
+                    order.cartId,
+                    order.nameProduct[0]
+                  )
+                }
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
-        {order.order.id ? (
-          <Box className={classes.price}>{`$${order.order.subtotal}`} </Box>
-        ) : (
-          <Box></Box>
-        )}
-
-        <Box className={classes.trashIcon}>
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      </Box>
+      ) : (
+        <Box>{"No products"}</Box>
+      )}
     </Card>
   );
 }

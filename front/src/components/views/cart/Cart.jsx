@@ -26,7 +26,10 @@ const Cart = () => {
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
 
+
   const userId = user.user.id;
+
+
 
   useEffect(() => {
     axios
@@ -38,6 +41,9 @@ const Cart = () => {
     right: false,
   });
 
+ 
+
+
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -48,7 +54,6 @@ const Cart = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  console.log("USER ORDERS =========>", userOrders);
 
   return (
     <div>

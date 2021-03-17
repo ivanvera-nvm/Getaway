@@ -38,7 +38,7 @@ const List = () => {
         {/* <Typography
             component="div"
             style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-          /> */}
+          /> 
         {/* <ProductCard /> */}
       </Container>
     </React.Fragment>
