@@ -8,16 +8,16 @@ const Admin = () => {
 
   return (
     <>
-      {user.user && user.user.access === "user" ? (
-        <div>
-          <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
-        </div>
-      ) : (
+      {user.user && user.user.access === "admin" ? (
         <div>
           <h3 style={{ color: "black" }}>BIENVENIDO ADMIN</h3>
           <Link to="/listUsers">
             <h4>Gestión de usuarios</h4>
           </Link>
+        </div>
+      ) : (
+        <div>
+          <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
         </div>
       )}
     </>

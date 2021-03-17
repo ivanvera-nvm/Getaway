@@ -4,19 +4,8 @@ const UserController = require("../controllers/users")
 const checkJWT = require ('../utils/checkJwt')
 
 
-//ruta para ver todos los usuarios (admin)
 router.get("/" , checkJWT, UserController.allUsers)
-
-//ruta para ver un usuario por su id
-router.get("/:id", UserController.findById)
-
-//ruta para promover administradores (admin)
-/* Como usuario quiero poder editar otros usuarios para promoverlos a usuario administrador o borrarlos
-
-como user:admin busca a otros usuarios y si son access user, puede editarlos (update) para que sean admin o borrarlos
-
- */
-
+router.get("/:id", checkJWT, UserController.findById)
 router.get("/access", UserController.checkAccess)
 
 
