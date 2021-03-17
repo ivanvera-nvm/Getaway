@@ -2,6 +2,17 @@ const CartModel = require("../models/Cart");
 const Order = require("../models/Order");
 
 const CartController = {
+  findUserCart(req, res, next) {
+    const userId = req.params.userId;
+    console.log(userId);
+
+    CartModel.findOne({ where: { userId } })
+      .then((userCart) => {
+        res.send(userCart);
+      })
+      .catch((err) => res.send(err));
+  },
+
   findOrCreateCart(req, res, next) {
     const { userId, cartId } = req.body;
 
@@ -32,7 +43,7 @@ const CartController = {
               .then((orden) => res.status(201).send(orden));
           } else {
             order[0]
-              .update( {productQuantity } )
+              .update({ productQuantity })
               .then((orderExist) => {
                 res.status(200).send(orderExist);
               })
@@ -99,7 +110,7 @@ const CartController = {
       })
       .catch(next);
   },
-  
+
   deleteOrder(req, res, next) {
     const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
@@ -126,10 +137,6 @@ const CartController = {
       })
       .catch(next);
   },
-
- 
-
-  
 };
 
 module.exports = CartController;
