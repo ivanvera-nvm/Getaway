@@ -8,6 +8,10 @@ import Box from "@material-ui/core/Box";
 
 import TextField from "@material-ui/core/TextField";
 
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -52,47 +56,70 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ order }) {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const user = useSelector((state) => state.user).token;
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const removeItem = async (productId, cartId, productName) => {
+    try {
+      await axios.delete("http://localhost:3080/api/cart/product", {
+        data: { productId, cartId },
+      });
+      alert(`removed ${productName}from cart!`);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
     <Card className={classes.root}>
-      <Box display="flex" className={classes.product}>
-        <Box>{product.name}</Box>
-      </Box>
+      {order.id ? (
+        <Box display="flex" className={classes.product}>
+          <Box>{`${order.nameProduct[0]} x ${order.productQuantity}`}</Box>
+          <Box className={classes.action}>
+            <Box className={classes.qty}>
+              <Box className={classes.inputQty}>
+                <TextField
+                  id="outlined-basic"
+                  variant="outlined"
+                  type="number"
+                  inputProps={{
+                    min: 0,
+                    style: {
+                      textAlign: "center",
+                      height: "15px",
+                      fontWeight: "600",
+                    },
+                  }} // the change is here
+                />
+              </Box>
+            </Box>
+            {order.id ? (
+              <Box className={classes.price}>{`$${order.subtotal}`} </Box>
+            ) : (
+              <Box></Box>
+            )}
 
-      <Box className={classes.action}>
-        <Box className={classes.qty}>
-          <Box className={classes.inputQty}>
-            <TextField
-              id="outlined-basic"
-              variant="outlined"
-              type="number"
-              inputProps={{
-                min: 0,
-                style: {
-                  textAlign: "center",
-                  height: "15px",
-                  fontWeight: "600",
-                },
-              }} // the change is here
-            />
+            <Box className={classes.trashIcon}>
+              {console.log(order.productId, order.cartId)}
+              <IconButton
+                aria-label="delete"
+                onClick={() =>
+                  removeItem(
+                    order.productId,
+                    order.cartId,
+                    order.nameProduct[0]
+                  )
+                }
+              >
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Box>
         </Box>
-
-        <Box className={classes.price}>$7500,00</Box>
-
-        <Box className={classes.trashIcon}>
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      </Box>
+      ) : (
+        <Box>{"No products"}</Box>
+      )}
     </Card>
   );
 }

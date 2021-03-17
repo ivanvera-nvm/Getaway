@@ -2,6 +2,10 @@ const express = require("express");
 const router = express.Router();
 const CartController = require("../controllers/carro");
 
+
+//Buscar info del carrito
+router.get('/:userId', CartController.findUserCart)
+
 //añadir un nuevo carrito
 router.post("/new", CartController.findOrCreateCart)
 

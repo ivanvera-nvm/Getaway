@@ -35,7 +35,9 @@ const userReducer = createReducer([], {
   [fetchMe.fulfilled]: (state, action) => action.payload,
   [setUser]: (state, action) => action.payload,
   [loginRequest.fulfilled]: (state, action) => action.payload,
-  [clearUser]:(state, action) => {} 
+  [clearUser]:(state, action) => {
+    return {}
+  }
 });
 
 export default userReducer;

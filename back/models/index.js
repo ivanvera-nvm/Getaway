@@ -18,6 +18,7 @@ Cart.hasMany(Order); // cartId en Order
 
 Product.hasMany(Order); // productId en Order
 Product.hasMany(Review); //productId en Review
+
 Product.belongsToMany(Review, { through: "product_reviews" });
 
 Category.belongsToMany(Product, { through: "product_categories" });
