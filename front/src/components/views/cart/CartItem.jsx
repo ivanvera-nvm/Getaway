@@ -60,10 +60,21 @@ export default function ProductCard(order) {
 
   const classes = useStyles();
 
+
+ /*  const removeItem = () => {
+
+    axios.post("http://localhost:3080/api/")
+
+  }
+ */
   return (
     <Card className={classes.root}>
       <Box display="flex" className={classes.product}>
-        { order.order.id ? <Box>{order.order.nameProduct[0]}</Box> : <Box>{'No products'}</Box>}
+        {order.order.id ? (
+          <Box>{`${order.order.nameProduct[0]} x ${order.order.productQuantity}`}</Box>
+        ) : (
+          <Box>{"No products"}</Box>
+        )}
       </Box>
       <Box className={classes.action}>
         <Box className={classes.qty}>
@@ -83,8 +94,11 @@ export default function ProductCard(order) {
             />
           </Box>
         </Box>
-
-        <Box className={classes.price}>$7500,00</Box>
+        {order.order.id ? (
+          <Box className={classes.price}>{`$${order.order.subtotal}`} </Box>
+        ) : (
+          <Box></Box>
+        )}
 
         <Box className={classes.trashIcon}>
           <IconButton aria-label="delete">
