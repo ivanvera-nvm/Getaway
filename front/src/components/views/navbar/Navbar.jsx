@@ -1,11 +1,13 @@
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Box from "@material-ui/core/Box";
-import InputBase from "@material-ui/core/InputBase";
+import {
+  IconButton,
+  Typography,
+  Avatar,
+  Badge,
+  Box,
+  InputBase,
+} from "@material-ui/core";
 
-import Avatar from "@material-ui/core/Avatar";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -37,10 +39,12 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    dispatch(clearUser())
-    history.push("/") // Redireccionar a un componente de muchas gracias, vuelva prontos.
+    dispatch(clearUser());
+    history.push("/"); // Redireccionar a un componente de muchas gracias, vuelva pronto.
     return localStorage.clear();
   };
+  
+
 
   return (
     <div className={classes.stack}>
@@ -65,12 +69,11 @@ const Navbar = () => {
         ) : (
           <>
             <div className={classes.root}>
-              {userOrders ? (
-                <div>{total(userOrders)}</div>
-              ) : (
-                <>
-                  <Cart />
-                </>
+              {!userOrders && user.user.access!== "admin" ? (
+                ""
+                ) : (
+                  <div>{total(userOrders)}</div>
+
               )}
             </div>
             <IconButton
@@ -102,23 +105,17 @@ const Navbar = () => {
         >
           Home
         </NavLink>
-
-        <NavLink
-          exact
-          to="/admin"
-          activeClassName="active"
-          className={classes.links}
-        >
-          Admin
-        </NavLink>
-        <NavLink
-          exact
-          to="/listUsers"
-          activeClassName="active"
-          className={classes.links}
-        >
-          List
-        </NavLink>
+        {user.user && user.user.access === "admin" ? (
+          <NavLink
+            exact
+            to="/admin"
+            activeClassName="active"
+            className={classes.links}
+          >
+            Admin
+          </NavLink>
+        ) : (
+          
         <NavLink
           exact
           to="/cartDetails"
@@ -127,6 +124,9 @@ const Navbar = () => {
         >
           Cart Details
         </NavLink>
+        )}
+
+     
         {!user.user ? (
           <>
             <NavLink

@@ -6,14 +6,16 @@ var cors = require("cors");
 const { db } = require("./models/index");
 const { truncate } = require("./models/Product");
 
+
 const PORT = 3080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/api", routes);
 
-db.sync({ force: false })
+app.use("/api",routes)
+
+db.sync({ force: false})
   .then(() => {
     app.listen(PORT, () => {
       console.log("listening on port ", PORT);
