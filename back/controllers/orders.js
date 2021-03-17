@@ -1,7 +1,6 @@
 const OrderModel = require("../models/Order");
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
-const { async } = require("three");
 
 const OrderController = {
   findOrders(req, res, next) {

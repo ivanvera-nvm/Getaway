@@ -34,30 +34,9 @@ const List = () => {
             );
           })}
         </Grid>
-
-        {/* <Typography
-            component="div"
-            style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-          /> 
-        {/* <ProductCard /> */}
       </Container>
     </React.Fragment>
   );
 };
 
 export default List;
-
-// export default function List() {
-//   return (
-//     <React.Fragment>
-//       <CssBaseline />
-//       <Container fixed>
-//         {/* <Typography
-//           component="div"
-//           style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
-//         /> */}
-//         <RecipeReviewCard />
-//       </Container>
-//     </React.Fragment>
-//   );
-// }
