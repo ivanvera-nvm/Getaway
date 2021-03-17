@@ -1,5 +1,6 @@
 const CartModel = require("../models/Cart");
-const Order = require("../models/Order");
+const ProductModel = require("../models/Product");
+const OrderModel = require("../models/Order");
 
 const CartController = {
   findUserCart(req, res, next) {
@@ -14,10 +15,16 @@ const CartController = {
   },
 
   findOrCreateCart(req, res, next) {
-    const { userId, cartId } = req.body;
+    const { userId } = req.body;
 
     CartModel.findOne({ where: { userId } }).then((cart) => {
       if (!cart) {
+        CartModel.create({ userId }).then((cart) => {
+          return res.status(200).send(cart);
+        });
+      }
+      if (cart.status === "fulfilled") {
+        console.log(cart.status)
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
@@ -62,18 +69,26 @@ const CartController = {
         //  console.log(Object.keys(cart.__proto__))
         cart.getOrders({ where: { productId } }).then((order) => {
           if (!order[0]) {
-            cart
-              .createOrder({
-                cartId,
-                productId,
-              })
+            ProductModel.findByPk(productId).then((product) => {
+              console.log(product.price);
+              cart
+                .createOrder({
+                  cartId,
+                  productId,
+                  subtotal: product.price,
+                })
 
-              .then((orden) => res.status(201).send(orden));
+                .then((orden) => res.status(201).send(orden));
+            });
           } else {
-            order[0]
-              .update({ productQuantity: ++order[0].productQuantity })
-              .then((orderExist) => {
-                res.status(200).send(orderExist);
+            ProductModel.findByPk(productId)
+              .then((product) => {
+                order[0].update({
+                  productQuantity: ++order[0].productQuantity,
+                  subtotal: order[0].productQuantity * product.price,
+                });
+
+                res.status(200).send(order[0]);
               })
               .catch((e) => console.log(e));
           }
@@ -82,37 +97,11 @@ const CartController = {
 
       .catch(next);
   },
-  /*
 
-  Si la orden del producto existe   --> si la cantidad es mayor a 1 , le saco uno. 
-                                    --> Si la cantidad es 1 , elimino la orden. 
-                                    
-  */
-  removeProduct(req, res, next) {
-    const { productId, cartId } = req.body;
-    CartModel.findByPk(cartId)
-      .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
-        cart.getOrders({ where: { productId } }).then((order) => {
-          if (order[0].productQuantity > 1) {
-            order[0]
-              .update({ productQuantity: --order[0].productQuantity })
-              .then((orderExist) => {
-                res.status(200).send(orderExist);
-              })
-              .catch((e) => console.log(e));
-          } else {
-            order[0]
-              .destroy()
-              .then(() => res.status(200).json("Pedido eliminado"));
-          }
-        });
-      })
-      .catch(next);
-  },
+  deleteProduct(req, res, next) {
+    const productId = req.params.productId;
+    const cartId = req.params.cartId;
 
-  deleteOrder(req, res, next) {
-    const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
       .then((cart) => {
         //  console.log(Object.keys(cart.__proto__))
@@ -120,12 +109,17 @@ const CartController = {
           .getOrders({ where: { productId } })
           .then((order) => {
             if (order[0].productQuantity > 1) {
-              order[0]
-                .update({ productQuantity: --order[0].productQuantity })
-                .then((orderExist) => {
-                  res.status(200).send(orderExist);
-                })
-                .catch((e) => res.status(204).send(e));
+              ProductModel.findByPk(productId).then((product) => {
+                order[0]
+                  .update({
+                    productQuantity: --order[0].productQuantity,
+                    subtotal: order[0].productQuantity * product.price,
+                  })
+                  .then((orderExist) => {
+                    res.status(200).send(orderExist);
+                  })
+                  .catch((e) => res.status(204).send(e));
+              });
             } else {
               order[0]
                 .destroy()
@@ -137,6 +131,51 @@ const CartController = {
       })
       .catch(next);
   },
+
+  // console.log(cart);
+  //console.log(Object.keys(cart.__proto__))
+
+  submitCart(req, res, next) {
+    //traerte todas las ordenes para ese cartId
+    //sumar los subtotales de esas ordenes --> TOTAL --> hacer un map de los subtotales de la orden
+
+    const { cartId } = req.body;
+
+    OrderModel.sum("subtotal", { where: { cartId } })
+      .then((result) => {
+        CartModel.update({ total: result }, { where: { id: cartId } }).then(
+          (cart) => {
+            res.send(cart).status(200);
+          }
+        );
+      })
+      .catch(next);
+  },
+
+  updateStock(req, res, next) {
+    //actualiza el stock por producto
+    const { productId, productQuantity } = req.body;
+    console.log(req.body);
+    ProductModel.findOne({ where: { id: productId } })
+      .then((product) => {
+        console.log(product);
+        product.update({ stock: product.stock - productQuantity });
+        console.log("PRODUCTO ACTUALIZADO", product);
+        res.send("stock actualizado correctamente");
+      })
+      .catch(next);
+  },
+
+  updateCartStatus(req, res, next) {
+    //ACTUALICE EL ESTADO DE PENDING A FULLFILED
+    const { cartId } = req.body;
+    CartModel.findOne({ where: { id: cartId } }).then((cart) => {
+      cart.update({ status: "fulfilled" });
+      res.sendStatus(200);
+    });
+  },
+
+  
 };
 
 module.exports = CartController;

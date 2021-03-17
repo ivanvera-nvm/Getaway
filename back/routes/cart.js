@@ -13,10 +13,21 @@ router.post("/new", CartController.findOrCreateCart)
 router.post("/product", CartController.addProduct);
 
 //remueve una unidad de producto
-router.delete("/product", CartController.removeProduct)
+router.delete("/:cartId/:productId", CartController.deleteProduct)
 
 //actualizar la cantidad de producto
 router.put("/", CartController.editProduct);
 
+//submitea la compra
+router.post("/submit", CartController.submitCart)
+
+//actualiza estado del stock
+router.put("/stock", CartController.updateStock)
+
+//actualiza estado del carrito
+router.put("/status", CartController.updateCartStatus)
+
+//ruta a checkout
+router.get("/checkout", CartController.checkout)
 
 module.exports = router;
