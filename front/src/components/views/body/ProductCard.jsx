@@ -10,28 +10,34 @@ import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import {useSelector} from 'react-redux'
-import axios from 'axios'
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
-  
+  const user = useSelector((state) => state.user);
+
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
-  const productId = product.id
+  const productId = product.id;
 
   const addItem = async () => {
-    try {
-      await axios.post("http://localhost:3080/api/cart/product",{productId,cartId} );
-      alert('Added to cart!')
-    } catch (err) {
-      console.log(err);
+    if (user.token) {
+      try {
+        await axios.post("http://localhost:3080/api/cart/product", {
+          productId,
+          cartId,
+        });
+        alert("Added to cart!");
+      } catch (err) {
+        console.log(err);
+      }
+      console.log("CLICK ADD PRODUCT");
+    } else {
+      alert("Necesitas estar logueado");
     }
-    console.log("CLICK ADD PRODUCT");
   };
-
-
 
   return (
     <Card className={classes.root}>
@@ -75,7 +81,11 @@ export default function ProductCard({ product }) {
 
       <CardActions className={classes.action}>
         <Box className={classes.price}>${product.price},00</Box>
-        <Button variant="contained" className={classes.purchaseBtn} onClick={addItem}>
+        <Button
+          variant="contained"
+          className={classes.purchaseBtn}
+          onClick={addItem}
+        >
           Añadir al carrito
         </Button>
       </CardActions>
