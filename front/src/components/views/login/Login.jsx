@@ -38,6 +38,16 @@ const Login = () => {
       .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
+  const adminLogin = () => {
+    dispatch(
+      loginRequest({ email: "admin@gmail.com", password: "admin" }))
+        .then((data) => {
+          !data.error ? history.push("/") : alert("Error al logear");
+        })
+        .catch((err) => alert("ESTE ES EL ERROR", err))
+    
+  };
+
   return (
     <div>
       <Grid container component="main" className={classes.root}>
@@ -92,6 +102,13 @@ const Login = () => {
                 className={classes.submit}
               >
                 Sign In
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={adminLogin}
+              >
+                ADMIN LOGIN
               </Button>
               <Grid container>
                 <Grid item xs>

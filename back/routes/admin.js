@@ -1,26 +1,14 @@
-const express = require("express")
-const router = express.Router()
-const UserController = require("../controllers/users")
-const checkJWT = require ('../utils/checkJwt')
+const express = require("express");
+const router = express.Router();
+const UserController = require("../controllers/users");
+const checkJWT = require("../utils/checkJwt");
 
+router.get("/", checkJWT, UserController.allUsers);
 
-//ruta para ver todos los usuarios (admin)
-router.get("/" , checkJWT, UserController.allUsers)
+router.get("/:id", UserController.findById);
 
-//ruta para ver un usuario por su id
-router.get("/:id", UserController.findById)
-
-//ruta para promover administradores (admin)
-/* Como usuario quiero poder editar otros usuarios para promoverlos a usuario administrador o borrarlos
-
-como user:admin busca a otros usuarios y si son access user, puede editarlos (update) para que sean admin o borrarlos
-
- */
-
-router.get("/access", UserController.checkAccess)
-
+router.put("/access/:id", UserController.checkAccess);
 
 router.delete("/:id", UserController.deleteUser);
 
-
-module.exports = router
+module.exports = router;

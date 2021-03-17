@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require("sequelize");
+const { Model, DataTypes, ENUM } = require("sequelize");
 const db = require("../config/index");
 
 class Cart extends Model {}
