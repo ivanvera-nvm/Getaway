@@ -14,25 +14,18 @@ import { Link } from "react-router-dom";
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
-  
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <Box display="flex" className={classes.header}>
-        <Box className={classes.title}>{product.name}</Box>
-        <Box>
-          {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
-        </Box>
-      </Box>
-      <Link to={`/products/${product.id}`}>
+      
         <CardMedia
           className={classes.media}
           image={product.image}
           title="Paella dish"
         />
+      <Link to={`/products/${product.id}`}>
+        <Box className={classes.title}>{product.name}</Box>
       </Link>
       <CardContent>
         <Typography

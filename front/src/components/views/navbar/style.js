@@ -17,10 +17,9 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+      display: "flex",
+      alignItems:"center"
+
   },
   search: {
     position: "relative",
@@ -78,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     alignItems: "center",
     height: "3.5em",
-    backgroundColor: "#53a318",
+    backgroundColor: "#3e423f",
     paddingLeft: "10%",
     paddingRight: "10%",
     marginTop: "2em",
@@ -111,6 +110,9 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(7),
     height: theme.spacing(7),
   },
+  logo:{
+    width:"60px"
+  }
 }));
 
 export default useStyles;

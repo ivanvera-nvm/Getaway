@@ -5,7 +5,6 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import InputBase from "@material-ui/core/InputBase";
 
-
 import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
@@ -47,6 +46,11 @@ const Navbar = () => {
     <div className={classes.stack}>
       <Box className={classes.navMain}>
         <Typography className={classes.title} variant="h6" noWrap>
+          <img
+            src="https://www.flaticon.com/svg/vstatic/svg/81/81227.svg?token=exp=1615952427~hmac=5555c0bb1a31de82e804d7ca58d231ef"
+            className={classes.logo}
+            alt="Logo"
+          />
           GetAway
         </Typography>
 
@@ -60,21 +64,15 @@ const Navbar = () => {
         />
         {!user.user ? (
           <>
-            Not logged
             <AccountCircle />
+            {user.user && user.user.access !== "admin" && (
+              <div className={classes.root}>
+                <div>{total(userOrders)}</div>
+              </div>
+            )}
           </>
         ) : (
           <>
-            <div className={classes.root}>
-              {!userOrders && user.user.access!== "admin" ? (
-                ""
-                ) : (
-                  
-                  <div>{total(userOrders)}</div>
-                 
-                
-              )}
-            </div>
             <IconButton
               edge="end"
               aria-label="account of current user"
@@ -114,18 +112,16 @@ const Navbar = () => {
             Admin
           </NavLink>
         ) : (
-          
-        <NavLink
-          exact
-          to="/cartDetails"
-          activeClassName="active"
-          className={classes.links}
-        >
-          Cart Details
-        </NavLink>
+          <NavLink
+            exact
+            to="/cartDetails"
+            activeClassName="active"
+            className={classes.links}
+          >
+            Cart Details
+          </NavLink>
         )}
 
-     
         {!user.user ? (
           <>
             <NavLink

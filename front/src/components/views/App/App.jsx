@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Home from "../home/Home";
@@ -25,10 +25,12 @@ import { useDispatch } from "react-redux";
 export default function App() {
   const dispatch = useDispatch();
 
+
   React.useEffect(() => {
     dispatch(fetchMe());
   }, [dispatch]);
 
+  
   return (
     <>
       <Navbar />
