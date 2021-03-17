@@ -62,9 +62,7 @@ export default function ProductCard({ order }) {
 
   const removeItem = async (productId, cartId, productName) => {
     try {
-      await axios.delete("http://localhost:3080/api/cart/product", {
-        data: { productId, cartId },
-      });
+      await axios.delete(`http://localhost:3080/api/cart/${cartId}/${productId}`);
       alert(`removed ${productName}from cart!`);
     } catch (err) {
       console.log(err);
