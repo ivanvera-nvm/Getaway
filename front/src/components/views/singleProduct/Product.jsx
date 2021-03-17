@@ -13,7 +13,6 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { setProduct } from "../../../state/products";
 import { useHistory } from "react-router-dom";
 
@@ -32,22 +31,20 @@ export default function Product({ id }) {
   const classes = useStyles();
 
   const history = useHistory();
-  const total = useSelector((state) => state.totalProducts);
-  const user = useSelector(state => state.user)
 
+  const user = useSelector((state) => state.user);
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
-
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
-  console.log("productId ==>", product.id, "cartId==>", cartId);
+  /*  const total = useSelector(state => state.totalProducts)
+ console.log('PRODUCTOS TOTALES ======>', total)
+ */
 
-  useEffect(() => {
-    if (id < total) {
-      dispatch(setProduct(id)).catch((error) => console.log(error));
-    } else history.push("/404");
-  }, []);
+  if (!productId) {
+    dispatch(setProduct(id));
+  }
 
   const addItem = async () => {
     if (user.token) {
@@ -60,7 +57,6 @@ export default function Product({ id }) {
       } catch (err) {
         console.log(err);
       }
-      console.log("CLICK ADD PRODUCT");
     } else {
       alert("Necesitas estar logueado");
     }
