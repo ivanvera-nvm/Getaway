@@ -157,13 +157,13 @@ const CartController = {
   },
 
   submitCart(req, res, next) {
-    //pegarle al modelo de producto para hacer un update del stock
+  
 
     //chequea cart por cartId --> encuentra el cart y actualiza el valor del total y el estado del carrito
     // console.log(cart);
     //console.log(Object.keys(cart.__proto__))
     const { cartId, productId, orderId } = req.body;
-    CartModel.findall({where: {orderId }})
+    CartModel.findAll({where: {orderId }})
     .then((order) => {
 res.send(order)
     })
