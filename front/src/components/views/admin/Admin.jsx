@@ -11,8 +11,11 @@ const Admin = () => {
       {user.user && user.user.access === "admin" ? (
         <div>
           <h3 style={{ color: "black" }}>BIENVENIDO ADMIN</h3>
-          <Link to="/listUsers">
+          <Link to="/admin/listUsers">
             <h4>Gestión de usuarios</h4>
+          </Link>
+          <Link to="/admin/listProducts">
+            <h4>Gestión de productos</h4>
           </Link>
         </div>
       ) : (
