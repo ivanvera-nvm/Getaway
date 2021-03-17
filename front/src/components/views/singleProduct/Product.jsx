@@ -32,11 +32,13 @@ import useStyles from "./useStyles";
 export default function Product({ id }) {
   const classes = useStyles();
 
-  const history = useHistory();
+  const history = useHistory(); 
+  const total = useSelector((state) => state.totalProducts);
+  
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
 
-  const total = useSelector((state) => state.totalProducts);
+ 
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id
 
@@ -47,6 +49,7 @@ export default function Product({ id }) {
       dispatch(setProduct(id)).catch((error) => console.log(error));
     } else history.push("/404");
   }, []);
+
 
   const addItem = async () => {
     try {
