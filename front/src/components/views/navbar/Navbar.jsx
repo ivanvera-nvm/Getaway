@@ -1,11 +1,13 @@
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import Badge from "@material-ui/core/Badge";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import Box from "@material-ui/core/Box";
-import InputBase from "@material-ui/core/InputBase";
+import {
+  IconButton,
+  Typography,
+  Avatar,
+  Badge,
+  Box,
+  InputBase,
+} from "@material-ui/core";
 
-import Avatar from "@material-ui/core/Avatar";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,5 +1,7 @@
 const OrderModel = require("../models/Order");
 const CartModel = require("../models/Cart");
+const ProductModel = require("../models/Product");
+const { async } = require("three");
 
 const OrderController = {
   findOrders(req, res, next) {
@@ -9,8 +11,8 @@ const OrderController = {
   },
 
   findUserOrders(req, res, next) {
-    const userId = req.params.userId
-    
+    const userId = req.params.userId;
+
     CartModel.findOne({ where: { userId } })
       .then((userCart) => {
         const { id } = userCart;
@@ -30,4 +32,41 @@ const OrderController = {
   },
 };
 
-module.exports = OrderController;
+const fn = async (req, res, next) => {
+  const userId = req.params.userId;
+  console.log("asdasdas");
+  try {
+    let cart = await CartModel.findOne({ where: { userId } });
+    let orders = await cart.getOrders();
+    let mapped = orders.map((order) => {
+      return order.productId;
+    });
+
+    let products = mapped.map((id) => {
+      return ProductModel.findOne({ where: { id } });
+    });
+
+    const help = (a) => {
+      let obj = [...orders];
+      for (let i = 0; i < orders.length; i++) {
+        obj[i].dataValues.nameProduct = [];
+        for (let j = 0; j < a.length; j++) {
+          if (orders[i].productId === a[j].id) {
+            obj[i].dataValues.nameProduct.push(a[j].name);
+          }
+        }
+      }
+      return obj;
+    };
+
+    Promise.all(products).then((a) => {
+      let obj2 = help(a);
+      console.log("==========>", obj2);
+      res.send(obj2);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+module.exports = { OrderController, fn };

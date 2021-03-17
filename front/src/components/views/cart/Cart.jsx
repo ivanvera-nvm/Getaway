@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import Drawer from "@material-ui/core/Drawer";
-import Button from "@material-ui/core/Button";
+import {
+  ListItemText,
+  ListItem,
+  Divider,
+  Drawer,
+  Button,
+  List,
+} from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import useStyles from "./style";
-import clsx from "clsx";
+
 import { setUserOrders } from "../../../state/orders";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+import useStyles from "./style";
+import clsx from "clsx";
 import axios from "axios";
 
 // Components
@@ -19,7 +24,6 @@ const Cart = () => {
   const classes = useStyles();
 
   const userOrders = useSelector((state) => state.userOrders);
-  const products = useSelector((state) => state.products);
   const user = useSelector((state) => state.user);
 
   const userId = user.user.id;
@@ -28,12 +32,6 @@ const Cart = () => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => alert("carro creado"));
-      
-
-    dispatch(setUserOrders(userId)).catch((err) => {
-      console.log(err);
-    });
-
   }, [userId, dispatch]);
 
   const [state, setState] = useState({
@@ -50,39 +48,7 @@ const Cart = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const productsFilter = (products, orderId, quantity, i) => {
-    let filtered = products.filter((product) => {
-      return product.id === orderId;
-    });
-
-    return (
-      <div key={i}>
-        {filtered ? (
-          <>
-            <ListItem button key={filtered.id}>
-              <ListItemText
-                key={filtered.id}
-                primary={`Order ${orderId}: ${filtered[0].name} x${quantity}`}
-              />
-            </ListItem>
-          </>
-        ) : (
-          <>
-            <h1>No products</h1>
-          </>
-        )}
-      </div>
-    );
-  };
-  const fillCart = () =>
-    userOrders.map((order, i) => {
-      return productsFilter(
-        products,
-        order.productId,
-        order.productQuantity,
-        i
-      );
-    });
+  console.log("USER ORDERS =========>", userOrders);
 
   return (
     <div>
@@ -106,25 +72,43 @@ const Cart = () => {
             >
               <Divider />
               {userOrders.lenght < 0 ? (
-               <div>
+                <div>
                   <ListItem button key={"empty"}>
                     <ListItemText primary={"The cart is empty :("} />
                   </ListItem>
                 </div>
               ) : (
                 <div>
-                <List>
-                  {console.log('ORDENES DE USUARIO =>>>>>',userOrders)}
-                  <ListItem button key={"FULLFILLED"}>
-                    <ListItemText
-                      primary={`${user.user.name}'s cart`}
-                    />
-                  </ListItem>
-                </List>
-                <List>{fillCart()}</List>
-              </div>
+                  <List>
+                    <ListItem button key={"FULLFILLED"}>
+                      <ListItemText primary={`${user.user.name}'s cart`} />
+                    </ListItem>
+                  </List>
+                  <List>
+                    {userOrders.map((order) => {
+                      return (
+                        <ListItem button key={"FULLFILLED"}>
+                          <ListItemText
+                            primary={`Order: ${order.id} - ${order.nameProduct[0]}  x${order.productQuantity}`}
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </div>
               )}
             </div>
+            <List>
+              <ListItem button key={"FULLFILLED"}>
+                <NavLink
+                  to={{
+                    pathname: "/cartDetails",
+                  }}
+                >
+                  <ListItemText primary={"Go to detail"} />
+                </NavLink>
+              </ListItem>
+            </List>
           </Drawer>
         </React.Fragment>
       ))}

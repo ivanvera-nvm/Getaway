@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
@@ -9,6 +8,9 @@ import CartItem from "./CartItem.jsx";
 import CartCheckout from "./CartCheckout.jsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
+
+import { setUserOrders } from "../../../state/orders";
+
 import axios from "axios";
 
 const useStyles = makeStyles({
@@ -35,24 +37,12 @@ const useStyles = makeStyles({
   },
 });
 
-const List = () => {
-  const [products, setProducts] = useState([]);
-  const dispatch = useDispatch();
+const List = (props) => {
+
+  const orders = useSelector(state => state.userOrders)
+  const user = useSelector(state => state.user)
   const classes = useStyles();
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:3080/api/products")
-      .then((res) => {
-        console.log(res.data);
-        dispatch(setProducts(res.data));
-      })
-      .catch((err) => {
-        console.log("Error");
-      });
-  }, []);
-
-  console.log(products);
   return (
     <React.Fragment>
       <CssBaseline />
@@ -64,10 +54,10 @@ const List = () => {
       >
         <Box className={classes.cartTitle}>Your Cart</Box>
         <Grid container spacing={2} className={classes.grid}>
-          {products.map((product, i) => {
+          { user.user && user.user.id && orders[0] && orders.map((order, i) => {
             return (
               <Grid>
-                <CartItem product={product} key={i} />
+                <CartItem order={order} key={i} />
               </Grid>
             );
           })}

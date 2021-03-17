@@ -8,6 +8,10 @@ import Box from "@material-ui/core/Box";
 
 import TextField from "@material-ui/core/TextField";
 
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -52,20 +56,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductCard({ product }) {
+export default function ProductCard(order) {
+
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
+ /*  const removeItem = () => {
+
+    axios.post("http://localhost:3080/api/")
+
+  }
+ */
   return (
     <Card className={classes.root}>
       <Box display="flex" className={classes.product}>
-        <Box>{product.name}</Box>
+        {order.order.id ? (
+          <Box>{`${order.order.nameProduct[0]} x ${order.order.productQuantity}`}</Box>
+        ) : (
+          <Box>{"No products"}</Box>
+        )}
       </Box>
-
       <Box className={classes.action}>
         <Box className={classes.qty}>
           <Box className={classes.inputQty}>
@@ -84,8 +94,11 @@ export default function ProductCard({ product }) {
             />
           </Box>
         </Box>
-
-        <Box className={classes.price}>$7500,00</Box>
+        {order.order.id ? (
+          <Box className={classes.price}>{`$${order.order.subtotal}`} </Box>
+        ) : (
+          <Box></Box>
+        )}
 
         <Box className={classes.trashIcon}>
           <IconButton aria-label="delete">
