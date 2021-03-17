@@ -14,7 +14,4 @@ router.get("/:id"); //JWT
 
 
 
-
-
-
 module.exports = router;

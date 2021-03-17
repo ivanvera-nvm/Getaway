@@ -1,9 +1,9 @@
 const CartModel = require("../models/Cart");
-const Order = require("../models/Order");
+const ProductModel = require("../models/Product");
 
 const CartController = {
   findOrCreateCart(req, res, next) {
-    const { userId, cartId } = req.body;
+    const { userId } = req.body;
 
     CartModel.findOne({ where: { userId } }).then((cart) => {
       if (!cart) {
@@ -32,7 +32,7 @@ const CartController = {
               .then((orden) => res.status(201).send(orden));
           } else {
             order[0]
-              .update( {productQuantity } )
+              .update({ productQuantity })
               .then((orderExist) => {
                 res.status(200).send(orderExist);
               })
@@ -51,18 +51,27 @@ const CartController = {
         //  console.log(Object.keys(cart.__proto__))
         cart.getOrders({ where: { productId } }).then((order) => {
           if (!order[0]) {
-            cart
-              .createOrder({
-                cartId,
-                productId,
-              })
+            ProductModel.findByPk(productId).then((product) => {
+              console.log(product.price);
+              cart
+                .createOrder({
+                  cartId,
+                  productId,
+                  subtotal: product.price,
+                })
 
-              .then((orden) => res.status(201).send(orden));
+                .then((orden) => res.status(201).send(orden));
+            });
           } else {
-            order[0]
-              .update({ productQuantity: ++order[0].productQuantity })
-              .then((orderExist) => {
-                res.status(200).send(orderExist);
+            ProductModel.findByPk(productId)
+              .then((product) => {
+              
+                order[0].update({
+                  productQuantity: ++order[0].productQuantity,
+                  subtotal: order[0].productQuantity * product.price,
+                });
+
+                res.status(200).send(order[0]);
               })
               .catch((e) => console.log(e));
           }
@@ -73,20 +82,29 @@ const CartController = {
   },
 
   deleteProduct(req, res, next) {
-    const { productId, cartId } = req.body;
+    const productId = req.params.productId;
+    const cartId = req.params.cartId
+   
     CartModel.findByPk(cartId)
       .then((cart) => {
         //  console.log(Object.keys(cart.__proto__))
         cart
           .getOrders({ where: { productId } })
           .then((order) => {
+
             if (order[0].productQuantity > 1) {
-              order[0]
-                .update({ productQuantity: --order[0].productQuantity })
+              ProductModel.findByPk(productId)
+              .then((product) => {
+                
+                order[0]
+                .update({ productQuantity: --order[0].productQuantity,
+                subtotal: order[0].productQuantity * product.price })
                 .then((orderExist) => {
                   res.status(200).send(orderExist);
                 })
                 .catch((e) => res.status(204).send(e));
+              })
+              
             } else {
               order[0]
                 .destroy()
@@ -99,13 +117,33 @@ const CartController = {
       .catch(next);
   },
 
-  submitCart(req, res){
+  submitCart(req, res, next) {
+    //pegarle al modelo de producto para hacer un update del stock
 
-  }
-
- 
-
-  
+    //chequea cart por cartId --> encuentra el cart y actualiza el valor del total y el estado del carrito
+    // console.log(cart);
+    //console.log(Object.keys(cart.__proto__))
+    const { cartId, productId, orderId } = req.body;
+    CartModel.findall({where: {orderId }})
+    .then((order) => {
+res.send(order)
+    })
+    
+    ProductModel.update({id: productId}, {
+      where: {
+        stock : productId.stock
+      }
+    })
+    CartModel.findByPk(cartId)
+      .then((cart) => {
+        cart.update({
+          total: req.body.total,
+          status: "fulfilled",
+        });
+        res.send(cart);
+      })
+      .catch(next);
+  },
 };
 
 module.exports = CartController;

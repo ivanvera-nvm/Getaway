@@ -16,7 +16,7 @@ import { useHistory, NavLink } from "react-router-dom";
 import { useInput } from "../../../hooks/useInput";
 import { useDispatch, useSelector } from "react-redux";
 
-import { loginRequest, fetchMe } from "../../../state/user";
+import { loginRequest } from "../../../state/user";
 
 import useStyles from "./style";
 
@@ -29,13 +29,8 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
-  const user = useSelector((state) => state.user);
-
-  
-
   const sendLoginRequest = (e) => {
     e.preventDefault();
-
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
         !data.error ? history.push("/") : alert("Error al logear");
