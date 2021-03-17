@@ -21,4 +21,10 @@ router.put("/", CartController.editProduct);
 //submitea la compra
 router.post("/submit", CartController.submitCart)
 
+//actualiza estado del stock
+router.put("/stock", CartController.updateStock)
+
+//actualiza estado del carrito
+router.put("/status", CartController.updateCartStatus)
+
 module.exports = router;
