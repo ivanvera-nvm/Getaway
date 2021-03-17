@@ -5,7 +5,9 @@ const checkJWT = require("../utils/checkJwt");
 
 router.get("/", checkJWT, UserController.allUsers);
 
-router.get("/:id", UserController.findById);
+router.get("/" , checkJWT, UserController.allUsers)
+router.get("/:id", checkJWT, UserController.findById)
+router.get("/access", UserController.checkAccess)
 
 router.put("/access/:id", UserController.checkAccess);
 

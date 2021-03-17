@@ -9,7 +9,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { fetchUsers } from "../../../state/listUsers";
-import { toggleAccess ,deleteUser} from "../../../state/admin";
+import { toggleAccess, deleteUser } from "../../../state/admin";
 import DeleteIcon from "@material-ui/icons/Delete";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -29,21 +29,19 @@ export default function Users() {
     dispatch(fetchUsers());
   }, [dispatch]);
 
-  // (e)=> console.log (e.currentTarget.getAttribute("name"))
-
   const handleChange = (e) => {
     const id = e.currentTarget.getAttribute("name");
     const access = e.target.value;
-    console.log(access);
     dispatch(toggleAccess({ id, access }));
   };
+
+  const user = useSelector((state) => state.user);
 
   const refresh = () => {
     history.push("/admin");
   };
 
   const users = useSelector((state) => state.listUsers);
-  console.log("------------------------------------", users);
 
   const useStyles = makeStyles((theme) => ({
     table: {
@@ -64,73 +62,84 @@ export default function Users() {
 
   return (
     <>
-      <h1 align="center">Gestion de Usuarios</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        align="right"
-        onClick={refresh}
-      >
-        Guardar
-      </Button>
-      <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {/* <TableCell>Gestion Usuarios</TableCell> */}
-              <TableCell align="center">ID</TableCell>
-              <TableCell align="center">Nombre</TableCell>
-              <TableCell align="center">Apellido</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Permisos</TableCell>
-              <TableCell align="center">Ordenes</TableCell>
-              <TableCell align="center">Eliminar</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((users) => (
-              <TableRow key={users.id}>
-                {/* <TableCell component="th" scope="row">
+      {user.user && user.user.access === "admin" ? (
+      <div>
+        <h1 align="center">Gestion de Usuarios</h1>
+        <Button
+          variant="contained"
+          color="primary"
+          align="right"
+          onClick={refresh}
+        >
+          Guardar
+        </Button>
+        <TableContainer component={Paper}>
+          <Table className={classes.table} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {/* <TableCell>Gestion Usuarios</TableCell> */}
+                <TableCell align="center">ID</TableCell>
+                <TableCell align="center">Nombre</TableCell>
+                <TableCell align="center">Apellido</TableCell>
+                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Permisos</TableCell>
+                <TableCell align="center">Ordenes</TableCell>
+                <TableCell align="center">Eliminar</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((users) => (
+                <TableRow key={users.id}>
+                  {/* <TableCell component="th" scope="row">
                   {users.name}
                 </TableCell> */}
 
-                <TableCell align="center">{users.id}</TableCell>
-                <TableCell align="center">{users.name}</TableCell>
-                <TableCell align="center">{users.lastName}</TableCell>
-                <TableCell align="center">{users.email}</TableCell>
+                  <TableCell align="center">{users.id}</TableCell>
+                  <TableCell align="center">{users.name}</TableCell>
+                  <TableCell align="center">{users.lastName}</TableCell>
+                  <TableCell align="center">{users.email}</TableCell>
 
-                <TableCell align="center">
-                  {" "}
-                  <FormControl className={classes.formControl}>
-                    <InputLabel id={users.id}>Acceso</InputLabel>
-                    <Select
-                      labelId="demo-simple-select-label"
-                      onChange={handleChange}
-                    >
-                      <MenuItem value="admin" name={users.id}>
-                        {users.access === "admin" ? <CheckIcon /> : ""}
-                        Admin
-                      </MenuItem>
-                      <MenuItem value="user" name={users.id}>
-                        {users.access === "user" ? <CheckIcon /> : ""}User
-                      </MenuItem>
-                    </Select>
-                  </FormControl>
-                </TableCell>
-                <TableCell align="center">
-                <Button variant="contained" >Ordenes</Button>
-                </TableCell>
-                <TableCell align="center">
-                  <DeleteIcon onClick={() => {
-                    dispatch(deleteUser(users.id))
-                    refresh()
-                  }}/>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  <TableCell align="center">
+                    {" "}
+                    <FormControl className={classes.formControl}>
+                      <InputLabel id={users.id}>Acceso</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value="admin" name={users.id}>
+                          {users.access === "admin" ? <CheckIcon /> : ""}
+                          Admin
+                        </MenuItem>
+                        <MenuItem value="user" name={users.id}>
+                          {users.access === "user" ? <CheckIcon /> : ""}User
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained">Ordenes</Button>
+                  </TableCell>
+                  <TableCell align="center">
+                    <DeleteIcon
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        dispatch(deleteUser(users.id));
+                        refresh();
+                      }}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      ) : (
+        <div>
+        <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
+      </div>
+      )}
     </>
   );
 }
