@@ -23,6 +23,12 @@ const CartController = {
           return res.status(200).send(cart);
         });
       }
+      if (cart.status === "fulfilled") {
+        console.log(cart.status)
+        CartModel.create({ userId }).then((cart) => {
+          return res.status(200).send(cart);
+        });
+      }
     });
   },
 
@@ -133,7 +139,7 @@ const CartController = {
     //traerte todas las ordenes para ese cartId
     //sumar los subtotales de esas ordenes --> TOTAL --> hacer un map de los subtotales de la orden
 
-    const { cartId, productId, orderId } = req.body;
+    const { cartId } = req.body;
 
     OrderModel.sum("subtotal", { where: { cartId } })
       .then((result) => {
@@ -168,6 +174,8 @@ const CartController = {
       res.sendStatus(200);
     });
   },
+
+  
 };
 
 module.exports = CartController;

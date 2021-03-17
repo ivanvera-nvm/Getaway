@@ -27,4 +27,7 @@ router.put("/stock", CartController.updateStock)
 //actualiza estado del carrito
 router.put("/status", CartController.updateCartStatus)
 
+//ruta a checkout
+router.get("/checkout", CartController.checkout)
+
 module.exports = router;
