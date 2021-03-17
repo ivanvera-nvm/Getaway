@@ -8,6 +8,10 @@ import Box from "@material-ui/core/Box";
 
 import TextField from "@material-ui/core/TextField";
 
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -52,20 +56,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductCard({ product }) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+export default function ProductCard(order) {
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <Box display="flex" className={classes.product}>
-        <Box>{product.name}</Box>
+        { order.order.id ? <Box>{order.order.nameProduct[0]}</Box> : <Box>{'No products'}</Box>}
       </Box>
-
       <Box className={classes.action}>
         <Box className={classes.qty}>
           <Box className={classes.inputQty}>

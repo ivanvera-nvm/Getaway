@@ -7,9 +7,8 @@ export const setOrders = createAsyncThunk("SET_ORDERS", () => {
 });
 
 export const setUserOrders = createAsyncThunk("SET_USER_ORDERS", (userID) => {
-
   return axios
-    .get(`http://localhost:3080/api/order/${userID}`)
+    .get(`http://localhost:3080/api/order/${userID}/product`)
     .then((res) => res.data);
 });
 
@@ -20,3 +19,4 @@ export const ordersReducer = createReducer([], {
 export const userOrdersReducer = createReducer([], {
   [setUserOrders.fulfilled]: (state, action) => action.payload,
 });
+

@@ -70,7 +70,6 @@ const UserController = {
   checkAccess(req, res, next) {
     const id = req.params.id;
     const access = req.params.access;
-    console.log(access);
     UserModel.findByPk(id)
       .then((users) => {
         return users.update(req.body, { access: "admin" });
