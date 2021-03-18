@@ -26,6 +26,7 @@ Product.init(
       type: DataTypes.INTEGER,
       defaultValue: 1,
     },
+   
   },
   { sequelize: db, modelName: "product" }
 );

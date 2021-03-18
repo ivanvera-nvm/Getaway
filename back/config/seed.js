@@ -1,8 +1,8 @@
-const db = require("./index")
-const  User  = require("../models/User");
-const  Category  = require("../models/Category");
-const  Product  = require("../models/Product")
-const ProductCategories = require("../models/ProductCategories")
+const db = require("./index");
+const User = require("../models/User");
+const Category = require("../models/Category");
+const Product = require("../models/Product");
+const ProductCategory = require("../models/ProductCategory");
 
 const userParaSeedear = [
   {
@@ -13,11 +13,11 @@ const userParaSeedear = [
     password: "$2b$16$bnDQD4YnuqCV0DgQ7rDQgOfHfmxSUlmaI8RLD2KOnZ6F/IrgD8ApS",
     phone: "1130922002",
     address: "Cespedes 1567",
-    salt:"$2b$16$bnDQD4YnuqCV0DgQ7rDQgO"
+    salt: "$2b$16$bnDQD4YnuqCV0DgQ7rDQgO",
   },
   {
     access: "user",
-    name:  "david",
+    name: "david",
     lastName: "guetta",
     email: "david@gmail.com",
     password: "onelove",
@@ -97,7 +97,7 @@ const userParaSeedear = [
     phone: 987654321,
     address: "pilar",
   },
-]
+];
 
 const categoriasParaSeedear = [
   {
@@ -130,185 +130,195 @@ const categoriasParaSeedear = [
   {
     name: "Recitales",
   },
-]
+];
 
- const productosPorCategoriaParaSeedear = [
+const productosPorCategoriaParaSeedear = [
   {
-    product_id: 1,
-    category_id: 1
+    categoryId: "1",
+    productId: "1"
   },
   {
-    product_id: 1,
-    category_id: 2
+    categoryId: 2,
+    productId: 1,
   },
   {
-    product_id: 2,
-    category_id: 8
+    categoryId: 8,
+    productId: 2,
   },
   {
-    product_id: 2,
-    category_id: 4
+    categoryId: 4,
+    productId: 2,
   },
   {
-    product_id: 3,
-    category_id: 8
+    categoryId: 8,
+    productId: 3,
   },
   {
-    product_id: 3,
-    category_id: 4
+    categoryId: 4,
+    productId: 3,
   },
   {
-    product_id: 4,
-    category_id: 5
+    categoryId: 5,
+    productId: 4,
   },
   {
-    product_id: 4,
-    category_id: 6
+    categoryId: 6,
+    productId: 4,
   },
   {
-    product_id: 5,
-    category_id: 5
+    categoryId: 5,
+    productId: 5,
   },
 
   {
-    product_id: 5,
-    category_id: 6
+    categoryId: 6,
+    productId: 5,
   },
   {
-    product_id: 6,
-    category_id: 1
+    categoryId: 1,
+    productId: 6,
   },
   {
-    product_id: 6,
-    category_id: 3
+    categoryId: 3,
+    productId: 6,
   },
   {
-    product_id: 6,
-    category_id: 9
+    categoryId: 9,
+    productId: 6,
   },
   {
-    product_id: 7,
-    category_id: 1
+    categoryId: 1,
+    productId: 7,
   },
   {
-    product_id: 7,
-    category_id: 3
+    categoryId: 3,
+    productId: 7,
   },
   {
-    product_id: 8,
-    category_id: 2
+    categoryId: 2,
+    productId: 8,
   },
   {
-    product_id: 8,
-    category_id: 5
+    categoryId: 5,
+    productId: 8,
   },
   {
-    product_id: 8,
-    category_id: 4
+    categoryId: 4,
+    productId: 8,
   },
   {
-    product_id: 9,
-    category_id: 8
+    categoryId: 8,
+    productId: 9,
   },
   {
-    product_id: 9,
-    category_id: 4
+    categoryId: 4,
+    productId: 9,
   },
   {
-    product_id: 9,
-    category_id: 2
+    categoryId: 2,
+    productId: 9,
   },
-] 
+];
 
-const productosParaSeedear =  [{
-  "name": "Día de Campo para 2 personas",
-  "price": 15000,
-  "stock": 12,
-  "description": "Disfrute de un tranquilo día con su pareja en los alrededores de la ciudad, con almuerzo y cena incluidos.",
-  "expiry": "2021-05-22 19:10:25-07",
-  "image": "https://images.unsplash.com/photo-1599318724872-8bfb0ee3abea?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1105&q=80"
-},
-{
-  "name": "Salto en paracaídas",
-  "price": 35000,
-  "stock": 3,
-  "description": "Para los mas valientes, un verdadero salto de adrenalina",
-  "expiry": "2021-04-22 14:10:25-07",
-  "image": "https://images.unsplash.com/photo-1496429862132-5ab36b6ae330?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80"
-},
-{   
-  "name": "Clase de kitesurf",
-  "price": 12000,
-  "stock": 98,
-  "description": "Aprovecha la experiencia de uno de nuestros más experimentados profesores para aventurarte en este excitante deporte",
-  "expiry": "2022-04-22 13:10:25-07",
-  "image": "https://images.unsplash.com/photo-1580078959289-12fdfdfbb1df?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=935&q=80"
-},
-{
-  "name": "Home Spa",
-  "price": 200,
-  "stock": 105,
-  "description": "Anímese a recrear un spa en la comodidad de su casa",
-  "expiry": "2022-02-21 05:10:25-07",
-  "image": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-},
-{
-  "name": "Clase de automaquillaje",
-  "price": 2500,
-  "stock": 25,
-  "description": "Toma una clase de automaquillaje en uno de los mejores centros de estéticas",
-  "expiry": "2021-07-01 21:10:25-07",
-  "image": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1065&q=80"
-},
-{
-  "name": "Tour de birras",
-  "price": 2300,
-  "stock": 98,
-  "description": "Ocasión especial para una noche inolvidable",
-  "expiry": "2021-05-14 19:09:25-07",
-  "image": "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-},
-{
-  "name": "Bar at Home",
-  "price": 500,
-  "stock": 150,
-  "description": "Para los que no quieren salir de su casa, recrea el ambiente de un bar porteño armando los drinks mas sofisticados",
-  "expiry": "2021-08-12 05:10:25-07",
-  "image": "https://images.unsplash.com/photo-1582106245687-cbb466a9f07f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-},
-{
-  "name": "Escapada de 2 Noches",
-  "price": 40000,
-  "stock": 25,
-  "description": "Sea la selva, la montaña, la playa o un glaciar, tómese ese descanso que tanto necesita",
-  "expiry": "2021-12-01 02:10:25-07",
-  "image": "https://images.unsplash.com/photo-1465917566611-efba2904dd8a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80"
-},
-{
-  "name": "Paseo en velero",
-  "price": 5000,
-  "stock": 13,
-  "description": "Disfrutá de un paseo en velero sobre la costa de Buenos Aires y disfrutá de la atmósfera que esta actividad te regala",
-  "expiry": "2022-04-22 19:10:25-07",
-  "image": "https://images.unsplash.com/photo-1540946485063-a40da27545f8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-}   
-]
-
-
+const productosParaSeedear = [
+  {
+    name: "Día de Campo para 2 personas",
+    price: 15000,
+    stock: 12,
+    description:
+      "Disfrute de un tranquilo día con su pareja en los alrededores de la ciudad, con almuerzo y cena incluidos.",
+    expiry: "2021-05-22 19:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1599318724872-8bfb0ee3abea?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1105&q=80",
+  },
+  {
+    name: "Salto en paracaídas",
+    price: 35000,
+    stock: 3,
+    description: "Para los mas valientes, un verdadero salto de adrenalina",
+    expiry: "2021-04-22 14:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1496429862132-5ab36b6ae330?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1051&q=80",
+  },
+  {
+    name: "Clase de kitesurf",
+    price: 12000,
+    stock: 98,
+    description:
+      "Aprovecha la experiencia de uno de nuestros más experimentados profesores para aventurarte en este excitante deporte",
+    expiry: "2022-04-22 13:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1580078959289-12fdfdfbb1df?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=935&q=80",
+  },
+  {
+    name: "Home Spa",
+    price: 200,
+    stock: 105,
+    description: "Anímese a recrear un spa en la comodidad de su casa",
+    expiry: "2022-02-21 05:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+  {
+    name: "Clase de automaquillaje",
+    price: 2500,
+    stock: 25,
+    description:
+      "Toma una clase de automaquillaje en uno de los mejores centros de estéticas",
+    expiry: "2021-07-01 21:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1065&q=80",
+  },
+  {
+    name: "Tour de birras",
+    price: 2300,
+    stock: 98,
+    description: "Ocasión especial para una noche inolvidable",
+    expiry: "2021-05-14 19:09:25-07",
+    image:
+      "https://images.unsplash.com/photo-1535958636474-b021ee887b13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+  {
+    name: "Bar at Home",
+    price: 500,
+    stock: 150,
+    description:
+      "Para los que no quieren salir de su casa, recrea el ambiente de un bar porteño armando los drinks mas sofisticados",
+    expiry: "2021-08-12 05:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1582106245687-cbb466a9f07f?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+  {
+    name: "Escapada de 2 Noches",
+    price: 40000,
+    stock: 25,
+    description:
+      "Sea la selva, la montaña, la playa o un glaciar, tómese ese descanso que tanto necesita",
+    expiry: "2021-12-01 02:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1465917566611-efba2904dd8a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1055&q=80",
+  },
+  {
+    name: "Paseo en velero",
+    price: 5000,
+    stock: 13,
+    description:
+      "Disfrutá de un paseo en velero sobre la costa de Buenos Aires y disfrutá de la atmósfera que esta actividad te regala",
+    expiry: "2022-04-22 19:10:25-07",
+    image:
+      "https://images.unsplash.com/photo-1540946485063-a40da27545f8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+  },
+];
 
 
 
 const seed = () => {
   return User.bulkCreate(userParaSeedear)
-  .then(() => Category.bulkCreate(categoriasParaSeedear))
-  .then(() => Product.bulkCreate(productosParaSeedear))
-  //.then(() => ProductCategories.bulkCreate(productosPorCategoriaParaSeedear))
-  
-}
+    .then(() => Category.bulkCreate(categoriasParaSeedear))
+    .then(() => Product.bulkCreate(productosParaSeedear))
+    .then(() => ProductCategory.bulkCreate(productosPorCategoriaParaSeedear));
+};
 
-seed()
-.then(() => {
-  process.exit()
-})
-
-
+seed().then(() => {
+  process.exit();
+});
