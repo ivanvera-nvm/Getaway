@@ -30,7 +30,6 @@ const Cart = () => {
   const userId = user.user.id;
 
 
-
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
@@ -42,7 +41,6 @@ const Cart = () => {
   });
 
  
-
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
