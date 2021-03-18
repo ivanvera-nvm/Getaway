@@ -20,13 +20,8 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
-<<<<<<< HEAD
-    "fontsource-roboto": "^4.0.0",
-    "jsonwebtoken": "^8.5.1"
-=======
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.5.0"
->>>>>>> d7cf39bf7cb57020dff1e64ba20f7ddbdab360b7
   }
 }
