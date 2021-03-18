@@ -1,11 +1,17 @@
 import React from "react";
-import {Redirect} from "react-router-dom";
+import {Redirect, useHistory, Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 
 const Admin = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const user = useSelector((state) => state.user);
+
+  React.useEffect(() => {
+  (!user.user ||  user.user.access!== "admin" )&& history.push("/")
+    
+  }, [dispatch,history,user.user]);
 
 
   return (

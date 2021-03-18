@@ -5,26 +5,29 @@ const { Op } = require("sequelize");
 
 const productController = {
   findAll(req, res, next) {
-    console.log(req.query);
-    if (!Object.keys(req.query).length) {
+    // console.log(req.query);
+    // if (!Object.keys(req.query).length) {
       Product.findAll({ order: [["id", "ASC"]] })
         .then((products) => {
           return res.status(200).json(products);
         })
         .catch((e) => next(e));
-    }
-    else{
-    const { name } = req.query;
+    // }
+    // else{
+    // const { name } = req.query;
 
-    Product.findAll({
-      order: [["id", "ASC"]],
-      where: { name: { [Op.like]: `%${name}%` } },
-    })
-      .then((products) => {
-        res.status(200).json(products);
-      })
-      .catch((e) => next(e));
-  }},
+    // Product.findAll({
+    //   order: [["id", "ASC"]],
+    //   where: { name: { [Op.like]: `%${name}%` } },
+    // }
+    // )
+    //   .then((products) => {
+    //     console.log(products);
+    //     res.status(200).json(products);
+    //   })
+    //   .catch((e) => next(e));
+  // }
+},
 
   findById(req, res, next) {
     const { id } = req.params;

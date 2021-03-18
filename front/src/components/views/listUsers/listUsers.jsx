@@ -24,10 +24,11 @@ export default function Users() {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const user = useSelector((state) => state.user);
 
   React.useEffect(() => {
-    dispatch(fetchUsers())
-  }, [dispatch]);
+    dispatch(fetchUsers()).then(a =>  (!user.user || user.user.access!=="admin" ) &&  history.push("/"))
+  }, [dispatch,history]);
 
   const handleChange = (e) => {
     const id = e.currentTarget.getAttribute("name");
@@ -35,7 +36,6 @@ export default function Users() {
     dispatch(toggleAccess({ id, access }));
   };
 
-  const user = useSelector((state) => state.user);
 
   const refresh = () => {
     history.push("/admin");
@@ -88,7 +88,7 @@ export default function Users() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((users) => (
+              {users[0] && users.map((users) => (
                 <TableRow key={users.id}>
                   {/* <TableCell component="th" scope="row">
                   {users.name}

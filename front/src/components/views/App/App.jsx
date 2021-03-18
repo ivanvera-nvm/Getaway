@@ -45,7 +45,7 @@ export default function App() {
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
     } else {
-      return null;
+      return function(){return null};
     }
   }, [dispatch,total,user]);
 

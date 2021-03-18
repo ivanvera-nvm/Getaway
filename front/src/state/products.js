@@ -1,10 +1,16 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios'
 
-export const setProducts = createAsyncThunk("SET_PRODUCTS", () => {
+export const setProducts = createAsyncThunk("SET_PRODUCTS", (productName) => {
+  // if(!Object.keys(productName).length){
   return axios
     .get("http://localhost:3080/api/products")
     .then((res) => res.data)
+  // }
+  // return axios
+  // .get(`http://localhost:3080/api/products?name=${productName}`)
+  // .then((res) => res.data)
+
 });
 
 export const setProduct = createAsyncThunk("SET_PRODUCT", (id) => {

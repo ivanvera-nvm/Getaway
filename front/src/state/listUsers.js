@@ -2,6 +2,7 @@ import { createAsyncThunk, createReducer } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchUsers = createAsyncThunk('FETCH_USERS', () => {
+    console.log("Entro fetch users");
     const access = JSON.parse(localStorage.getItem('user')).user.access;
     return axios.get(`http://localhost:3080/api/admin/users`,
     {
@@ -16,7 +17,8 @@ export const fetchUsers = createAsyncThunk('FETCH_USERS', () => {
 })
 
 const listUsersReducer = createReducer([], {
-    [fetchUsers.fulfilled]: (state, action) => action.payload
+    [fetchUsers.fulfilled]: (state, action) => action.payload,
+    [fetchUsers.rejected] : (state,action) => action.payload
 })
 
 export default listUsersReducer;

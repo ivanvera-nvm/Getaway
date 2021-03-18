@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import EditIcon from '@material-ui/icons/Edit';
+import {useHistory } from "react-router-dom"
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,15 +43,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Products = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory()
+  const user = useSelector((state) => state.user);
+  const products =  useSelector((state) => state.products);
 
   React.useEffect(() => {
     dispatch(setProducts());
   }, [dispatch]);
-
-  const products = useSelector((state) => state.products);
-  const user = useSelector((state) => state.user);
+  
+  React.useEffect(() => {
+   (!user.user || user.user.access !== "admin") && history.push("/") &&  enqueueSnackbar("Ruta exclusiva para admin", { variant: "error" });
+   
+  }, [dispatch,history, user.access]);
 
   return (
     <>

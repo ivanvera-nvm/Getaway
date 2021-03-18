@@ -7,12 +7,14 @@ import {
   InputBase,
 } from "@material-ui/core";
 
+import { setProducts } from "../../../state/products";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import axios from "axios";
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
+import SearchIcon from "@material-ui/icons/Search";
 
 import Cart from "../cart/Cart";
 
@@ -26,19 +28,6 @@ const Navbar = () => {
   const [input, setInput] = useState("");
 
   const userOrders = useSelector((state) => state.userOrders);
-
-  const handleChange = (e) => {
-    const value = e.target.value;
-    setInput(value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-   if(input) 
-      axios
-        .get(`http://localhost:3080/api/products/?name=${input}`)
-        .then((res) => console.log(res));
-  };
 
   const total = (userOrders) => {
     let totalItems = 0;
@@ -70,36 +59,29 @@ const Navbar = () => {
           />
           GetAway
         </Typography>
-        <form onSubmit={handleSubmit}>
+        <form>
           <InputBase
             placeholder="Search…"
             value={input}
-            onChange={handleChange}
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
             inputProps={{ "aria-label": "search" }}
           />
+          <SearchIcon />
         </form>
+        {(!user.user || user.user.access !== "admin") && (
+          <div className={classes.root}>
+            <div>{total(userOrders)}</div>
+          </div>
+        )}
+
         {!user.user ? (
-          <>
-            <AccountCircle />
-            {user.user && user.user.access !== "admin" && (
-              <div className={classes.root}>
-                <div>{total(userOrders)}</div>
-              </div>
-            )}
-          </>
+          <AccountCircle />
         ) : (
           <>
-            <div className={classes.root}>
-              {!userOrders && user.user.access !== "admin" ? (
-                ""
-              ) : (
-                <div>{total(userOrders)}</div>
-              )}
-            </div>
+            <div className={classes.root}></div>
             <IconButton
               edge="end"
               aria-label="account of current user"
