@@ -25,10 +25,7 @@ const OrderController = {
           .then((userOrders) => res.send(userOrders))
           .catch((err) => console.log(err))
       })
-      /* .then((orders) => {
-console.log(orders)
-orders.map()
-      }) */
+     
       .catch((err) => next(err));
   },
 

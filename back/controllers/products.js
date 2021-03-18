@@ -1,8 +1,9 @@
 const Product = require("../models/Product");
+const Category = require("../models/Category");
 
 const productController = {
   findAll(req, res, next) {
-    Product.findAll()
+    Product.findAll({order: [["id", "ASC"]]})
       .then((products) => res.status(200).json(products))
       .catch((e) => next(e));
   },
@@ -14,15 +15,37 @@ const productController = {
       .catch((e) => next(e));
   },
 
+  findByCategory(req, res, next) {
+    const id = req.params.id;
+    Category.findOne({
+      where: { id },
+      include: [{ model: Product }],
+    })
+
+      .then((category) => {
+        console.log(category)
+        res.send(category);
+      })
+      .catch(next);
+  },
+
   createProduct(req, res, next) {
-    const { body } = req;
-    Product.create(body).then((product) => res.status(201).send(product));
+
+    const { name, price, stock, description, image, expiry, quantity, categories } = req.body
+ 
+    Product.create({name, price, stock, description, image, expiry, quantity}).then((product) => {
+      product.setCategories(categories)
+console.log(Object.keys(product.__proto__))
+      res.status(201).send(product)
+    })
+    
   },
 
   editProduct(req, res, next) {
     const { id } = req.params;
     Product.findOne({ where: { id } }).then((product) => {
-      product.update(req.body).then((product) => res.status(201).send(product));
+      product.update(req.body, { returning: true })
+        .then((product) => res.status(201).send(product[0]));
     });
   },
 

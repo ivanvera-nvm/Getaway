@@ -1,5 +1,7 @@
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
+const OrderModel = require("../models/Order");
+const Auth = require("./Auth");
 
 const CartController = {
   findUserCart(req, res, next) {
@@ -17,6 +19,12 @@ const CartController = {
 
     CartModel.findOne({ where: { userId } }).then((cart) => {
       if (!cart) {
+        CartModel.create({ userId }).then((cart) => {
+          return res.status(200).send(cart);
+        });
+      }
+      if (cart.status === "fulfilled") {
+        console.log(cart.status);
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
@@ -89,7 +97,6 @@ const CartController = {
 
       .catch(next);
   },
- 
   deleteProduct(req, res, next) {
     const productId = req.params.productId;
     const cartId = req.params.cartId;
@@ -124,39 +131,52 @@ const CartController = {
       .catch(next);
   },
 
+  // console.log(cart);
+  //console.log(Object.keys(cart.__proto__))
+
   submitCart(req, res, next) {
+    //traerte todas las ordenes para ese cartId
+    //sumar los subtotales de esas ordenes --> TOTAL --> hacer un map de los subtotales de la orden
 
-    ///Traer todas las ordenes del Carrito
-    ///hacer un total de los precios en las ordenes
-    ///actualizar el estado del carrito (pending ====> fullfiled)
-    ///actualizar el stock del product
+    const { cartId } = req.body;
 
-    //chequea cart por cartId --> encuentra el cart y actualiza el valor del total y el estado del carrito
-    // console.log(cart);
-    //console.log(Object.keys(cart.__proto__))
-    const { cartId, productId, orderId } = req.body;
-    CartModel.findAll({ where: { orderId } }).then((order) => {
-      res.send(order);
-    });
-
-    ProductModel.update(
-      { id: productId },
-      {
-        where: {
-          stock: productId.stock,
-        },
-      }
-    );
-    CartModel.findByPk(cartId)
-      .then((cart) => {
-        cart.update({
-          total: req.body.total,
-          status: "fulfilled",
-        });
-        res.send(cart);
+    OrderModel.sum("subtotal", { where: { cartId } })
+      .then((result) => {
+        CartModel.update({ total: result }, { where: { id: cartId } }).then(
+          (cart) => {
+            res.send(cart).status(200);
+          }
+        );
       })
       .catch(next);
   },
+
+  updateStock(req, res, next) {
+    //actualiza el stock por producto
+    const { productId, productQuantity } = req.body;
+    console.log(req.body);
+    ProductModel.findOne({ where: { id: productId } })
+      .then((product) => {
+        console.log(product);
+        product.update({ stock: product.stock - productQuantity });
+        console.log("PRODUCTO ACTUALIZADO", product);
+        res.send("stock actualizado correctamente");
+      })
+      .catch(next);
+  },
+
+  updateCartStatus(req, res, next) {
+    //ACTUALICE EL ESTADO DE PENDING A FULLFILED
+    const { cartId, email } = req.body;
+    CartModel.findOne({ where: { id: cartId } })
+      .then((cart) => {
+        cart.update({ status: "fulfilled" });
+        res.sendStatus(200);
+      })
+      .then((mailer) => res.send(Auth(email)));
+  },
+  /* 
+  checkout(req, res,next) {} */
 };
 
 module.exports = CartController;

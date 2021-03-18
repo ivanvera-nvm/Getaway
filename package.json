@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "nodemailer": "^6.5.0",
     "react-loader-advanced": "^1.7.1"
   }
 }
