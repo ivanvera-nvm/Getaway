@@ -7,6 +7,7 @@ const Review = require("./Review");
 const Order = require("./Order");
 const Category = require("./Category");
 const Payment = require("./Payment")
+const ProductCategories = require("./ProductCategories")
 
 //RELACIONES
 User.hasMany(Cart); //userId en Cart
@@ -23,7 +24,7 @@ Product.hasMany(Review); //productId en Review
 
 Product.belongsToMany(Review, { through: "product_reviews" });
 
-Category.belongsToMany(Product, { through: "product_categories" });
-//producto tiene orderId y orderItemId --> queremos que en orderItemId este el productId
+Category.belongsToMany(Product, { through: ProductCategories, foreignKey: "product_id" });
+Product.belongsToMany(Category, {through: ProductCategories, foreignKey: "category_id"})
 
-module.exports = { db, User, Cart, Product, Review, Order, Category, Payment };
+module.exports = { db, User, Cart, Product, Review, Order, Category, Payment, ProductCategories };
