@@ -1,13 +1,15 @@
 const nodemailer = require("nodemailer");
+const dotenv = require('dotenv').config({path:'/home/ivan/Documents/plataforma5/Bootcamp/Getaway/back/.env'})
+
 
 
  transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
-  secure: true, // true for 465, false for other ports
+  secure: true,
   auth: {
-    user: "veraivandamian@gmail.com", // generated ethereal user
-    pass: "mkgmxegeavwrvw", // generated ethereal password
+    user: process.env.NODEMAILER_USER,
+    pass: process.env.NODEMAILER_PASS, 
   },
 });
 

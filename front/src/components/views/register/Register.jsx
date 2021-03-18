@@ -12,11 +12,14 @@ import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
 
+import { useSnackbar } from "notistack";
 
 const Register = () => {
   const [input, setInput] = React.useState({});
   const history = useHistory();
+
   ///VALIDACION
+  const { enqueueSnackbar } = useSnackbar();
 
   const classes = useStyles();
 
@@ -38,9 +41,9 @@ const Register = () => {
         email,
         password,
       })
-      .then((res) => alert("user registrado", res))
+      .then((res) => enqueueSnackbar('Registrado exitosamente!', { variant: 'success'}))
       .then((register) => history.push("/login"))
-      .catch((err) => alert("Ingrese un correo de email valido", err));
+      .catch((err) => enqueueSnackbar("Ingrese un correo de email valido", {variant: 'error'}));
   };
 
 
@@ -68,6 +71,7 @@ const Register = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={input.name}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -80,6 +84,7 @@ const Register = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={input.lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,6 +97,7 @@ const Register = () => {
                 label="Address"
                 name="address"
                 autoComplete="address"
+                value={input.adress}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,6 +110,7 @@ const Register = () => {
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
+                value={input.phone}
               />
             </Grid>
             <Grid item xs={12}>
@@ -117,6 +124,7 @@ const Register = () => {
                 name="email"
                 autoComplete="email"
                 type="email"
+                value={input.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -130,6 +138,7 @@ const Register = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={input.password}
               />
             </Grid>
             <Grid item xs={12}></Grid>

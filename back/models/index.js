@@ -21,15 +21,19 @@ Cart.hasMany(Order); // cartId en Order
 Product.hasMany(Order); // productId en Order
 Product.hasMany(Review); //productId en Review
 
-Product.belongsToMany(Review, { through: "product_reviews" });
 
 
+//RELACIONES CATEGORÍAS --> 
 Category.belongsToMany(Product, { through: Product_Category });
 Product.belongsToMany(Category, { through: Product_Category });
 Category.hasMany(Product_Category)
 Product_Category.belongsTo(Category)
 Product.hasMany(Product_Category)
 Product_Category.belongsTo(Product)
+
+//RELACIONES REVIEWS
+Product.belongsToMany(Review, { through: "product_reviews" })
+
 
 module.exports = {
   db,
