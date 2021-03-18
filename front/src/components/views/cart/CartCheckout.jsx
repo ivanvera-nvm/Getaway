@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import {useSelector, useDispatch} from 'react-redux'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,32 +69,34 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CartCheckout({ product }) {
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const classes = useStyles();
+  const checkout = useSelector(state => state.userCart)
+
+  console.log('CHECKOUT ====>', checkout)
 
   return (
     <Card className={classes.root}>
       <Box className={classes.container}>
         <Box className={classes.blockLeft}></Box>
         <Box className={classes.blockRight}>
-          <Box className={classes.totals}> Total $25.000,00</Box>
+          <Box className={classes.totals}> ${checkout.total}</Box>
           <Box className={classes.creditCards}>
-            <Box> Medios de pago</Box>{" "}
+            <Box> Medios de pago</Box>
             <Box> ¡Cuotas sin interés con bancos seleccionados!</Box>
             <img
               src="https://cdn.iconscout.com/icon/premium/png-128-thumb/visa-27-565046.png"
+              alt=''
               className={classes.image}
             />
             <img
               src="https://image.flaticon.com/icons/png/128/196/196561.png"
+              alt=''
               className={classes.image}
             />
             <img
               src="https://cdn0.iconfinder.com/data/icons/IS_credit-cards-full_final/512/american_express.png"
+              alt=''
               className={classes.image}
             />
           </Box>
