@@ -38,8 +38,7 @@ export default function App() {
   };
   const user = getUser();
 
-
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {
       dispatch(setUserCart(user.user.id));

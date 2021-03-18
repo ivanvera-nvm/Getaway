@@ -34,7 +34,6 @@ const Cart = () => {
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
-      
   }, [userId, dispatch]);
 
   const [state, setState] = useState({

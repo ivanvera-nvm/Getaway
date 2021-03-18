@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 
 import { setProduct } from "../../../state/products";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,42 +32,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const EditProduct = ({ id }) => {
-  
-  
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    
-    React.useEffect(() => {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  React.useLayoutEffect(() => {
     dispatch(setProduct(id));
   }, [dispatch]);
-  
+
   const product = useSelector((state) => state.product);
 
   const [input, setInput] = React.useState({});
-  
-  
+
   const handleChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
     setInput({ ...input, [key]: value });
   };
-  
-  console.log(input)
+
+  console.log(input);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {name, description, image, price, stock } = input
+    const { name, description, image, price, stock } = input;
     axios
-    .put(`http://localhost:3080/api/products/${id}`, {
+      .put(`http://localhost:3080/api/products/${id}`, {
         name,
         description,
         image,
         price,
-        stock
-    })
-    .then((res) => console.log(res))
+        stock,
+      })
+      .then((res) => console.log(res));
   };
-
 
   return (
     <>
@@ -89,13 +85,11 @@ const EditProduct = ({ id }) => {
               onChange={handleChange}
               defaultValue={product.name}
               value={input.name}
-              
-          
             />
             <TextField
               id="outlined-full-width"
               label="Descripción"
-              name= "description"
+              name="description"
               style={{ margin: 8 }}
               multiline
               rows={4}
@@ -106,7 +100,9 @@ const EditProduct = ({ id }) => {
               defaultValue={product.description}
               value={input.description}
             />
-            <Image src={product.image} />
+            <Image 
+            id="outlined-full-width"
+            src={product.image} />
 
             <TextField
               id="outlined-full-width"

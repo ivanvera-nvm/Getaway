@@ -56,7 +56,7 @@ export default function ProductCard({ product }) {
         <CardMedia
           className={classes.media}
           image={product.image}
-          title="Paella dish"
+          title={product.name}
         />
       <Link to={`/products/${product.id}`}>
         <Box className={classes.title}>{product.name}</Box>

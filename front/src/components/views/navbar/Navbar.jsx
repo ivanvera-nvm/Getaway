@@ -8,7 +8,8 @@ import {
 } from "@material-ui/core";
 
 import AccountCircle from "@material-ui/icons/AccountCircle";
-
+import axios from "axios";
+import React, { useState } from 'react';
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
@@ -22,8 +23,22 @@ const Navbar = () => {
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [input, setInput] = useState("");
 
   const userOrders = useSelector((state) => state.userOrders);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInput(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+   if(input) 
+      axios
+        .get(`http://localhost:3080/api/products/?name=${input}`)
+        .then((res) => console.log(res));
+  };
 
   const total = (userOrders) => {
     let totalItems = 0;
@@ -55,16 +70,18 @@ const Navbar = () => {
           />
           GetAway
         </Typography>
-
-        <InputBase
-          placeholder="Search…"
-          classes={{
-            root: classes.inputRoot,
-            input: classes.inputInput,
-          }}
-          inputProps={{ "aria-label": "search" }}
-        />
-       
+        <form onSubmit={handleSubmit}>
+          <InputBase
+            placeholder="Search…"
+            value={input}
+            onChange={handleChange}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ "aria-label": "search" }}
+          />
+        </form>
         {!user.user ? (
           <>
             <AccountCircle />

@@ -49,59 +49,70 @@ const Products = () => {
   }, [dispatch]);
 
   const products = useSelector((state) => state.products);
+  const user = useSelector((state) => state.user);
 
   return (
     <>
-      <Fab  color="primary" aria-label="add">
-        <Link to="/admin/addProduct"><AddIcon /></Link>
-      </Fab>
-      <h1 align="center">Gestión de productos</h1>
-      {products.map((product) => (
-        <div className={classes.root}>
-          <Paper className={classes.paper}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <ButtonBase className={classes.image}>
-                  <img
-                    className={classes.img}
-                    alt="complex"
-                    src={product.image}
-                  />
-                </ButtonBase>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography gutterBottom variant="subtitle1">
-                      {product.name}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Id: {product.id}
-                    </Typography>
-                  </Grid>
+      {user.user && user.user.access === "admin" ? (
+        <div>
+          <h1 align="center">Gestión de productos</h1>
+          <Fab color="primary" aria-label="add">
+            <Link to="/admin/addProduct">
+              <AddIcon />
+            </Link>
+          </Fab>
+          {products.map((product) => (
+            <div className={classes.root}>
+              <Paper className={classes.paper}>
+                <Grid container spacing={2}>
                   <Grid item>
-                    <DeleteIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        console.log("CLICKK");
-                        dispatch(deleteProduct(product.id));
-                      }}
-                    />
-                    <Link to={`/admin/editProduct/${product.id}`}>
-                      <EditOutlinedIcon style={{ cursor: "pointer" }} />
-                    </Link>
+                    <ButtonBase className={classes.image}>
+                      <img
+                        className={classes.img}
+                        alt="complex"
+                        src={product.image}
+                      />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography gutterBottom variant="subtitle1">
+                          {product.name}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Id: {product.id}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <DeleteIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            console.log("CLICKK");
+                            dispatch(deleteProduct(product.id));
+                          }}
+                        />
+                        <Link to={`/admin/editProduct/${product.id}`}>
+                          <EditOutlinedIcon style={{ cursor: "pointer" }} />
+                        </Link>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="subtitle1">
+                        ${product.price},00
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant="subtitle1">
-                    ${product.price},00
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
+              </Paper>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div>
+          <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
+        </div>
+      )}
     </>
   );
 };
