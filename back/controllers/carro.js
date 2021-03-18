@@ -177,7 +177,27 @@ const CartController = {
       })
       .then((mailer) => res.send(Auth(email)));
   },
-  /* 
+
+  findFulfilledOrders(req, res, next) {
+    const userId = req.params.userId;
+
+    CartModel.findOne({ where: { userId } })
+      .then((userCart) => {
+        if (userCart.status === "fulfilled") {
+          const { id } = userCart;
+          OrderModel.findAll({ where: { cartId: id } })
+            .then((userOrders) => res.send(userOrders))
+            .catch((err) => console.log(err));
+        } else {
+          res.send("Compra no finalizada");
+        }
+      })
+      .catch((err) => next(err));
+  },
+
+  /*
+  
+  
   checkout(req, res,next) {} */
 };
 

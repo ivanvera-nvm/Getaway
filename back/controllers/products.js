@@ -1,5 +1,6 @@
 const Product = require("../models/Product");
 const Category = require("../models/Category");
+const ProductCategories = require("../models/ProductCategories");
 
 const productController = {
   findAll(req, res, next) {
