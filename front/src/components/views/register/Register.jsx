@@ -12,11 +12,14 @@ import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import useStyles from "./styles";
 
+import { useSnackbar } from "notistack";
 
 const Register = () => {
   const [input, setInput] = React.useState({});
   const history = useHistory();
+
   ///VALIDACION
+  const { enqueueSnackbar } = useSnackbar();
 
   const classes = useStyles();
 
@@ -38,9 +41,9 @@ const Register = () => {
         email,
         password,
       })
-      .then((res) => alert("Usuario registrado con éxito", res))
-      .then(() => history.push("/login"))
-      .catch((err) => alert("El correo ingresado ya se encuentra registrado", err));
+      .then((res) => enqueueSnackbar('Registrado exitosamente!', { variant: 'success'}))
+      .then((register) => history.push("/login"))
+      .catch((err) => enqueueSnackbar("Ingrese un correo de email valido", {variant: 'error'}));
   };
 
 

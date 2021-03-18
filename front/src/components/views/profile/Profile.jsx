@@ -16,11 +16,6 @@ const Profile = () => {
   const user = useSelector((state) => state.user).user;
   const userOrders = useSelector((state) => state.userOrders);
 
-  console.log("=======> ", userOrders);
-
-  ///Si van a hacer una lista, es mejor usar `map` , pero depende de como quieran mover la informacion del usuario C:
-  ///La idea es que la foto y/o avatar quede a la izq y info a la derecha. Pero eso es a gusto de quien tenga esta tarea.
-
   return (
     <>
       <CssBaseline />

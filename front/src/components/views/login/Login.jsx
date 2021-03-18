@@ -21,6 +21,8 @@ import { useInput } from "../../../hooks/useInput";
 import { useDispatch } from "react-redux";
 import { loginRequest } from "../../../state/user";
 
+import { useSnackbar } from "notistack";
+
 import useStyles from "./style";
 
 const Login = () => {
@@ -30,22 +32,33 @@ const Login = () => {
   const password = useInput("password");
   const history = useHistory();
 
+  const { enqueueSnackbar } = useSnackbar();
+
   const sendLoginRequest = (e) => {
     e.preventDefault();
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
-        !data.error ? history.push("/") : alert("Error al logear");
+        !data.error
+          ? history.push("/")
+          : enqueueSnackbar("Error al logear", { variant: "error" });
       })
+      .then((response) =>
+        enqueueSnackbar("Logueado exitosamente", { variant: "success" })
+      )
       .catch((err) => alert("ESTE ES EL ERROR", err));
   };
 
   const adminLogin = () => {
-    dispatch(
-      loginRequest({ email: "admin@gmail.com", password: "admin" }))
-        .then((data) => {
-          !data.error ? history.push("/") : alert("Error al logear");
-        })
-        .catch((err) => alert("ESTE ES EL ERROR", err)) 
+    dispatch(loginRequest({ email: "admin@gmail.com", password: "admin" }))
+      .then((data) => {
+        !data.error
+          ? history.push("/")
+          : enqueueSnackbar("Error al logear", { variant: "error" });
+      })
+      .then((response) =>
+        enqueueSnackbar("Logueado exitosamente", { variant: "success" })
+      )
+      .catch((err) => alert("Error de logeo", err));
   };
 
   return (
