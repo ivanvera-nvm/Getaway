@@ -1,11 +1,11 @@
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
 const OrderModel = require("../models/Order");
+const Auth = require("./Auth");
 
 const CartController = {
   findUserCart(req, res, next) {
     const userId = req.params.userId;
-    console.log(userId);
 
     CartModel.findOne({ where: { userId } })
       .then((userCart) => {
@@ -24,7 +24,7 @@ const CartController = {
         });
       }
       if (cart.status === "fulfilled") {
-        console.log(cart.status)
+        console.log(cart.status);
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
@@ -97,7 +97,6 @@ const CartController = {
 
       .catch(next);
   },
-
   deleteProduct(req, res, next) {
     const productId = req.params.productId;
     const cartId = req.params.cartId;
@@ -138,9 +137,7 @@ const CartController = {
   submitCart(req, res, next) {
     //traerte todas las ordenes para ese cartId
     //sumar los subtotales de esas ordenes --> TOTAL --> hacer un map de los subtotales de la orden
-
     const { cartId } = req.body;
-
     OrderModel.sum("subtotal", { where: { cartId } })
       .then((result) => {
         CartModel.update({ total: result }, { where: { id: cartId } }).then(
@@ -168,14 +165,36 @@ const CartController = {
 
   updateCartStatus(req, res, next) {
     //ACTUALICE EL ESTADO DE PENDING A FULLFILED
-    const { cartId } = req.body;
-    CartModel.findOne({ where: { id: cartId } }).then((cart) => {
-      cart.update({ status: "fulfilled" });
-      res.sendStatus(200);
-    });
+    const { cartId, email } = req.body;
+    CartModel.findOne({ where: { id: cartId } })
+      .then((cart) => {
+        cart.update({ status: "fulfilled" });
+        res.sendStatus(200);
+      })
+      .then((mailer) => res.send(Auth(email)));
   },
 
+  findFulfilledOrders(req, res, next) {
+    const userId = req.params.userId;
+
+    CartModel.findOne({ where: { userId } })
+      .then((userCart) => {
+        if (userCart.status === "fulfilled") {
+          const { id } = userCart;
+          OrderModel.findAll({ where: { cartId: id } })
+            .then((userOrders) => res.send(userOrders))
+            .catch((err) => console.log(err));
+        } else {
+          res.send("Compra no finalizada");
+        }
+      })
+      .catch((err) => next(err));
+  },
+
+  /*
   
+  
+  checkout(req, res,next) {} */
 };
 
 module.exports = CartController;

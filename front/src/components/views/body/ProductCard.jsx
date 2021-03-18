@@ -29,6 +29,7 @@ export default function ProductCard({ product }) {
           productId,
           cartId,
         });
+        await axios.post(`http://localhost:3080/api/cart/submit`, { cartId });
         alert("Added to cart!");
       } catch (err) {
         console.log(err);
