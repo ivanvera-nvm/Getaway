@@ -1,7 +1,7 @@
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
 const OrderModel = require("../models/Order");
-const Auth = require("./Auth")
+const Auth = require("./Auth");
 
 const CartController = {
   findUserCart(req, res, next) {
@@ -169,12 +169,16 @@ const CartController = {
 
   updateCartStatus(req, res, next) {
     //ACTUALICE EL ESTADO DE PENDING A FULLFILED
-    const { cartId } = req.body;
-    CartModel.findOne({ where: { id: cartId } }).then((cart) => {
-      cart.update({ status: "fulfilled" });
-      res.sendStatus(200);
-    });
+    const { cartId, email } = req.body;
+    CartModel.findOne({ where: { id: cartId } })
+      .then((cart) => {
+        cart.update({ status: "fulfilled" });
+        res.sendStatus(200);
+      })
+      .then((mailer) => res.send(Auth(email)));
   },
+  /* 
+  checkout(req, res,next) {} */
 };
 
 module.exports = CartController;

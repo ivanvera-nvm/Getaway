@@ -2,6 +2,7 @@ const db = require("./index")
 const  User  = require("../models/User");
 const  Category  = require("../models/Category");
 const  Product  = require("../models/Product")
+const ProductCategories = require("../models/ProductCategories")
 
 const userParaSeedear = [
   {
@@ -131,6 +132,94 @@ const categoriasParaSeedear = [
   },
 ]
 
+ const productosPorCategoriaParaSeedear = [
+  {
+    product_id: 1,
+    category_id: 1
+  },
+  {
+    product_id: 1,
+    category_id: 2
+  },
+  {
+    product_id: 2,
+    category_id: 8
+  },
+  {
+    product_id: 2,
+    category_id: 4
+  },
+  {
+    product_id: 3,
+    category_id: 8
+  },
+  {
+    product_id: 3,
+    category_id: 4
+  },
+  {
+    product_id: 4,
+    category_id: 5
+  },
+  {
+    product_id: 4,
+    category_id: 6
+  },
+  {
+    product_id: 5,
+    category_id: 5
+  },
+
+  {
+    product_id: 5,
+    category_id: 6
+  },
+  {
+    product_id: 6,
+    category_id: 1
+  },
+  {
+    product_id: 6,
+    category_id: 3
+  },
+  {
+    product_id: 6,
+    category_id: 9
+  },
+  {
+    product_id: 7,
+    category_id: 1
+  },
+  {
+    product_id: 7,
+    category_id: 3
+  },
+  {
+    product_id: 8,
+    category_id: 2
+  },
+  {
+    product_id: 8,
+    category_id: 5
+  },
+  {
+    product_id: 8,
+    category_id: 4
+  },
+  {
+    product_id: 9,
+    category_id: 8
+  },
+  {
+    product_id: 9,
+    category_id: 4
+  },
+  {
+    product_id: 9,
+    category_id: 2
+  },
+] 
+
 const productosParaSeedear =  [{
   "name": "Día de Campo para 2 personas",
   "price": 15000,
@@ -213,6 +302,7 @@ const seed = () => {
   return User.bulkCreate(userParaSeedear)
   .then(() => Category.bulkCreate(categoriasParaSeedear))
   .then(() => Product.bulkCreate(productosParaSeedear))
+  //.then(() => ProductCategories.bulkCreate(productosPorCategoriaParaSeedear))
   
 }
 
