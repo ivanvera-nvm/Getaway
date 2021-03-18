@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 
 import { setProduct } from "../../../state/products";
 import { useDispatch, useSelector } from "react-redux";
-import axios from 'axios';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,36 +32,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AddProduct = () => {
-  
-  
-    const classes = useStyles();
-
+  const classes = useStyles();
 
   const [input, setInput] = React.useState({});
-  
-  
+
   const handleChange = (e) => {
     const key = e.target.name;
     const value = e.target.value;
     setInput({ ...input, [key]: value });
   };
-  
-  console.log(input)
+
+  console.log(input);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const {name, description, image, price, stock } = input
+    const { name, description, image, price, stock, category } = input;
     axios
-    .post(`http://localhost:3080/api/products/`, {
+      .post(`http://localhost:3080/api/products/`, {
         name,
         description,
         image,
         price,
-        stock
-    })
-    .then((res) => console.log(res))
+        stock,
+      })
+      .then((res) => console.log(res));
   };
-
 
   return (
     <>
@@ -82,16 +77,17 @@ const AddProduct = () => {
               variant="outlined"
               onChange={handleChange}
               value={input.name}
-              
-          
             />
             <TextField
               id="outlined-full-width"
               label="Descripción"
-              name= "description"
+              name="description"
               style={{ margin: 8 }}
               multiline
               rows={4}
+              InputLabelProps={{
+                shrink: true,
+              }}
               fullWidth
               margin="normal"
               variant="outlined"
@@ -117,8 +113,10 @@ const AddProduct = () => {
               name="price"
               type="number"
               id="outlined-margin-none"
-              defaultValue="Default Value"
               className={classes.textField}
+              InputLabelProps={{
+                shrink: true,
+              }}
               variant="outlined"
               onChange={handleChange}
               value={input.price}
@@ -136,6 +134,19 @@ const AddProduct = () => {
               onChange={handleChange}
               value={input.stock}
             />
+            <TextField
+              label="Categoría"
+              name="category"
+              id="outlined-margin-none"
+              InputLabelProps={{
+                shrink: true,
+              }}
+              className={classes.textField}
+              variant="outlined"
+              onChange={handleChange}
+              value={input.category}
+            />
+
             {/* <TextField
               label="Expira"
               name="expiry"
