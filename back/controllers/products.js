@@ -29,6 +29,79 @@ const productController = {
       .catch(next);
   },
 
+  findByCategory(req, res, next) {
+    const id = req.params.id;
+    Product.findOne({
+      where: { id },
+      include: [{ model: Category }],
+    })
+
+      .then((product) => {
+        console.log(product)
+        res.send(product);
+      })
+      .catch(next);
+  },
+
+  //  en M:N se puede hacer esto : Category.findAll({include: Product})
+  findByAllCategories(req,res, next) {
+    Product.findAll({include: Category})
+   .then((products) => {
+     console.log(products)
+     res.send("productos por categoría")
+   })
+  },
+
+  //NO SE PUEDE ESTO --> no puede apuntar el include a la tabla intermedia
+/*   findByAllCategories(req,res, next) {
+    Product.findAll({include: Product_Category})
+    Category.findAll({include: Product_Category})
+  }, */
+
+
+  /* You can create all relationship in single create call too.
+
+Example:
+
+const amidala = await User.create({
+  username: 'p4dm3',
+  points: 1000,
+  profiles: [{
+    name: 'Queen',
+    User_Profile: {
+      selfGranted: true
+    }
+  }]
+}, {
+  include: Profile
+});
+
+const result = await User.findOne({
+  where: { username: 'p4dm3' },
+  include: Profile
+});
+
+console.log(result);
+Output:
+
+{
+  "id": 1,
+  "username": "p4dm3",
+  "points": 1000,
+  "profiles": [
+    {
+      "id": 1,
+      "name": "Queen",
+      "User_Profile": {
+        "selfGranted": true,
+        "userId": 1,
+        "profileId": 1
+      }
+    }
+  ]
+}
+   */
+
   createProduct(req, res, next) {
 
     const { name, price, stock, description, image, expiry, quantity, categories } = req.body
