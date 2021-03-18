@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -43,9 +43,9 @@ const Products = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    dispatch(setProducts());
-  }, [dispatch]);
+
+  dispatch(setProducts());
+
 
   const products = useSelector((state) => state.products);
 

@@ -33,7 +33,8 @@ const Cart = () => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => console.log("carro creado"));
-  }, [userId, dispatch]);
+  }, []);
+  
 
   const [state, setState] = useState({
     right: false,

@@ -33,13 +33,19 @@ const productController = {
 
   findByKeyword(req, res, next) {
     const queryFilter = req.query.name;
-    Product.findAll({
-      where: {
-        [Op.like]: `%${queryFilter}%`,
-      },
-    })
-      .then((productByKeyword) => res.send(productByKeyword))
-      .catch(next);
+    const splited = queryFilter.split("%").join(' ');
+    console.log(splited);
+    
+      Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${splited}%`,
+          },
+        },
+      })
+        .then((productByKeyword) => res.send(productByKeyword))
+        .catch(next);
+   
   },
 
   findProductReviews(req, res, next) {
@@ -67,21 +73,14 @@ const productController = {
     const productId = req.params.id;
     console.log(productId);
 
-
-    Review.sum('rating', { where: { productId } })
-    .then(result => {
-      Review.findAndCountAll({where: {productId}})
-      .then((count) => {
-        console.log("sum de ratings", result, count.count)
-        let average = (result/ count.count)
-        console.log(average)
-        res.status(200).json({avg: average})
-      })
-   
-     
-    }) 
-    
-    
+    Review.sum("rating", { where: { productId } }).then((result) => {
+      Review.findAndCountAll({ where: { productId } }).then((count) => {
+        console.log("sum de ratings", result, count.count);
+        let average = result / count.count;
+        console.log(average);
+        res.status(200).json({ avg: average });
+      });
+    });
   },
 
   createProduct(req, res, next) {

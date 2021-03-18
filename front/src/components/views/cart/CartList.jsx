@@ -47,11 +47,11 @@ const List = (props) => {
       <CssBaseline />
       <Container
         fixed
-        alignItems="stretch"
-        backgroundColor="white"
+        alignitems="stretch"
+        backgroundcolor="white"
         className={classes.root}
       >
-        <Box className={classes.cartTitle}>Your Cart</Box>
+        <Box className={classes.cartTitle} key={3}>Your Cart</Box>
         <Grid container spacing={2} className={classes.grid}>
           {user.user &&
             user.user.id &&

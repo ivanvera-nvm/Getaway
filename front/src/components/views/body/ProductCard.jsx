@@ -24,12 +24,9 @@ export default function ProductCard({ product }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const user = useSelector((state) => state.user);
-
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
-
-
 
   const addItem = async () => {
     if (user.token) {
@@ -55,9 +52,6 @@ export default function ProductCard({ product }) {
       <Box display="flex" className={classes.header}>
         <Box className={classes.title}>{product.name}</Box>
         <Box>
-          {/* <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton> */}
         </Box>
       </Box>
       <Link to={`/products/${product.id}`}>
