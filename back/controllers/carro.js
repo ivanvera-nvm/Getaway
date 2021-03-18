@@ -6,7 +6,6 @@ const Auth = require("./Auth");
 const CartController = {
   findUserCart(req, res, next) {
     const userId = req.params.userId;
-    console.log(userId);
 
     CartModel.findOne({ where: { userId } })
       .then((userCart) => {
@@ -98,7 +97,6 @@ const CartController = {
 
       .catch(next);
   },
-
   deleteProduct(req, res, next) {
     const productId = req.params.productId;
     const cartId = req.params.cartId;
