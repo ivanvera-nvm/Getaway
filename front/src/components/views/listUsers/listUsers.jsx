@@ -26,7 +26,7 @@ export default function Users() {
   const history = useHistory();
 
   React.useEffect(() => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers())
   }, [dispatch]);
 
   const handleChange = (e) => {
@@ -62,7 +62,7 @@ export default function Users() {
 
   return (
     <>
-      {user.user && user.user.access === "admin" ? (
+      {/* {user.user && user.user.access === "admin" ? ( */}
       <div>
         <h1 align="center">Gestion de Usuarios</h1>
         <Button
@@ -135,11 +135,11 @@ export default function Users() {
           </Table>
         </TableContainer>
       </div>
-      ) : (
-        <div>
+      {/* ) : ( */}
+        {/* <div>
         <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
-      </div>
-      )}
+      </div> */}
+      {/* )} */}
     </>
   );
 }

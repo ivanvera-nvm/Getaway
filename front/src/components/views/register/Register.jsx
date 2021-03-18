@@ -43,7 +43,7 @@ const Register = () => {
       })
       .then((res) => enqueueSnackbar('Registrado exitosamente!', { variant: 'success'}))
       .then((register) => history.push("/login"))
-      .catch((err) => enqueueSnackbar("Ingrese un correo de email valido", {variant: 'error'}));
+      .catch((err) => enqueueSnackbar("Este correo ya se encuentra registrado", {variant: 'error'}));
   };
 
 
