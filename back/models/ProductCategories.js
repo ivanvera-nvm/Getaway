@@ -12,7 +12,7 @@ ProductCategories.init(
       type: DataTypes.INTEGER,
     },
   },
-  { sequelize: db, modelName: "productCategories" }
+  { sequelize: db, modelName: "products_category" }
 );
 
 module.exports = ProductCategories;
