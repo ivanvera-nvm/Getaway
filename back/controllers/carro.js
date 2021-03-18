@@ -1,7 +1,7 @@
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
 const OrderModel = require("../models/Order");
-const nodemailer = require("nodemailer")
+
 
 const CartController = {
   findUserCart(req, res, next) {
