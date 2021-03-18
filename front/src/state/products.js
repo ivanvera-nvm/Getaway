@@ -13,13 +13,21 @@ export const setProduct = createAsyncThunk("SET_PRODUCT", (id) => {
     .then((res) => res.data)
 });
 
+export const deleteProduct = createAsyncThunk("DELETE_PRODUCT", (id) => {
+  console.log('LLEGANDO');
+  return axios
+    .delete(`http://localhost:3080/api/products/${id}`)
+    .then(() => alert(`Se elimino el producto ${id}`));
+});
+
 const productsReducer = createReducer([], {
   [setProducts.fulfilled]: (state, action) => action.payload
 
 });
 
 export const productReducer = createReducer([], {
-  [setProduct.fulfilled]: (state, action) => action.payload
+  [setProduct.fulfilled]: (state, action) => action.payload,
+  [deleteProduct.fulfilled]: (state, action) => action.payload
 })
 
 export default productsReducer;

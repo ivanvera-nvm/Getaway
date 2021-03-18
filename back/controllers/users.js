@@ -68,6 +68,9 @@ const UserController = {
       .catch((e) => res.status(401).send("Error en autenticación"));
   },
 
+  logoutUser(req, res, next) {
+    res.status(200).send('Usuario deslogeado con éxito')
+  },
   //editar otros usuarios para promoverlos a administradores
   //si busco por pk updeteo de a uno, si busco por findAll la variable id pasa a ser ids y me retorna un arreglo de ids
 

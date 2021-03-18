@@ -3,7 +3,7 @@ const Category = require("../models/Category");
 
 const productController = {
   findAll(req, res, next) {
-    Product.findAll()
+    Product.findAll({order: [["id", "ASC"]]})
       .then((products) => res.status(200).json(products))
       .catch((e) => next(e));
   },
@@ -44,7 +44,8 @@ console.log(Object.keys(product.__proto__))
   editProduct(req, res, next) {
     const { id } = req.params;
     Product.findOne({ where: { id } }).then((product) => {
-      product.update(req.body).then((product) => res.status(201).send(product));
+      product.update(req.body, { returning: true })
+        .then((product) => res.status(201).send(product[0]));
     });
   },
 

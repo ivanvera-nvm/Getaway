@@ -15,7 +15,7 @@ export const toggleAccess = createAsyncThunk(
   }
 );
 
-export const deleteUser = createAsyncThunk("DELETE_USER", ( id) => {
+export const deleteUser = createAsyncThunk("DELETE_USER", (id) => {
   return axios
     .delete(`http://localhost:3080/api/admin/${id}`)
     .then(() => alert(`Se elimino el user ${id}`));
@@ -24,7 +24,7 @@ export const deleteUser = createAsyncThunk("DELETE_USER", ( id) => {
 const adminReducer = createReducer([], {
   [setAdmin]: (state, action) => action.payload,
   [toggleAccess.fulfilled]: (state, action) => action.payload,
-  [deleteUser.fulfilled] : (state,action) => action.payload
+  [deleteUser.fulfilled]: (state, action) => action.payload
 });
 
 export default adminReducer;
