@@ -8,7 +8,7 @@ const OrderController = {
       .then((orders) => {
         console.log(orders);
         res.send(orders);
-        console.log(Object.keys(orders.__proto__));
+      /*   console.log(Object.keys(orders.__proto__)); */
       })
       .then((orders) => res.status(200).json(orders))
       .catch((e) => next(e));
