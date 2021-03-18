@@ -9,5 +9,8 @@ router.put("/:id", ProductController.editProduct);
 router.delete("/:id", ProductController.deleteProduct);
 router.get("/category/:id", ProductController.findByCategory);
 router.get("/search", ProductController.findByKeyword)
+router.get("/:id/review", ProductController.findProductReviews)
+router.post("/review", ProductController.addProductReview)
+router.get("/:id/average", ProductController.getProductRating)
 
 module.exports = router;
