@@ -1,6 +1,7 @@
 const CartModel = require("../models/Cart");
 const ProductModel = require("../models/Product");
 const OrderModel = require("../models/Order");
+const Auth = require("./Auth")
 
 const CartController = {
   findUserCart(req, res, next) {
@@ -24,7 +25,7 @@ const CartController = {
         });
       }
       if (cart.status === "fulfilled") {
-        console.log(cart.status)
+        console.log(cart.status);
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
@@ -174,8 +175,6 @@ const CartController = {
       res.sendStatus(200);
     });
   },
-
-  
 };
 
 module.exports = CartController;
