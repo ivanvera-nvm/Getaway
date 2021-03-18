@@ -1,13 +1,12 @@
-import {
-  IconButton,
-  Typography,
-  Avatar,
-  Badge,
-  Box,
-  InputBase,
-} from "@material-ui/core";
-
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Box from "@material-ui/core/Box";
+import InputBase from "@material-ui/core/InputBase";
+import axios from 'axios'
+
+import Avatar from "@material-ui/core/Avatar";
 
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -39,8 +38,8 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    dispatch(clearUser());
-    history.push("/"); // Redireccionar a un componente de muchas gracias, vuelva pronto.
+    dispatch(clearUser())
+    history.push("/") // Redireccionar a un componente de muchas gracias, vuelva prontos.
     return localStorage.clear();
   };
 
@@ -77,7 +76,7 @@ const Navbar = () => {
                 <div>{total(userOrders)}</div>
               )}
             </div>
-            <IconButton
+            <Box className={classes.userContainer}
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
@@ -86,14 +85,14 @@ const Navbar = () => {
               }}
               color="inherit"
             >
-              <div className={classes.root}>
-                <Avatar
-                  alt={`${user.user.name}`}
-                  src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
-                />
-                <span>{`${user.user.name}`}</span>
-              </div>
-            </IconButton>
+             
+              <Avatar aria-label="recipe" className={classes.orange}>
+              {user.user.name[0]}
+                </Avatar>
+            
+              <Box >{`${user.user.name} ${user.user.lastName}`}</Box>
+                
+            </Box>
           </>
         )}
       </Box>

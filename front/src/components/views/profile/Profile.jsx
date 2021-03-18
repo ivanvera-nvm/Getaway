@@ -8,8 +8,9 @@ import {
 } from "@material-ui/core";
 
 import { useSelector } from "react-redux";
-
 import useStyles from "./styles";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 
 const Profile = () => {
   const classes = useStyles();
@@ -19,7 +20,61 @@ const Profile = () => {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="sm" className={classes.container}>
+      <Container fixed className={classes.contenedor}>
+          {user ? (
+          <>
+        <Box className={classes.avatar}>
+          <Avatar className={classes.orange}>{user.name[0]}</Avatar>
+        </Box>
+
+        <Box className={classes.details}>
+          <Typography variant="overline">
+          <ul>
+                    <li>{`Name: ${user.name}`}</li>
+                    <li>{`Last Name: ${user.lastName}`}</li>
+                    <li>{`Phone: ${user.phone}`}</li>
+                    <li>{`Address: ${user.address}`}</li>
+                    <li>{`Access type: ${user.access}`}</li>
+                  </ul>
+          </Typography>
+        </Box>
+        </>
+        ) : (
+          <></>
+        )}
+        {userOrders[0] ? (
+          <>
+            <Box>
+              <Paper>
+                <h3>Order History</h3>
+                <ul>
+                  {userOrders.map((order, i) => (
+                    <li
+                      key={i}
+                    >{`Order ID: ${order.id} =========> ${order.nameProduct[0]}`}</li>
+                  ))}
+                </ul>
+              </Paper>
+            </Box>
+          </>
+        ) : (
+          <></>
+        )}
+
+<Box className={classes.edit}>
+          <Button variant="contained" className={classes.buttonColor}>
+            Edit
+          </Button>
+        </Box>
+      </Container>
+    </>
+  );
+};
+export default Profile;
+
+
+
+ /*      <Container maxWidth="sm" className={classes.container}>
         <Typography component="div" />
 
         {user ? (
@@ -69,3 +124,5 @@ const Profile = () => {
 };
 
 export default Profile;
+
+ */

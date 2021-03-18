@@ -38,9 +38,8 @@ const useStyles = makeStyles({
 });
 
 const List = (props) => {
-
-  const orders = useSelector(state => state.userOrders)
-  const user = useSelector(state => state.user)
+  const orders = useSelector((state) => state.userOrders);
+  const user = useSelector((state) => state.user);
   const classes = useStyles();
 
   return (
@@ -54,13 +53,16 @@ const List = (props) => {
       >
         <Box className={classes.cartTitle}>Your Cart</Box>
         <Grid container spacing={2} className={classes.grid}>
-          { user.user && user.user.id && orders[0] && orders.map((order, i) => {
-            return (
-              <Grid>
-                <CartItem order={order} key={i} />
-              </Grid>
-            );
-          })}
+          {user.user &&
+            user.user.id &&
+            orders[0] &&
+            orders.map((order, i) => {
+              return (
+                <Grid>
+                  <CartItem order={order} key={i} />
+                </Grid>
+              );
+            })}
           <CartCheckout />
         </Grid>
       </Container>
