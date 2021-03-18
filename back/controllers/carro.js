@@ -4,7 +4,6 @@ const ProductModel = require("../models/Product");
 const CartController = {
   findUserCart(req, res, next) {
     const userId = req.params.userId;
-    console.log(userId);
 
     CartModel.findOne({ where: { userId } })
       .then((userCart) => {
@@ -76,7 +75,6 @@ const CartController = {
           } else {
             ProductModel.findByPk(productId)
               .then((product) => {
-              
                 order[0].update({
                   productQuantity: ++order[0].productQuantity,
                   subtotal: order[0].productQuantity * product.price,
@@ -91,59 +89,29 @@ const CartController = {
 
       .catch(next);
   },
-  /*
-
-  Si la orden del producto existe   --> si la cantidad es mayor a 1 , le saco uno. 
-                                    --> Si la cantidad es 1 , elimino la orden. 
-                                    
-  */
-  removeProduct(req, res, next) {
-    const { productId, cartId } = req.body;
-    CartModel.findByPk(cartId)
-      .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
-        cart.getOrders({ where: { productId } }).then((order) => {
-          if (order[0].productQuantity > 1) {
-            order[0]
-              .update({ productQuantity: --order[0].productQuantity })
-              .then((orderExist) => {
-                res.status(200).send(orderExist);
-              })
-              .catch((e) => console.log(e));
-          } else {
-            order[0]
-              .destroy()
-              .then(() => res.status(200).json("Pedido eliminado"));
-          }
-        });
-      })
-      .catch(next);
-  },
-
+ 
   deleteProduct(req, res, next) {
     const productId = req.params.productId;
-    const cartId = req.params.cartId
-   
+    const cartId = req.params.cartId;
+
     CartModel.findByPk(cartId)
       .then((cart) => {
         //  console.log(Object.keys(cart.__proto__))
         cart
           .getOrders({ where: { productId } })
           .then((order) => {
-
             if (order[0].productQuantity > 1) {
-              ProductModel.findByPk(productId)
-              .then((product) => {
-                
+              ProductModel.findByPk(productId).then((product) => {
                 order[0]
-                .update({ productQuantity: --order[0].productQuantity,
-                subtotal: order[0].productQuantity * product.price })
-                .then((orderExist) => {
-                  res.status(200).send(orderExist);
-                })
-                .catch((e) => res.status(204).send(e));
-              })
-              
+                  .update({
+                    productQuantity: --order[0].productQuantity,
+                    subtotal: order[0].productQuantity * product.price,
+                  })
+                  .then((orderExist) => {
+                    res.status(200).send(orderExist);
+                  })
+                  .catch((e) => res.status(204).send(e));
+              });
             } else {
               order[0]
                 .destroy()
@@ -157,22 +125,28 @@ const CartController = {
   },
 
   submitCart(req, res, next) {
-  
+
+    ///Traer todas las ordenes del Carrito
+    ///hacer un total de los precios en las ordenes
+    ///actualizar el estado del carrito (pending ====> fullfiled)
+    ///actualizar el stock del product
 
     //chequea cart por cartId --> encuentra el cart y actualiza el valor del total y el estado del carrito
     // console.log(cart);
     //console.log(Object.keys(cart.__proto__))
     const { cartId, productId, orderId } = req.body;
-    CartModel.findAll({where: {orderId }})
-    .then((order) => {
-res.send(order)
-    })
-    
-    ProductModel.update({id: productId}, {
-      where: {
-        stock : productId.stock
+    CartModel.findAll({ where: { orderId } }).then((order) => {
+      res.send(order);
+    });
+
+    ProductModel.update(
+      { id: productId },
+      {
+        where: {
+          stock: productId.stock,
+        },
       }
-    })
+    );
     CartModel.findByPk(cartId)
       .then((cart) => {
         cart.update({
