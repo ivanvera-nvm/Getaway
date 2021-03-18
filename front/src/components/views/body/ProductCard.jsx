@@ -13,14 +13,23 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+//MENSAJES
+
+import { useSnackbar } from "notistack";
+
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
+ 
+  const { enqueueSnackbar } = useSnackbar();
+
   const user = useSelector((state) => state.user);
 
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
+
+
 
   const addItem = async () => {
     if (user.token) {
@@ -30,13 +39,14 @@ export default function ProductCard({ product }) {
           cartId,
         });
         await axios.post(`http://localhost:3080/api/cart/submit`, { cartId });
-        alert("Added to cart!");
+        enqueueSnackbar(`${product.name} agregado!`, { variant: 'success'});
+
+
       } catch (err) {
         console.log(err);
       }
-      console.log("CLICK ADD PRODUCT");
     } else {
-      alert("Necesitas estar logueado");
+      enqueueSnackbar('Necesitas estar logueado!', { variant: 'error'});
     }
   };
 
