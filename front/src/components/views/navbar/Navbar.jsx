@@ -43,8 +43,6 @@ const Navbar = () => {
     history.push("/"); // Redireccionar a un componente de muchas gracias, vuelva pronto.
     return localStorage.clear();
   };
-  
-
 
   return (
     <div className={classes.stack}>
@@ -78,11 +76,10 @@ const Navbar = () => {
         ) : (
           <>
             <div className={classes.root}>
-              {!userOrders && user.user.access!== "admin" ? (
+              {!userOrders && user.user.access !== "admin" ? (
                 ""
-                ) : (
-                  <div>{total(userOrders)}</div>
-
+              ) : (
+                <div>{total(userOrders)}</div>
               )}
             </div>
             <IconButton

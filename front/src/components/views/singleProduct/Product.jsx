@@ -26,8 +26,11 @@ import Divider from "@material-ui/core/Divider";
 
 import axios from "axios";
 import useStyles from "./useStyles";
+import { useSnackbar } from "notistack";
 
 export default function Product({ id }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const classes = useStyles();
 
   const history = useHistory();
@@ -37,10 +40,6 @@ export default function Product({ id }) {
   const dispatch = useDispatch();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
-
-  /*  const total = useSelector(state => state.totalProducts)
- console.log('PRODUCTOS TOTALES ======>', total)
- */
 
   if (!productId) {
     dispatch(setProduct(id));
@@ -53,13 +52,13 @@ export default function Product({ id }) {
           productId,
           cartId,
         });
-        await axios.post(`http://localhost:3080/api/cart/submit`, {cartId});
-        alert("Added to cart!");
+        await axios.post(`http://localhost:3080/api/cart/submit`, { cartId });
+        enqueueSnackbar(`${product.name} agregado!`, { variant: "success" });
       } catch (err) {
         console.log(err);
       }
     } else {
-      alert("Necesitas estar logueado");
+      enqueueSnackbar("Necesitas estar logueado!", { variant: "error" });
     }
   };
 
