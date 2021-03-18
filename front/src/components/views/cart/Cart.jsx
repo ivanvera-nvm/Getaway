@@ -56,7 +56,10 @@ const Cart = () => {
 
 
   return (
+    
     <div>
+    {!user.user ? <>
+    
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
@@ -67,6 +70,71 @@ const Cart = () => {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
+            
+            <div
+              className={clsx(classes.list, {
+                [classes.fullList]: anchor === "top" || anchor === "bottom",
+              })}
+              role="presentation"
+              onClick={toggleDrawer(anchor, false)}
+              onKeyDown={toggleDrawer(anchor, false)}
+            >
+              <Divider />
+              {userOrders.lenght < 0 ? (
+                <div>
+                  <ListItem button key={"empty"}>
+                    <ListItemText primary={"The cart is empty :("} />
+                  </ListItem>
+                </div>
+              ) : (
+                <div>
+                  <List>
+                    <ListItem button key={"FULLFILLED"}>
+                      <ListItemText primary={`Órdenes de compra`} />
+                    </ListItem>
+                  </List>
+                  <List>
+                    {userOrders.map((order) => {
+                      return (
+                        <ListItem button key={"FULLFILLED"}>
+                          <ListItemText
+                            primary={`Order: ${order.id} - ${order.nameProduct[0]}  x${order.productQuantity}`}
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
+                </div>
+              )}
+            </div>
+            <List>
+              <ListItem button key={"FULLFILLED"}>
+                <NavLink
+                  to={{
+                    pathname: "/cartDetails",
+                  }}
+                >
+                  <ListItemText primary={"Go to detail"} />
+                </NavLink>
+              </ListItem>
+            </List>
+          </Drawer>
+        </React.Fragment>
+      ))}
+
+    </> : <>
+    
+    {["right"].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>
+            <ShoppingCartIcon />
+          </Button>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            
             <div
               className={clsx(classes.list, {
                 [classes.fullList]: anchor === "top" || anchor === "bottom",
@@ -117,6 +185,11 @@ const Cart = () => {
           </Drawer>
         </React.Fragment>
       ))}
+
+    
+    
+    </> } 
+
     </div>
   );
 };

@@ -64,6 +64,7 @@ const Navbar = () => {
           }}
           inputProps={{ "aria-label": "search" }}
         />
+       
         {!user.user ? (
           <>
             <AccountCircle />

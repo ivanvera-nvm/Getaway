@@ -12,6 +12,9 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+import { useSnackbar } from "notistack";
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -60,14 +63,16 @@ export default function ProductCard({ order }) {
   const classes = useStyles();
   const user = useSelector((state) => state.user).token;
   const cartId = useSelector(state=> state.userCart).id
+  const { enqueueSnackbar } = useSnackbar();
 
   
 
   const removeItem = async (productId, cartId, productName) => {
+
     try {
       await axios.delete(`http://localhost:3080/api/cart/${cartId}/${productId}`);
       await axios.post(`http://localhost:3080/api/cart/submit`, {cartId});
-      alert(`removed ${productName}from cart!`);
+      enqueueSnackbar(`Se eliminó ${productName}`,{variant:"success"})
     } catch (err) {
       console.log(err);
     }
