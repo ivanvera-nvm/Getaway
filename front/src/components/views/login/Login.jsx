@@ -45,8 +45,7 @@ const Login = () => {
         .then((data) => {
           !data.error ? history.push("/") : alert("Error al logear");
         })
-        .catch((err) => alert("ESTE ES EL ERROR", err))
-    
+        .catch((err) => alert("ESTE ES EL ERROR", err)) 
   };
 
   return (
