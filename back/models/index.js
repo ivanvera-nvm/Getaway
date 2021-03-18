@@ -19,7 +19,7 @@ Cart.belongsTo(User);
 Cart.hasMany(Order); // cartId en Order
 
 Product.hasMany(Order); // productId en Order
-Product.hasMany(Review); //productId en Review
+
 
 
 
@@ -33,6 +33,7 @@ Product_Category.belongsTo(Product)
 
 //RELACIONES REVIEWS
 Product.belongsToMany(Review, { through: "product_reviews" })
+Product.hasMany(Review); //productId en Review
 
 
 module.exports = {
