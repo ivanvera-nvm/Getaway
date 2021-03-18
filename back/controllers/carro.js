@@ -16,19 +16,13 @@ const CartController = {
 
   findOrCreateCart(req, res, next) {
     const { userId } = req.body;
-
-    CartModel.findOne({ where: { userId } }).then((cart) => {
+    CartModel.findOne({ where: { userId, status: "pending" } }).then((cart) => {
       if (!cart) {
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
       }
-      if (cart.status === "fulfilled") {
-        console.log(cart.status);
-        CartModel.create({ userId }).then((cart) => {
-          return res.status(200).send(cart);
-        });
-      }
+      res.send(cart);
     });
   },
 
