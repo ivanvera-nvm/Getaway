@@ -38,9 +38,9 @@ const Register = () => {
         email,
         password,
       })
-      .then((res) => alert("user registrado", res))
-      .then((register) => history.push("/login"))
-      .catch((err) => alert("Ingrese un correo de email valido", err));
+      .then((res) => alert("Usuario registrado con éxito", res))
+      .then(() => history.push("/login"))
+      .catch((err) => alert("El correo ingresado ya se encuentra registrado", err));
   };
 
 
@@ -68,6 +68,7 @@ const Register = () => {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={input.name}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -80,6 +81,7 @@ const Register = () => {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={input.lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -92,6 +94,7 @@ const Register = () => {
                 label="Address"
                 name="address"
                 autoComplete="address"
+                value={input.adress}
               />
             </Grid>
             <Grid item xs={12}>
@@ -104,6 +107,7 @@ const Register = () => {
                 label="Phone"
                 name="phone"
                 autoComplete="phone"
+                value={input.phone}
               />
             </Grid>
             <Grid item xs={12}>
@@ -117,6 +121,7 @@ const Register = () => {
                 name="email"
                 autoComplete="email"
                 type="email"
+                value={input.email}
               />
             </Grid>
             <Grid item xs={12}>
@@ -130,6 +135,7 @@ const Register = () => {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={input.password}
               />
             </Grid>
             <Grid item xs={12}></Grid>

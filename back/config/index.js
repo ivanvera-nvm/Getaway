@@ -5,7 +5,7 @@ const S = require("sequelize");
 
 
 
-const db = new S("postgres://postgres@localhost/getaway", {
+const db = new S("postgres://mgmarian:admin@localhost:5432/getaway", {
 
 
   logging: false,

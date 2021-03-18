@@ -4,7 +4,7 @@ const ProductCategories = require("../models/ProductCategories");
 
 const productController = {
   findAll(req, res, next) {
-    Product.findAll({order: [["id", "ASC"]]})
+    Product.findAll({ order: [["id", "ASC"]] })
       .then((products) => res.status(200).json(products))
       .catch((e) => next(e));
   },
@@ -31,15 +31,13 @@ const productController = {
   },
 
   createProduct(req, res, next) {
-
-    const { name, price, stock, description, image, expiry, quantity, categories } = req.body
- 
-    Product.create({name, price, stock, description, image, expiry, quantity}).then((product) => {
-      product.setCategories(categories)
-console.log(Object.keys(product.__proto__))
+    const { name, price, stock, description, image, expiry, quantity, category } = req.body
+    Product.create({ name, price, stock, description, image, expiry, quantity }).then((product) => {
+      product.setCategories(category)
+      console.log(Object.keys(product.__proto__))
       res.status(201).send(product)
     })
-    
+
   },
 
   editProduct(req, res, next) {

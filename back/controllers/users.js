@@ -18,9 +18,19 @@ const UserController = {
   },
   //registrarse desde /users/register
   createUser(req, res, next) {
-    UserModel.create(req.body)
-      .then((user) => res.status(201).send(user))
-      .catch(next);
+    const {email} = req.body
+    UserModel.findOne({where : {email}}).then(user=>{
+      console.log(user)
+      if(!user) {
+        UserModel.create(req.body).then(user => {
+          return res.status(200).send(user)
+        })
+      } else {
+        return res.status(403).send('El email ya se encuentra registrado')
+      }
+    })
+    .catch(err => next(err))
+
   },
   //editar la data de un usuario desde /users/:id
   updateUser(req, res, next) {
@@ -38,7 +48,6 @@ const UserController = {
     const id = req.params.id;
     UserModel.destroy({ where: { id } })
       .then(() => {
-        
         res.send("usuario eliminado exitosamente").status(200);
       })
       .catch(next);

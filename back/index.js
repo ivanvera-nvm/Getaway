@@ -14,6 +14,10 @@ app.use(cors());
 
 app.use("/api", routes);
 
+app.use((err, req, res, next) => {
+  if(err) res.status(500).send('Internal Server Error')
+})
+
 db.sync({ force: false })
   .then(() => {
     app.listen(PORT, () => {
