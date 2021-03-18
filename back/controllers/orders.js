@@ -5,6 +5,11 @@ const ProductModel = require("../models/Product");
 const OrderController = {
   findOrders(req, res, next) {
     OrderModel.findAll()
+      .then((orders) => {
+        console.log(orders);
+        res.send(orders);
+        console.log(Object.keys(orders.__proto__));
+      })
       .then((orders) => res.status(200).json(orders))
       .catch((e) => next(e));
   },
@@ -16,11 +21,14 @@ const OrderController = {
       .then((userCart) => {
         const { id } = userCart;
         OrderModel.findAll({ where: { cartId: id } })
+
           .then((userOrders) => res.send(userOrders))
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err))
       })
+     
       .catch((err) => next(err));
   },
+
 
   deleteCartOrder(req, res, next) {
     const { productId, cartId } = req.body;
@@ -29,6 +37,20 @@ const OrderController = {
       .then(() => res.status(200).send("orden deleted"))
       .catch((err) => res.status(500).send(err));
   },
+
+ 
+
+   findOrderId(req, res, next) {
+   // const { userId } = req.params.id;
+   //req.body.productId;
+   
+    const id = req.params.productId
+
+
+    ProductModel.findAll({ where: { id } })
+      .then((product) => res.send(product))
+      .catch(next);
+  }, 
 };
 
 const fn = async (req, res, next) => {

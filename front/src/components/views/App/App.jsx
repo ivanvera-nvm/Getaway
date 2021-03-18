@@ -14,6 +14,9 @@ import Login from "../login/Login";
 import Register from "../register/Register";
 import Categories from "../categories/Categories";
 import listUsers from "../listUsers/listUsers";
+import listProducts from "../listProducts/listProducts"
+import EditProduct from "../editProduct/editProduct"
+import addProduct from "../addProduct/addProduct"
 import Product from "../singleProduct/Product";
 import List from "../body/List";
 import Cart from "../cart/Cart";
@@ -44,7 +47,7 @@ export default function App() {
     } else {
       return null;
     }
-  }, []);
+  }, [dispatch,total,user]);
 
   
   return (
@@ -71,8 +74,14 @@ export default function App() {
           render={(props) => <Product id={props.match.params.id} />}
         />
         <Route exact path="/cart" component={Cart} />
-        <Route exact path="/listUsers" component={listUsers} />
-
+        <Route exact path="/admin/listUsers" component={listUsers} />
+        <Route exact path="/admin/listProducts" component={listProducts} />
+        <Route
+          exact
+          path="/admin/editProduct/:id"
+          render={(props) => <EditProduct id={props.match.params.id} />}
+        />
+        <Route path="/admin/addProduct" component={addProduct} />
         <Route path="/404" component={Error}></Route>
         <Route path="*">
           <Redirect to="/404"></Redirect>

@@ -26,16 +26,11 @@ const Cart = () => {
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
 
-<<<<<<< HEAD
-  
-  const userId = user.user.id;
-=======
 
   const userId = user.user.id;
 
 
 
->>>>>>> 1e059e604d500c299c1e1b339d9a00ff5f27d274
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })

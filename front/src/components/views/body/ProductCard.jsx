@@ -16,11 +16,8 @@ import axios from "axios";
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
-<<<<<<< HEAD
-=======
   const user = useSelector((state) => state.user);
 
->>>>>>> 1e059e604d500c299c1e1b339d9a00ff5f27d274
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
