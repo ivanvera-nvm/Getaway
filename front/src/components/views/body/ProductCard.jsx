@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 
 //MENSAJES
 
@@ -55,8 +56,8 @@ export default function ProductCard({ product }) {
           image={product.image}
           title={product.name}
         />
-      <Link to={`/products/${product.id}`}>
-        <Box className={classes.title}>{product.name}</Box>
+      <Link to={`/products/${product.id}`} className={classes.title}>
+        <Box >{product.name}</Box>
       </Link>
       <CardContent>
         <Typography
@@ -68,6 +69,7 @@ export default function ProductCard({ product }) {
           {product.description}
         </Typography>
 
+      </CardContent>
         <Box className={classes.interact}>
           <Rating
             name="read-only"
@@ -75,20 +77,17 @@ export default function ProductCard({ product }) {
             readOnly
             className={classes.rating}
           />
-          <IconButton className={classes.fav} aria-label="add to favorites">
-            <FavoriteIcon />
-          </IconButton>
+         
         </Box>
-      </CardContent>
 
-      <CardActions className={classes.action}>
+      <CardActions className={` ${classes.action} ${classes.position}`}>
         <Box className={classes.price}>${product.price},00</Box>
         <Button
           variant="contained"
-          className={classes.purchaseBtn}
+          className={`${classes.purchaseBtn} ${classes.icon}`}
           onClick={addItem}
         >
-          Añadir al carrito
+          <AddShoppingCartIcon className={classes.icon} />
         </Button>
       </CardActions>
     </Card>

@@ -5,7 +5,17 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    background:"grey",
+    height:"25px"
+  },
+  position:{
+    display:"flex",
+    alignItems:"center",
+    justifyContent:"center",
+    color:"white"
+
+  }
 }));
 
 function Footer() {
@@ -13,7 +23,7 @@ function Footer() {
   return (
     <div className={classes.root}>
       <Box mt={5}>
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography variant="body2" color="textSecondary" align="center" className={classes.position}>
           {"Copyright © "}
           <Link color="inherit" href="https://material-ui.com/">
             Getaway

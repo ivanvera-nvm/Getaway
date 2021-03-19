@@ -3,10 +3,17 @@ import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
+    // maxWidth: 345,
+    // width:"300px",
+    height:"530px",
+    margin:"0 30px",
+    marginBottom:"20px",
     "&:hover": {
-      boxShadow: "-1px 7px 14px -1px rgba(57,56,56,0.38)",
+      boxShadow: "5px 1px 33px -18px rgba(0,0,0,0.75)",
     },
+  },
+  position:{
+    marginTop:"30px"
   },
   header: {
     height: "80px",
@@ -14,8 +21,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
   },
   title: {
-    width: "70%",
-    fontSize: 16,
+    textAlign:"center",
+    textDecoration:"none",
+    color:"black",
+    // width: "70%",
+    fontSize: "22px",
+    margin:"7px"
   },
   media: {
     height: 0,
@@ -54,11 +65,11 @@ const useStyles = makeStyles((theme) => ({
   fav: {},
   price: {
     fontSize: 20,
-    color: "#357a38",
+    color: "#",
     fontWeight: 150,
   },
   purchaseBtn: {
-    width: "120px",
+    // width: "80px",
     fontSize: "12px",
     color: "white",
     backgroundColor: "#dd2c00",
@@ -67,6 +78,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-around",
   },
+  icon :{
+    backgroundColor:"#f56d05",
+   
+  }
+
 }));
 
 export default useStyles

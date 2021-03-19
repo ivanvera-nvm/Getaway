@@ -19,9 +19,9 @@ const Admin = () => {
 
   const classes = useStyles();
   return (
-    <Container fixed alignitems="stretch">
+    <Container fixed alignitems="stretch" >
       <Box>
-        <Box className={classes.adminPanel}>Admin Panel</Box>
+        <Box boxShadow={1} className={classes.adminPanel}>Admin Panel</Box>
 
         {user.user && user.user.access === "admin" ? (
           <Box className={classes.container}>

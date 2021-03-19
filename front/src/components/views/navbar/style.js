@@ -1,3 +1,4 @@
+
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { deepOrange } from "@material-ui/core/colors";
 
@@ -5,6 +6,9 @@ const useStyles = makeStyles((theme) => ({
   stack: {
     display: "flex",
     flexDirection: "column",
+  },
+  media:{
+    margin:"10px"
   },
   navMain: {
     display: "flex",
@@ -19,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
       display: "flex",
-      alignItems:"center"
+      alignItems:"center",
 
   },
   search: {
@@ -89,6 +93,10 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     fontSize: "12px",
     color: "white",
+    width:"110px",
+    transition:"0.7s",
+    fontSize: "12px",
+
     "&:hover": {
       fontSize: "14px",
     },
