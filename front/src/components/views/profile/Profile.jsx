@@ -24,7 +24,8 @@ const Profile = () => {
           {user ? (
           <>
         <Box className={classes.avatar}>
-          <Avatar className={classes.orange}>{user.name[0]}</Avatar>
+          
+          <Avatar className={classes.orange}>user.name[0]</Avatar>
         </Box>
 
         <Box className={classes.details}>

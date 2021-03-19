@@ -3,8 +3,27 @@ import { makeStyles } from "@material-ui/core/styles";
 import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
+    
     root: {
+      display: "flex",
+      flexWrap: "wrap",
       width: 1200,
+    },
+    textField: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      width: "25ch",
+    },
+    center: {
+      display: "flex",
+      justifyContent: "center",
+    },
+    foto: {
+      height: "300px",
+      width: "200px",
+      display: "flex",
+      justifyContent: "center",
+      align: "center",
     },
     media: {
       width: 800,

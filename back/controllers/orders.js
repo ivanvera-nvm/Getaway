@@ -55,7 +55,6 @@ const OrderController = {
 
 const fn = async (req, res, next) => {
   const userId = req.params.userId;
-  console.log("asdasdas");
   try {
     let cart = await CartModel.findOne({ where: { userId } });
     let orders = await cart.getOrders();

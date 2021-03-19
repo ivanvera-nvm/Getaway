@@ -32,7 +32,7 @@ const Admin = () => {
             <Link to="/admin/listProducts" className={classes.links}>
               <h4>Gestión de productos</h4>
             </Link>
-            <Link to="/admin/listProducts" className={classes.links}>
+            <Link to="/admin/listCategories" className={classes.links}>
               <h4>Gestión de categorias</h4>
             </Link>
           </Box>

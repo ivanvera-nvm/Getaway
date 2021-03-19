@@ -25,9 +25,11 @@ import { setUser } from "../../../state/user";
 import { setUserCart } from "../../../state/cart";
 import { setTotal } from "../../../state/totalProducts";
 import CartList from "../cart/CartList";
-
+import ListCategories from "../listCategories/listCategories"
 //Ruta para la Order Confirmation
 import OrderContainer from "../orders/OrderContainer";
+import EditCategory from "../editCategory/editCategory"
+import AddCategory from "../addCategory/addCategory"
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -75,6 +77,7 @@ export default function App() {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={List} />
           <Route exact path="/cartDetails" component={CartList} />
+          
 
           <Route exact path="/orderConfirmation" component={OrderContainer} />
 
@@ -86,10 +89,22 @@ export default function App() {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/admin/listUsers" component={listUsers} />
           <Route exact path="/admin/listProducts" component={listProducts} />
+          <Route exact path="/admin/listCategories" component={ListCategories} />
+
           <Route
             exact
             path="/admin/editProduct/:id"
             render={(props) => <EditProduct id={props.match.params.id} />}
+          />
+          <Route
+            exact
+            path="/admin/editCategory/:id"
+            render={(props) => <EditCategory id={props.match.params.id} />}
+          /> 
+           <Route
+            exact
+            path="/admin/addCategory/:id"
+            render={(props) => <AddCategory id={props.match.params.id} />}
           />
           <Route path="/admin/addProduct" component={addProduct} />
           <Route path="/404" component={Error}></Route>

@@ -8,6 +8,7 @@ import { setProduct } from "../../../state/products";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -37,7 +38,7 @@ const EditProduct = ({ id }) => {
 
   React.useLayoutEffect(() => {
     dispatch(setProduct(id));
-  }, [dispatch]);
+  }, []);
 
   const product = useSelector((state) => state.product);
 

@@ -10,6 +10,7 @@ import listUsersReducer from "./listUsers";
 import totalProductsReducer from "./totalProducts";
 import { ordersReducer, userOrdersReducer } from "./orders";
 import {userCartReducer, userCartCheckoutReducer} from './cart';
+import userCategoriesReducer,{ userOneCategoryReducer, singleCategoryReducer} from "./categories"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -26,6 +27,9 @@ const store = configureStore({
     userOrders: userOrdersReducer,
     userCart: userCartReducer,
     cartCheckout: userCartCheckoutReducer,
+    categories: userCategoriesReducer,
+    category:singleCategoryReducer
+    // editCategory:userOneCategoryReducer
   },
 });
 

@@ -25,9 +25,10 @@ const CategoryController = {
   },
 
   editCategory(req, res, next) {
+    console.log("---------------",req.body);
       Category.findByPk(req.params.id)
       .then((categoryFound) => {
-          categoryFound.update({name: req.body.name})
+          categoryFound.update({name: req.body.input})
       })
       .then(() => {
           res.status(200).send("category updated succesfully")

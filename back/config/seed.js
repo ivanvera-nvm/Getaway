@@ -7,8 +7,8 @@ const ProductCategory = require("../models/ProductCategory");
 const userParaSeedear = [
   {
     access: "admin",
-    name: "admin",
-    lastName: "admin",
+    name: "Admin",
+    lastName: "Admin",
     email: "admin@gmail.com",
     password: "$2b$16$bnDQD4YnuqCV0DgQ7rDQgOfHfmxSUlmaI8RLD2KOnZ6F/IrgD8ApS",
     phone: "1130922002",
