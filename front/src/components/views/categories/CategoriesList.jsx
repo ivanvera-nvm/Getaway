@@ -22,28 +22,21 @@ export default function CategoriesList(ids) {
     3: false,
   });
 
-
-
   const handleChange = (event) => {
     console.log(event.target.name);
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-
-
-  console.log('estado actuak',state)
-
   const byCategoty = () => {
-
     let selection = Object.keys(state);
     console.log(selection)
+
     axios.post('http://localhost:3080/api/products/category/search', {categories: selection})
     .then(res => console.log(res.data))
+    .then(back => setState([]))
     .catch(err => console.log(err))
 
   }
-
-
 
   return (
     <div style={{ marginBottom: "5rem" }}>
