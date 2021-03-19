@@ -5,10 +5,29 @@ const { Op } = require("sequelize");
 
 const productController = {
   findAll(req, res, next) {
-    Product.findAll({ order: [["id", "ASC"]] })
-      .then((products) => res.status(200).json(products))
-      .catch((e) => next(e));
-  },
+    // console.log(req.query);
+    // if (!Object.keys(req.query).length) {
+      Product.findAll({ order: [["id", "ASC"]] })
+        .then((products) => {
+          return res.status(200).json(products);
+        })
+        .catch((e) => next(e));
+    // }
+    // else{
+    // const { name } = req.query;
+
+    // Product.findAll({
+    //   order: [["id", "ASC"]],
+    //   where: { name: { [Op.like]: `%${name}%` } },
+    // }
+    // )
+    //   .then((products) => {
+    //     console.log(products);
+    //     res.status(200).json(products);
+    //   })
+    //   .catch((e) => next(e));
+  // }
+},
 
   findById(req, res, next) {
     const { id } = req.params;
@@ -104,9 +123,9 @@ const productController = {
       expiry,
       quantity,
     }).then((product) => {
-      product.setCategories(categories).then((products) => {
-        res.send(products);
-      });
+      product.setCategories(categories);
+      // console.log(Object.keys(product.__proto__));
+      res.status(201).send(product);
     });
   },
 

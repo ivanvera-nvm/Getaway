@@ -4,6 +4,9 @@ import { red } from "@material-ui/core/colors";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    "&:hover": {
+      boxShadow: "-1px 7px 14px -1px rgba(57,56,56,0.38)",
+    },
   },
   header: {
     height: "80px",
@@ -17,9 +20,7 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
-    "&:hover": {
-      border: "2px solid #cccccc",
-    },
+    
   },
   expand: {
     transform: "rotate(0deg)",

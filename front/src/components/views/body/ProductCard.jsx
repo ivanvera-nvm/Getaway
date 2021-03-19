@@ -49,17 +49,14 @@ export default function ProductCard({ product }) {
 
   return (
     <Card className={classes.root}>
-      <Box display="flex" className={classes.header}>
-        <Box className={classes.title}>{product.name}</Box>
-        <Box>
-        </Box>
-      </Box>
-      <Link to={`/products/${product.id}`}>
+      
         <CardMedia
           className={classes.media}
           image={product.image}
-          title="Paella dish"
+          title={product.name}
         />
+      <Link to={`/products/${product.id}`}>
+        <Box className={classes.title}>{product.name}</Box>
       </Link>
       <CardContent>
         <Typography

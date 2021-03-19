@@ -58,7 +58,7 @@ const Login = () => {
       .then((response) =>
         enqueueSnackbar("Logueado exitosamente", { variant: "success" })
       )
-      .catch((err) => alert("ESTE ES EL ERROR", err));
+      .catch((err) => alert("Error de logeo", err));
   };
 
   return (
