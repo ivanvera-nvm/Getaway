@@ -54,6 +54,7 @@ const AddProduct = () => {
         image,
         price,
         stock,
+       
       })
       .then((res) => console.log(res));
   };

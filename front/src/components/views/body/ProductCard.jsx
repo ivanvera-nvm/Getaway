@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -27,6 +27,12 @@ export default function ProductCard({ product }) {
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
+
+
+  useEffect(() => {
+    dispatch(setProduct(productId));
+  }, [productId]);
+
 
   const addItem = async () => {
     console.log("CLICK =====>");

@@ -6,15 +6,36 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 import SimpleDialog from "./Payments";
-
+import { NavLink, useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import useStyles from "./style";
 
+import axios from "axios";
 
 export default function CartCheckout({ product }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const classes = useStyles();
   const checkout = useSelector((state) => state.userCart);
+  const cartId = checkout.id;
 
-  console.log("CHECKOUT ====>", checkout);
+  const history = useHistory();
+  const email = JSON.parse(localStorage.getItem("user")).user.email;
+
+  const sendOrder = async () => {
+    try {
+      await axios.put("http://localhost:3080/api/cart/status", {
+        cartId,
+        email,
+      });
+      enqueueSnackbar("La compra se ha realizado exitosamente", {
+        variant: "success",
+      });
+      history.push("/orderConfirmation");
+    } catch (err) {
+      enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
+    }
+  };
 
   return (
     <Card className={classes.root}>
@@ -46,9 +67,15 @@ export default function CartCheckout({ product }) {
       </Box>
 
       <Box className={classes.checkoutBox}>
-        <Button variant="contained" className={classes.checkoutButton}>
+        {/*       <NavLink to='/orderConfirmation'> */}
+        <Button
+          variant="contained"
+          className={classes.checkoutButton}
+          onClick={sendOrder}
+        >
           Comprar
         </Button>
+        {/*   </NavLink> */}
       </Box>
     </Card>
   );
