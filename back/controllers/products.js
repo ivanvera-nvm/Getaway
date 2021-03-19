@@ -37,9 +37,11 @@ const productController = {
   },
 
   findByCategory(req, res, next) {
-    const id = req.params.id;
+   /*  const id = req.params.id; */
+    const arr = req.body.categories
+    console.log(arr)
     Product_Category.findAll({
-      where: { categoryId: id },
+      where: { categoryId: arr },
       include: [{ model: Product }],
     })
 
