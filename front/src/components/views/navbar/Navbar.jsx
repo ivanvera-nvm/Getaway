@@ -48,7 +48,7 @@ const Navbar = () => {
     return localStorage.clear();
   };
 
-  const [search, setSearch] = useState("");
+  /* const [search, setSearch] = useState("");
 
   const handleChange = (event) => {
     setSearch(event.target.value.toLowerCase());
@@ -65,7 +65,7 @@ const Navbar = () => {
   useEffect(() => {
     dispatch(setProducts(filterProducts));
   }, [search]);
-
+ */
   return (
     <div className={classes.stack}>
       <Box className={classes.navMain}>
@@ -77,7 +77,7 @@ const Navbar = () => {
           />
           GetAway
         </Typography>
-        <form>
+      {/*   <form>
           <InputBase
             placeholder="Search…"
             classes={{
@@ -88,7 +88,7 @@ const Navbar = () => {
           />
 
           <SearchIcon />
-        </form>
+        </form> */}
 
         {user.user && user.user.access !== "admin" && (
           <div className={classes.root}>
