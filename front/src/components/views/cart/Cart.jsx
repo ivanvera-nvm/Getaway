@@ -8,6 +8,7 @@ import {
   List,
 } from "@material-ui/core";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Box from "@material-ui/core/Box";
 
 import { setUserOrders } from "../../../state/orders";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,6 +27,7 @@ const Cart = () => {
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
 
+<<<<<<< HEAD
 
   
   
@@ -34,14 +36,19 @@ const Cart = () => {
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
+=======
+  const userId = user.user.id;
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3080/api/cart/new", { userId })
+      .then((newCart) => console.log("carro creado"));
+>>>>>>> e3c7fe62db72befa2d6cb490576fb79ba90c77ec
   }, [userId, dispatch]);
 
   const [state, setState] = useState({
     right: false,
   });
-
- 
-
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
@@ -52,7 +59,6 @@ const Cart = () => {
     }
     setState({ ...state, [anchor]: open });
   };
-
 
   return (
     
@@ -150,13 +156,15 @@ const Cart = () => {
                   </ListItem>
                 </div>
               ) : (
-                <div>
-                  <List>
+                <div className={classes.drawer}>
+                  <List className={classes.mainList}>
                     <ListItem button key={"FULLFILLED"}>
-                      <ListItemText primary={`${user.user.name}'s cart`} />
+                      <Box
+                        className={classes.name}
+                      >{`${user.user.name}'s cart`}</Box>
                     </ListItem>
                   </List>
-                  <List>
+                  <List className={classes.componentList}>
                     {userOrders.map((order) => {
                       return (
                         <ListItem button key={"FULLFILLED"}>
@@ -171,13 +179,14 @@ const Cart = () => {
               )}
             </div>
             <List>
-              <ListItem button key={"FULLFILLED"}>
+              <ListItem className={classes.button} button key={"FULLFILLED"}>
                 <NavLink
+                  className={classes.purchaseBtn}
                   to={{
                     pathname: "/cartDetails",
                   }}
                 >
-                  <ListItemText primary={"Go to detail"} />
+                  Go to detail
                 </NavLink>
               </ListItem>
             </List>

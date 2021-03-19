@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   IconButton,
   Typography,
@@ -11,6 +12,18 @@ import { setProducts } from "../../../state/products";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import axios from "axios";
 import React, { useState } from "react";
+=======
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import Badge from "@material-ui/core/Badge";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Box from "@material-ui/core/Box";
+import InputBase from "@material-ui/core/InputBase";
+import axios from 'axios'
+
+import Avatar from "@material-ui/core/Avatar";
+
+>>>>>>> e3c7fe62db72befa2d6cb490576fb79ba90c77ec
 import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
@@ -43,8 +56,8 @@ const Navbar = () => {
   };
 
   const loggout = () => {
-    dispatch(clearUser());
-    history.push("/"); // Redireccionar a un componente de muchas gracias, vuelva pronto.
+    dispatch(clearUser())
+    history.push("/") // Redireccionar a un componente de muchas gracias, vuelva prontos.
     return localStorage.clear();
   };
 
@@ -81,8 +94,15 @@ const Navbar = () => {
           <AccountCircle />
         ) : (
           <>
-            <div className={classes.root}></div>
-            <IconButton
+            <div className={classes.root}>
+              {!userOrders && user.user.access !== "admin" ? (
+            <IconButton/>
+                
+              ) : (
+                <div>{total(userOrders)}</div>
+              )}
+            </div>
+            <Box className={classes.userContainer}
               edge="end"
               aria-label="account of current user"
               aria-haspopup="true"
@@ -91,14 +111,14 @@ const Navbar = () => {
               }}
               color="inherit"
             >
-              <div className={classes.root}>
-                <Avatar
-                  alt={`${user.user.name}`}
-                  src={`${process.env.PUBLIC_URL}/avatars/ninja-cat.png`}
-                />
-                <span>{`${user.user.name}`}</span>
-              </div>
-            </IconButton>
+             
+              <Avatar aria-label="recipe" className={classes.orange}>
+              {user.user.name[0]}
+                </Avatar>
+            
+              <Box >{`${user.user.name} ${user.user.lastName}`}</Box>
+                
+            </Box>
           </>
         )}
       </Box>

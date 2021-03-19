@@ -1,6 +1,6 @@
 const Product = require("../models/Product");
-const Category = require("../models/Category");
-const ProductCategories = require("../models/ProductCategories");
+const Product_Category = require("../models/ProductCategory");
+const Review = require("../models/Review");
 const { Op } = require("sequelize");
 
 const productController = {
@@ -38,16 +38,69 @@ const productController = {
 
   findByCategory(req, res, next) {
     const id = req.params.id;
-    Category.findOne({
-      where: { id },
+    Product_Category.findAll({
+      where: { categoryId: id },
       include: [{ model: Product }],
     })
 
-      .then((category) => {
-        console.log(category);
-        res.send(category);
+      .then((product) => {
+        console.log(product);
+        res.send(product);
       })
       .catch(next);
+  },
+
+  findByKeyword(req, res, next) {
+    const queryFilter = req.query.name;
+    Product.findAll({
+      where: {
+        [Op.like]: `%${queryFilter}%`,
+      },
+    })
+      .then((productByKeyword) => res.send(productByKeyword))
+      .catch(next);
+  },
+
+  findProductReviews(req, res, next) {
+    const productId = req.params.id;
+    Review.findAll({
+      where: {
+        productId,
+      },
+    })
+      .then((productReviewed) => res.send(productReviewed))
+      .catch(next);
+  },
+
+  addProductReview(req, res, send) {
+    // const productId = req.params.id;
+    const { userId, content, rating, productId } = req.body;
+    console.log(req.body);
+    Review.create({ userId, content, rating, productId })
+      .then((review) => res.status(200).send(review))
+
+      .catch((err) => console.log(err));
+  },
+
+  getProductRating(req, res, next) {
+    const productId = req.params.id;
+    console.log(productId);
+
+
+    Review.sum('rating', { where: { productId } })
+    .then(result => {
+      Review.findAndCountAll({where: {productId}})
+      .then((count) => {
+        console.log("sum de ratings", result, count.count)
+        let average = (result/ count.count)
+        console.log(average)
+        res.status(200).json({avg: average})
+      })
+   
+     
+    }) 
+    
+    
   },
 
   createProduct(req, res, next) {
@@ -59,8 +112,9 @@ const productController = {
       image,
       expiry,
       quantity,
-      category,
+      categories,
     } = req.body;
+    console.log(categories);
     Product.create({
       name,
       price,
@@ -70,8 +124,8 @@ const productController = {
       expiry,
       quantity,
     }).then((product) => {
-      product.setCategories(category);
-      console.log(Object.keys(product.__proto__));
+      product.setCategories(categories);
+      // console.log(Object.keys(product.__proto__));
       res.status(201).send(product);
     });
   },
