@@ -27,6 +27,9 @@ import { setUserCart } from "../../../state/cart";
 import { setTotal } from "../../../state/totalProducts";
 import CartList from "../cart/CartList";
 
+//Ruta para la Order Confirmation
+import OrderContainer from "../orders/OrderContainer";
+
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
@@ -68,6 +71,9 @@ export default function App() {
           <Route exact path="/cart" component={Cart} />
           <Route exact path="/products" component={List} />
           <Route exact path="/cartDetails" component={CartList} />
+
+          <Route exact path="/orderConfirmation" component={OrderContainer} />
+
           <Route
             exact
             path="/products/:id"
@@ -87,7 +93,7 @@ export default function App() {
             <Redirect to="/404"></Redirect>
           </Route>
         </Switch>
-        <Footer />
+        <Footer style={{ backgroundColor: "lightblue" }} />
       </SnackbarProvider>
     </>
   );
