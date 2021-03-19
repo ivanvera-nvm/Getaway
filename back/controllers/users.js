@@ -20,7 +20,7 @@ const UserController = {
   createUser(req, res, next) {
     const {email} = req.body
     UserModel.findOne({where : {email}}).then(user=>{
-      console.log(user)
+     
       if(!user) {
         UserModel.create(req.body).then(user => {
           return res.status(200).send(user)

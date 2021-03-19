@@ -61,11 +61,11 @@ const CartController = {
     const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
       .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
+    
         cart.getOrders({ where: { productId } }).then((order) => {
           if (!order[0]) {
             ProductModel.findByPk(productId).then((product) => {
-              console.log(product.price);
+            
               cart
                 .createOrder({
                   cartId,
@@ -98,7 +98,7 @@ const CartController = {
 
     CartModel.findByPk(cartId)
       .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
+      
         cart
           .getOrders({ where: { productId } })
           .then((order) => {
@@ -126,8 +126,6 @@ const CartController = {
       .catch(next);
   },
 
-  // console.log(cart);
-  //console.log(Object.keys(cart.__proto__))
 
   submitCart(req, res, next) {
     //traerte todas las ordenes para ese cartId
@@ -147,7 +145,7 @@ const CartController = {
   updateStock(req, res, next) {
     //actualiza el stock por producto
     const { productId, productQuantity } = req.body;
-    console.log(req.body);
+
     ProductModel.findOne({ where: { id: productId } })
       .then((product) => {
         console.log(product);
@@ -186,10 +184,7 @@ const CartController = {
       .catch((err) => next(err));
   },
 
-  /*
-  
-  
-  checkout(req, res,next) {} */
+ 
 };
 
 module.exports = CartController;
