@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import Categories from "../categories/Categories";
+
 
 import axios from "axios";
 
@@ -48,24 +48,6 @@ const Navbar = () => {
     return localStorage.clear();
   };
 
-  /* const [search, setSearch] = useState("");
-
-  const handleChange = (event) => {
-    setSearch(event.target.value.toLowerCase());
-  };
-
-  let arr = products.map((product) => {
-    return { ...product, name: product.name.toLowerCase() };
-  });
-
-  const filterProducts = arr.filter((product) =>
-    product.name.toLowerCase().match(search)
-  );
-
-  useEffect(() => {
-    dispatch(setProducts(filterProducts));
-  }, [search]);
- */
   return (
     <div className={classes.stack}>
       <Box className={classes.navMain}>
@@ -77,19 +59,6 @@ const Navbar = () => {
           />
           GetAway
         </Typography>
-      {/*   <form>
-          <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ "aria-label": "search" }}
-          />
-
-          <SearchIcon />
-        </form> */}
-
         {user.user && user.user.access !== "admin" && (
           <div className={classes.root}>
             <div>{total(userOrders)}</div>
@@ -198,7 +167,6 @@ const Navbar = () => {
       </Box>
 
       <Box className={classes.category}>
-    {/*   {  <Categories />} */}
       </Box>
     </div>
   );

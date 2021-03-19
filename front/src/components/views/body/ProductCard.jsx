@@ -29,8 +29,6 @@ export default function ProductCard({ product}) {
   const productId = product.id;
 
 
-  
-
   useEffect(() => {
     dispatch(setProduct(productId));
   }, [productId]);

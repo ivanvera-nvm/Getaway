@@ -15,7 +15,7 @@ import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { setProduct } from "../../../state/products";
 import { useHistory } from "react-router-dom";
-
+import TextField from "@material-ui/core/TextField";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import List from "@material-ui/core/List";
@@ -142,6 +142,20 @@ export default function Product({ id }) {
               </IconButton>
             </CardActions>
           </Card>
+        </Box>
+      </Container>
+      <h2>Reviews de usuarios</h2>
+      <Container fixed>
+        <Box display="flex" justifyContent="center">
+          <TextField
+            id="outlined-basic"
+            label="Outlined"
+            variant="outlined"
+            placeholder="MultiLine with rows: 2 and rowsMax: 4"
+            multiline
+            rows={2}
+            rowsMax={4}
+          />
         </Box>
       </Container>
     </>

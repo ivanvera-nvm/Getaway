@@ -6,9 +6,9 @@ const OrderController = {
   findOrders(req, res, next) {
     OrderModel.findAll()
       .then((orders) => {
-        console.log(orders);
+  
         res.send(orders);
-      /*   console.log(Object.keys(orders.__proto__)); */
+  
       })
       .then((orders) => res.status(200).json(orders))
       .catch((e) => next(e));
@@ -55,7 +55,6 @@ const OrderController = {
 
 const fn = async (req, res, next) => {
   const userId = req.params.userId;
-  console.log("asdasdas");
   try {
     let cart = await CartModel.findOne({ where: { userId } });
     let orders = await cart.getOrders();
@@ -82,7 +81,7 @@ const fn = async (req, res, next) => {
 
     Promise.all(products).then((a) => {
       let obj2 = help(a);
-      console.log("==========>", obj2);
+  
       res.send(obj2);
     });
   } catch (err) {
