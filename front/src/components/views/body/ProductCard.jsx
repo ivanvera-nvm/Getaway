@@ -24,12 +24,9 @@ export default function ProductCard({ product }) {
   const { enqueueSnackbar } = useSnackbar();
 
   const user = useSelector((state) => state.user);
-
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
-
-
 
   const addItem = async () => {
     if (user.token) {

@@ -50,6 +50,63 @@ const useStyles = makeStyles({
     fontSize: "30px",
     marginLeft: "20px",
   },
+
+  root: {
+    marginTop: "25px",
+    display: "flex",
+    flexDirection: "column",
+    height: "215px",
+    paddingBottom: "15px",
+    marginBottom: "15px",
+  },
+  container: {
+    paddingTop: "14px",
+    display: "flex",
+    flexDirection: "row",
+    height: "160px",
+  },
+  blockLeft: {
+    width: "50%",
+    paddingLeft: "14px",
+  },
+  blockRight: {
+    paddingRight: "14px",
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+  },
+  checkoutBox: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    paddingBottom: "14px",
+    marginBottom: "14px",
+  },
+  checkoutButton: {
+    display: "flex",
+    width: "800px",
+    fontSize: "18px",
+    color: "white",
+    backgroundColor: "#dd2c00",
+  },
+  totals: {
+    height: "50px",
+    fontSize: "25px",
+    fontWeight: "bold",
+    textAlign: "right",
+  },
+  creditCards: {
+    textAlign: "right",
+  },
+  image: {
+    width: "40px",
+    marginLeft: "5px",
+    marginRight: "5px",
+  },
+  naranja: {
+    height: "20px",
+  },
+  paymentTypes: {},
 });
 
 export default useStyles;

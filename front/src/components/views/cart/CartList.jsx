@@ -47,8 +47,8 @@ const List = (props) => {
       <CssBaseline />
       <Container
         fixed
-        alignItems="stretch"
-        backgroundColor="white"
+        alignitems="stretch"
+        backgroundcolor="white"
         className={classes.root}
       >
         <Box className={classes.cartTitle}>Tu Carrito tiene {orders.length} item{orders.length===1? "":"s"}</Box>

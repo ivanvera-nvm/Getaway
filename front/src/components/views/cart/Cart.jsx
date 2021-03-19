@@ -26,15 +26,16 @@ const Cart = () => {
 
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
-  console.log(user, "Estoy en CART");
-  const userId = 10;
+  const userId = user.user.id;
+
 
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => console.log("carro creado"));
   }, []);
-
+  
+  
   const [state, setState] = useState({
     right: false,
   });

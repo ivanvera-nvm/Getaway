@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, {useEffect} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
 import Home from "../home/Home";
-import Body from "../body/Body";
-import Card from "../card/Card";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
@@ -34,6 +32,7 @@ import OrderContainer from "../orders/OrderContainer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
+
   const total = useSelector((state) => state.products).length;
 
   const dispatch = useDispatch();
@@ -44,7 +43,8 @@ export default function App() {
   const user = getUser();
   console.log(user, "Estoy en APP");
 
-  React.useLayoutEffect(() => {
+  
+  useEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {
       dispatch(setUserCart(user.user.id));
@@ -56,7 +56,7 @@ export default function App() {
         return null;
       };
     }
-  }, []);
+  }, [dispatch,total,user]);
 
   return (
     <>
@@ -64,8 +64,6 @@ export default function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home}></Route>
-          <Route exact path="/card" component={Card} />
-          <Route exact path="/body" component={Body} />
           <Route exact path="/sidebar" component={Sidebar} />
           <Route exact path="/categories" component={Categories} />
           <Route exact path="/register" component={Register} />
