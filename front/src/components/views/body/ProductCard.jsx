@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -28,6 +28,11 @@ export default function ProductCard({ product }) {
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
+  let changeStatus = false;
+
+  useEffect(()=>{
+
+  }, [changeStatus])
 
   const addItem = async () => {
     if (user.token) {
@@ -87,7 +92,7 @@ export default function ProductCard({ product }) {
           className={`${classes.purchaseBtn} ${classes.icon}`}
           onClick={addItem}
         >
-          <AddShoppingCartIcon className={classes.icon} />
+          <AddShoppingCartIcon className={classes.icon} onClick={() => {changeStatus = !changeStatus}} />
         </Button>
       </CardActions>
     </Card>

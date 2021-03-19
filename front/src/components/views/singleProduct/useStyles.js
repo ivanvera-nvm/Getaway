@@ -18,6 +18,11 @@ const useStyles = makeStyles((theme) => ({
         duration: theme.transitions.duration.shortest,
       }),
     },
+    icon :{
+      backgroundColor:"#f56d05",
+     
+    }
+,  
     expandOpen: {
       transform: "rotate(180deg)",
     },
@@ -37,7 +42,16 @@ const useStyles = makeStyles((theme) => ({
       width: 400,
       fontSize: 35,
       color: "#66bb6a",
+    }, 
+     purchaseBtn: {
+      // width: "80px",
+      fontSize: "12px",
+      color: "white",
+      backgroundColor: "#dd2c00",
+      textAlign:"center", 
+      
     },
+  
     description: {
       paddingTop: 20,
       paddingBottom: 20,

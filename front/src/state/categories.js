@@ -20,7 +20,7 @@ export const setDeleteCategory = createAsyncThunk(
 
 export const setCategory = createAsyncThunk("SET_CATEGORY", (newCategory) => {
   return axios
-    .post(`http://localhost:3080/api/categories/`, newCategory)
+    .post(`http://localhost:3080/api/categories/`, {name:newCategory})
     .then((res) => res.data);
 });
 

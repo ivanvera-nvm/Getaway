@@ -15,11 +15,11 @@ const EditCategories = ({id}) => {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const category = useSelector((state) => state.category);
   useEffect(() => {
       dispatch(setCategoryId(id));
-    }, []);
+    }, [dispatch]);
     
-    const category = useSelector((state) => state.category);
     
     const [input, setInput] = useState("");
     
@@ -32,7 +32,7 @@ const EditCategories = ({id}) => {
     const handleSubmit = (e) => {
       e.preventDefault();
       
-    console.log("---------MIRAAA ",input)
+    console.log("---------MIRAAA ",typeof(input))
         dispatch(setEditCategory(id,input))
         history.push("/admin/listCategories")
     }

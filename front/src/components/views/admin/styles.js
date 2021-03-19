@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     color: "white",
     borderRadius: "8px",
+    tranisition:"0.8s",
 
     "&:hover": {
       fontSize: "17px",

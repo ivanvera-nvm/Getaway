@@ -15,6 +15,9 @@ import Rating from "@material-ui/lab/Rating";
 import { useDispatch, useSelector } from "react-redux";
 import { setProduct } from "../../../state/products";
 import { useHistory } from "react-router-dom";
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+
+
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
@@ -86,18 +89,15 @@ export default function Product({ id }) {
                 title={product.name}
               />
 
-              <Box className={classes.boxInfo}>
+              <Box >
                 <CardContent>
                   <Box className={classes.boxInfo}>{product.name}</Box>
                   <Box className={classes.price}>${product.price}</Box>
-
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={addItem}
-                  >
-                    Comprar
-                  </Button>
+                  {(!user.user || user.user.access!=="admin") &&  <><Button className={`${classes.purchaseBtn} ${classes.icon}` }>
+                  <AddShoppingCartIcon  onClick={addItem} />
+                  </Button></> }
+                
+                
 
                   <Typography
                     className={classes.description}
@@ -115,8 +115,9 @@ export default function Product({ id }) {
                     component="p"
                   >
                     <List component="nav" aria-label="main mailbox folders">
-                      <ListItemIcon>Cantidad:</ListItemIcon>
-                      <ListItemText primary={product.quantity} />
+                    {user.user && user.user.acess!=="admin" && (<><ListItemIcon>Cantidad:</ListItemIcon>
+                      <ListItemText primary={product.quantity} /></>)}
+                      
 
                       <ListItemIcon>Stock:</ListItemIcon>
                       <ListItemText primary={product.stock} />

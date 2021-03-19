@@ -23,7 +23,7 @@ const CartController = {
           return res.status(200).send(cart);
         });
       }
-      res.send(cart);
+    return res.send(cart);
     });
   },
 

@@ -103,7 +103,7 @@ export default function App() {
           /> 
            <Route
             exact
-            path="/admin/addCategory/:id"
+            path="/admin/addCategory/"
             render={(props) => <AddCategory id={props.match.params.id} />}
           />
           <Route path="/admin/addProduct" component={addProduct} />

@@ -26,12 +26,17 @@ const Navbar = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const userOrders = useSelector((state) => state.userOrders);
+  let changeStatus = false;
+console.log("-------------ACA ----------", userOrders);
+// const quantityItems = () => {userOrders.forEach(( e => acum+=e.productQuantity))}
+  // const quantityItems = Object.keys(userOrders).length
   const products = useSelector((state) => state.products);
 
   const total = (userOrders) => {
     let totalItems = 0;
     userOrders.forEach((order) => {
       totalItems += order.productQuantity;
+      
     });
 
     return (
@@ -63,6 +68,7 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(setProducts(filterProducts));
+   
   }, [search]);
 
   return (
@@ -97,11 +103,13 @@ const Navbar = () => {
         {!user.user && (
           <>
             <ShoppingCartIcon
-              onClick={() =>
+              onClick={() =>{
                 enqueueSnackbar(
                   "Debes loguearte para poder cargar tu carrito",
                   { variant: "error" }
                 )
+                
+              }
               }
             />
           </>

@@ -8,11 +8,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   adminPanel: {
-    
     display: "flex",
     justifyContent: "center",
-    marginBottom: "50px",
-    fontSize: "35px",
+    marginBottom: "35px",
+    fontSize: "25px",
   },
   links: {
     backgroundColor: "#f57c00",
@@ -29,26 +28,30 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
     color: "white",
     borderRadius: "8px",
-    transition:"0.8s",
 
     "&:hover": {
-      fontSize: "22px",
+      fontSize: "17px",
     },
     "&:active": {
       color: "gray",
     },
   },
-  icon:{
-    display:"flex",
-    margin:"10px", 
-    
-  }, 
-  iconAdd:{
-    display:"flex",
-    justifyContent:"center", 
-    margin:"20px auto"
-   
-   
+  icon: {
+    display: "flex",
+    flexDirection: "column-reverse",
+    alignItems: "center",
+  },
+  highlighted: {
+
+    color:"#F50057"
+  },
+  input:{
+    width:"40%", 
+    margin:"30px"
+  },
+  button:{
+    display:"block",
+    margin:"0 auto"
   }
 }));
 

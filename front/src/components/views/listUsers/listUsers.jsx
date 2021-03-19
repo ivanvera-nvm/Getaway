@@ -18,6 +18,9 @@ import Select from "@material-ui/core/Select";
 import CheckIcon from "@material-ui/icons/Check";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
+import Fab from "@material-ui/core/Fab";
+
+
 
 export default function Users() {
   // const [access, setAccess] = React.useState("");
@@ -54,6 +57,20 @@ export default function Users() {
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    formPosition:{
+      width:"70%", 
+      margin:"0 auto"
+    }, 
+    button:{
+      display:"flex",
+      margin:"50px auto", 
+      backgroundColor:"#F50057"
+    }, 
+    cell:{
+      fontWeight:"bold", 
+      color:"#F50057", 
+      fontSize:"20px"
+    }
   }));
 
   const classes = useStyles();
@@ -65,26 +82,35 @@ export default function Users() {
       {/* {user.user && user.user.access === "admin" ? ( */}
       <div>
         <h1 align="center">Gestion de Usuarios</h1>
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           align="right"
-          onClick={refresh}
+          
         >
           Guardar
-        </Button>
-        <TableContainer component={Paper}>
+        </Button> */}
+        <Fab
+                    color="success"
+                    aria-label="add"
+                    className={classes.button}
+                  >
+        <CheckIcon onClick={refresh} />
+                   
+                  </Fab>
+          
+        <TableContainer component={Paper} className={classes.formPosition}>
           <Table className={classes.table} aria-label="simple table">
             <TableHead>
               <TableRow>
                 {/* <TableCell>Gestion Usuarios</TableCell> */}
-                <TableCell align="center">ID</TableCell>
-                <TableCell align="center">Nombre</TableCell>
-                <TableCell align="center">Apellido</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Permisos</TableCell>
-                <TableCell align="center">Ordenes</TableCell>
-                <TableCell align="center">Eliminar</TableCell>
+                <TableCell align="center" className={classes.cell}>ID</TableCell>
+                <TableCell align="center" className={classes.cell}>Nombre</TableCell>
+                <TableCell align="center" className={classes.cell}>Apellido</TableCell>
+                <TableCell align="center" className={classes.cell}>Email</TableCell>
+                <TableCell align="center" className={classes.cell}>Permisos</TableCell>
+                <TableCell align="center" className={classes.cell}>Ordenes</TableCell>
+                <TableCell align="center" className={classes.cell}>Eliminar</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

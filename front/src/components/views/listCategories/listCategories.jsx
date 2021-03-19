@@ -5,19 +5,23 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import useStyles from "./styles";
-import { setCategories } from "../../../state/categories";
+import { setCategories, set, setDeleteCategory } from "../../../state/categories";
 import EditIcon from "@material-ui/icons/Edit";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
 const ListCategories = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
   const categories = useSelector((state) => state.categories);
 
- 
+ const handleSubmit = (e, id) => {
+  e.preventDefault();
+  dispatch(setDeleteCategory(id))
+ }
 
   useEffect(() => {
     dispatch(setCategories());
@@ -29,6 +33,18 @@ const ListCategories = () => {
         <Box>
           <Box className={classes.adminPanel}>Manejo de Categorías</Box>
           {console.log(categories)}
+                  <Link
+                    to={`/admin/addCategory/`}
+                    // className={classes.links}
+                  >
+                  <Fab
+                    color="default"
+                    aria-label="add"
+                    className={`${classes.icon} ${classes.iconAdd}`}
+                  >
+                    <AddIcon size="medium"/>
+                  </Fab>
+                  </Link>
           {
             categories.map((category) => {
               return (
@@ -40,18 +56,6 @@ const ListCategories = () => {
                     <h4>{category.name}</h4>
                   </Link>
                   <Link
-                    to={`/admin/addCategory/${category.id}`}
-                    // className={classes.links}
-                  >
-                  <Fab
-                    color="default"
-                    aria-label="add"
-                    className={classes.icon}
-                  >
-                    <AddIcon />
-                  </Fab>
-                  </Link>
-                  <Link
                     to={`/admin/editCategory/${category.id}`}
                     // className={classes.links}
                   >
@@ -61,6 +65,18 @@ const ListCategories = () => {
                     className={classes.icon}
                   >
                     <EditIcon />
+                  </Fab>
+                  </Link>
+                  <Link
+                    to={""}
+                    // className={classes.links}
+                  >
+                  <Fab
+                    color="default"
+                    aria-label="add"
+                    className={classes.icon}
+                  >
+                    <DeleteOutlineIcon onClick={(e) => handleSubmit(e, category.id)} />
                   </Fab>
                   </Link>
                 </Box>
