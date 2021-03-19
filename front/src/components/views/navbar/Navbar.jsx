@@ -71,7 +71,7 @@ const Navbar = () => {
       <Box className={classes.navMain}>
         <Typography className={classes.title} variant="h6" noWrap>
           <img
-            src="https://www.flaticon.com/svg/vstatic/svg/81/81227.svg?token=exp=1615952427~hmac=5555c0bb1a31de82e804d7ca58d231ef"
+            src="https://as2.ftcdn.net/jpg/02/93/02/35/500_F_293023546_xhageEnCMIzNnfWr9QhnwP4rGZTW2TYp.jpg"
             className={classes.logo}
             alt="Logo"
           />
