@@ -1,34 +1,27 @@
-import React,{useState, useEffect} from "react"
+import React from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
-import InputBase from "@material-ui/core/InputBase";
+
 import Avatar from "@material-ui/core/Avatar";
-import { useHistory, NavLink} from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
-import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-
-import axios from "axios";
 
 import Cart from "../cart/Cart";
 
 import useStyles from "./style";
-import { setProducts } from "../../../state/products";
-
 
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
- 
-
   const userOrders = useSelector((state) => state.userOrders);
-  const products = useSelector((state) => state.products);
+  /*  const products = useSelector((state) => state.products); */
 
   const total = (userOrders) => {
     let totalItems = 0;
@@ -49,55 +42,27 @@ const Navbar = () => {
     return localStorage.clear();
   };
 
-  const [search, setSearch] = useState("");
-
-  const handleChange = (event) => {
-    setSearch(event.target.value.toLowerCase());
-  };
-
-  let arr = products.map((product) => {
-    return { ...product, name: product.name.toLowerCase() };
-  });
-
-  const filterProducts = arr.filter((product) =>
-    product.name.toLowerCase().match(search)
-  );
-
-  useEffect(() => {
-    dispatch(setProducts(filterProducts));
-  }, [search]);
-
   return (
     <div className={classes.stack}>
       <Box className={classes.navMain}>
         <Typography className={classes.title} variant="h6" noWrap>
           <img
-            src="https://www.flaticon.com/svg/vstatic/svg/81/81227.svg?token=exp=1615952427~hmac=5555c0bb1a31de82e804d7ca58d231ef"
+            src="https://as2.ftcdn.net/jpg/02/93/02/35/500_F_293023546_xhageEnCMIzNnfWr9QhnwP4rGZTW2TYp.jpg"
             className={classes.logo}
             alt="Logo"
           />
           GetAway
         </Typography>
-        <form>
-          <InputBase
-            placeholder="Search…"
-            
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ "aria-label": "search" }}
-          />
-
-          <SearchIcon />
-        </form>
-        
-        {(user.user && user.user.access !== "admin") && (
+        {user.user && user.user.access !== "admin" && (
           <div className={classes.root}>
             <div>{total(userOrders)}</div>
           </div>
         )}
-        {(!user.user ) && <><ShoppingCartIcon /></>}
+        {!user.user && (
+          <>
+            <ShoppingCartIcon />
+          </>
+        )}
 
         {!user.user ? (
           <AccountCircle />
@@ -105,10 +70,9 @@ const Navbar = () => {
           <>
             <div className={classes.root}>
               {!userOrders && user.user.access !== "admin" ? (
-            <IconButton/>
-                
+                <IconButton />
               ) : (
-              ""
+                ""
               )}
             </div>
             <Box
@@ -149,14 +113,16 @@ const Navbar = () => {
             Admin
           </NavLink>
         ) : (
-          <NavLink
-            exact
-            to="/cartDetails"
-            activeClassName="active"
-            className={classes.links}
-          >
-            Cart Details
-          </NavLink>
+          <>
+            <NavLink
+              exact
+              to="/cartDetails"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Cart Details
+            </NavLink>
+          </>
         )}
 
         {!user.user ? (
@@ -193,7 +159,8 @@ const Navbar = () => {
           </>
         )}
       </Box>
-   
+
+      <Box className={classes.category}></Box>
     </div>
   );
 };

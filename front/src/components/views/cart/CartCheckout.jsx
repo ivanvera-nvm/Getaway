@@ -6,27 +6,49 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 import SimpleDialog from "./Payments";
-
+import { NavLink, useHistory } from "react-router-dom";
+import { useSnackbar } from "notistack";
 import useStyles from "./style";
 import { setCartCheckout, updateCartStatus } from "../../../state/cart";
-import {useHistory} from 'react-router-dom'
+
+import axios from "axios";
 
 export default function CartCheckout({ product }) {
+  const { enqueueSnackbar } = useSnackbar();
+
   const classes = useStyles();
   const checkout = useSelector((state) => state.userCart);
-  const user = useSelector((state) => state.user);
+  const user = JSON.parse(localStorage.getItem('user'))
+  
   const history = useHistory()
   const dispatch = useDispatch();
-  
+  const cartId = checkout.id;
+  // const email = JSON.parse(localStorage.getItem("user")).user.email;
+
   console.log("CHECKOUT ID ====>", checkout.id);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
     dispatch(setCartCheckout(checkout.id)).then(() =>
       dispatch(updateCartStatus(checkout.id, user.user.email))
     );
     history.push('/orderConfirmation')
-  };
+  }
+
+  // const sendOrder = async () => {
+  //   try {
+  //     await axios.put("http://localhost:3080/api/cart/status", {
+  //       cartId,
+  //       email,
+  //     });
+  //     enqueueSnackbar("La compra se ha realizado exitosamente", {
+  //       variant: "success",
+  //     });
+  //     history.push("/orderConfirmation");
+  //   } catch (err) {
+  //     enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
+  //   }
+  // };
 
   return (
     <Card className={classes.root}>
@@ -70,4 +92,4 @@ export default function CartCheckout({ product }) {
       </Box>
     </Card>
   );
-}
+  }

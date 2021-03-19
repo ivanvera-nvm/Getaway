@@ -131,6 +131,16 @@ const useStyles = makeStyles((theme) => ({
   cartColor: {
     backgroundColor: "black",
   },
+
+
+  category: {
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginLeft: "10%",
+    marginRight: "10%"
+  },
+
 }));
 
 export default useStyles;

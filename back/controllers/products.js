@@ -37,14 +37,16 @@ const productController = {
   },
 
   findByCategory(req, res, next) {
-    const id = req.params.id;
+   /*  const id = req.params.id; */
+    const arr = req.body.categories
+    console.log(arr)
     Product_Category.findAll({
-      where: { categoryId: id },
+      where: { categoryId: arr },
       include: [{ model: Product }],
     })
 
       .then((product) => {
-        console.log(product);
+  
         res.send(product);
       })
       .catch(next);
@@ -53,7 +55,6 @@ const productController = {
   findByKeyword(req, res, next) {
     const queryFilter = req.query.name;
     const splited = queryFilter.split("%").join(' ');
-    console.log(splited);
     
       Product.findAll({
         where: {
@@ -81,7 +82,6 @@ const productController = {
   addProductReview(req, res, send) {
     // const productId = req.params.id;
     const { userId, content, rating, productId } = req.body;
-    console.log(req.body);
     Review.create({ userId, content, rating, productId })
       .then((review) => res.status(200).send(review))
 
@@ -90,11 +90,11 @@ const productController = {
 
   getProductRating(req, res, next) {
     const productId = req.params.id;
-    console.log(productId);
+ 
 
     Review.sum("rating", { where: { productId } }).then((result) => {
       Review.findAndCountAll({ where: { productId } }).then((count) => {
-        console.log("sum de ratings", result, count.count);
+    
         let average = result / count.count;
         console.log(average);
         res.status(200).json({ avg: average });
@@ -113,7 +113,7 @@ const productController = {
       quantity,
       categories,
     } = req.body;
-    console.log(categories);
+   
     Product.create({
       name,
       price,
@@ -124,7 +124,7 @@ const productController = {
       quantity,
     }).then((product) => {
       product.setCategories(categories);
-      // console.log(Object.keys(product.__proto__));
+     
       res.status(201).send(product);
     });
   },

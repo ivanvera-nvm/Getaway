@@ -6,8 +6,8 @@ const dotenv = require('dotenv').config({path:'/home/ivan/Documents/plataforma5/
   port: 465,
   secure: true,
   auth: {
-    user: process.env.NODEMAILER_USER,
-    pass: process.env.NODEMAILER_PASS, 
+    user: 'getawayexperience@gmail.com',
+    pass: 'plataforma5'
   },
 });
 

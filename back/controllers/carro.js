@@ -23,7 +23,7 @@ const CartController = {
           return res.status(200).send(cart);
         });
       }
-      res.send(cart);
+      //res.send(cart);
     });
   },
 
@@ -61,11 +61,11 @@ const CartController = {
     const { productId, cartId } = req.body;
     CartModel.findByPk(cartId)
       .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
+    
         cart.getOrders({ where: { productId } }).then((order) => {
           if (!order[0]) {
             ProductModel.findByPk(productId).then((product) => {
-              console.log(product.price);
+            
               cart
                 .createOrder({
                   cartId,
@@ -98,7 +98,7 @@ const CartController = {
 
     CartModel.findByPk(cartId)
       .then((cart) => {
-        //  console.log(Object.keys(cart.__proto__))
+      
         cart
           .getOrders({ where: { productId } })
           .then((order) => {
@@ -126,8 +126,6 @@ const CartController = {
       .catch(next);
   },
 
-  // console.log(cart);
-  //console.log(Object.keys(cart.__proto__))
 
   submitCart(req, res, next) {
     //traerte todas las ordenes para ese cartId
@@ -199,10 +197,7 @@ const CartController = {
       .catch((err) => next(err));
   },
 
-  /*
-  
-  
-  checkout(req, res,next) {} */
+ 
 };
 
 module.exports = CartController;
