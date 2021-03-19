@@ -31,13 +31,13 @@ export default function App() {
 
   const total = useSelector((state) => state.products).length;
 
-
   const dispatch = useDispatch();
   const getUser = () => {
     return JSON.parse(localStorage.getItem("user"));
   };
   const user = getUser();
 
+  
   useEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {

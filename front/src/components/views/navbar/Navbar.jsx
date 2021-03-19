@@ -60,12 +60,12 @@ const Navbar = () => {
     product.name.toLowerCase().match(search)
   );
 
-
   useEffect(() => {
     dispatch(setProducts(filterProducts));
   }, [search]);
 
   
+
 
   return (
     <div className={classes.stack}>

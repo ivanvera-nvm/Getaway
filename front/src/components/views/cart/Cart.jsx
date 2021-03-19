@@ -26,8 +26,8 @@ const Cart = () => {
 
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
-
   const userId = user.user.id;
+
 
   useEffect(() => {
     axios
@@ -35,7 +35,7 @@ const Cart = () => {
       .then((newCart) => console.log("carro creado"));
   }, []);
   
-
+  
   const [state, setState] = useState({
     right: false,
   });
