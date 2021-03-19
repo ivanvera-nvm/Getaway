@@ -81,7 +81,6 @@ const fn = async (req, res, next) => {
 
     Promise.all(products).then((a) => {
       let obj2 = help(a);
-  
       res.send(obj2);
     });
   } catch (err) {

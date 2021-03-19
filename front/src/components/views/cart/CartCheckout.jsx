@@ -9,6 +9,7 @@ import SimpleDialog from "./Payments";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import useStyles from "./style";
+import { setCartCheckout, updateCartStatus } from "../../../state/cart";
 
 import axios from "axios";
 
@@ -17,31 +18,43 @@ export default function CartCheckout({ product }) {
 
   const classes = useStyles();
   const checkout = useSelector((state) => state.userCart);
+  const user = JSON.parse(localStorage.getItem('user'))
+  
+  const history = useHistory()
+  const dispatch = useDispatch();
   const cartId = checkout.id;
+  // const email = JSON.parse(localStorage.getItem("user")).user.email;
 
-  const history = useHistory();
-  const email = JSON.parse(localStorage.getItem("user")).user.email;
+  console.log("CHECKOUT ID ====>", checkout.id);
 
-  const sendOrder = async () => {
-    try {
-      await axios.put("http://localhost:3080/api/cart/status", {
-        cartId,
-        email,
-      });
-      enqueueSnackbar("La compra se ha realizado exitosamente", {
-        variant: "success",
-      });
-      history.push("/orderConfirmation");
-    } catch (err) {
-      enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
-    }
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    dispatch(setCartCheckout(checkout.id)).then(() =>
+      dispatch(updateCartStatus(checkout.id, user.user.email))
+    );
+    history.push('/orderConfirmation')
+  }
+
+  // const sendOrder = async () => {
+  //   try {
+  //     await axios.put("http://localhost:3080/api/cart/status", {
+  //       cartId,
+  //       email,
+  //     });
+  //     enqueueSnackbar("La compra se ha realizado exitosamente", {
+  //       variant: "success",
+  //     });
+  //     history.push("/orderConfirmation");
+  //   } catch (err) {
+  //     enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
+  //   }
+  // };
 
   return (
     <Card className={classes.root}>
       <Box className={classes.container}>
         <Box className={classes.blockLeft}>
-          <SimpleDialog className={classes.paymentTypes} />
+          <SimpleDialog c lassName={classes.paymentTypes} />
         </Box>
         <Box className={classes.blockRight}>
           <Box className={classes.totals}> ${checkout.total}</Box>
@@ -67,16 +80,16 @@ export default function CartCheckout({ product }) {
       </Box>
 
       <Box className={classes.checkoutBox}>
-        {/*       <NavLink to='/orderConfirmation'> */}
-        <Button
-          variant="contained"
-          className={classes.checkoutButton}
-          onClick={sendOrder}
-        >
-          Comprar
-        </Button>
-        {/*   </NavLink> */}
+        <form onSubmit={handleSubmit}>
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.checkoutButton}
+          >
+            Comprar
+          </Button>
+        </form>
       </Box>
     </Card>
   );
-}
+  }

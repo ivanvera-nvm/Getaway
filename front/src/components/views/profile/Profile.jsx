@@ -15,7 +15,8 @@ import Button from "@material-ui/core/Button";
 const Profile = () => {
   const classes = useStyles();
   const user = useSelector((state) => state.user).user;
-  const userOrders = useSelector((state) => state.userOrders);
+
+  const historyOrders = useSelector((state) => state.historyOrders);
 
   return (
     <>
@@ -42,13 +43,13 @@ const Profile = () => {
         ) : (
           <></>
         )}
-        {userOrders[0] ? (
+        {historyOrders[0] ? (
           <>
             <Box>
               <Paper>
                 <h3>Order History</h3>
                 <ul>
-                  {userOrders.map((order, i) => (
+                  {historyOrders.map((order, i) => (
                     <li
                       key={i}
                     >{`Order ID: ${order.id} =========> ${order.nameProduct[0]}`}</li>
