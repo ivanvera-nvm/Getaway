@@ -43,6 +43,8 @@ export default function App() {
 
   const product = useSelector((state) => state.product);
 
+  console.log('====>',product)
+
   useEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {
@@ -51,8 +53,8 @@ export default function App() {
       dispatch(setTotal(total));
       // traer ordenes historicas
       dispatch(setUser(user));
-      dispatch(setHistoryOrders(user.user.id));
-    } else {
+/*       dispatch(setHistoryOrders(user.user.id));
+ */    } else {
       return function () {
         return null;
       };
