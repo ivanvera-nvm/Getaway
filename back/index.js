@@ -20,7 +20,7 @@ app.use((err, req, res, next) => {
 
 db.sync({ force: false })
   .then(() => {
-    app.listen(PORT, () => {  
+    app.listen(PORT, () => {
       console.log("listening on port ", PORT);
     });
   })
