@@ -20,7 +20,7 @@ import { useSnackbar } from "notistack";
 
 import useStyles from "./style";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product}) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -28,6 +28,8 @@ export default function ProductCard({ product }) {
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
+
+  
 
   useEffect(() => {
     dispatch(setProduct(productId));
