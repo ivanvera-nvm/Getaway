@@ -13,22 +13,13 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import useStyles from "./styles";
 
-
 export default function OrderConfirmation() {
-
-  const user = JSON.parse(localStorage.getItem('user'))
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+
   //const user = useSelector((state) => state.user);
   const userOrders = useSelector((state) => state.userOrders);
-  console.log(userOrders);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-
-
 
   return (
     <Card className={classes.root}>
@@ -69,9 +60,7 @@ export default function OrderConfirmation() {
             </Table>
           </TableContainer>
         </Box>
-        <Box className={classes.title}>
-          Su total facturado es:
-        </Box>
+        <Box className={classes.title}>Su total facturado es:</Box>
       </Box>
     </Card>
   );

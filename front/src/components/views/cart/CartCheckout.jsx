@@ -18,37 +18,40 @@ export default function CartCheckout({ product }) {
 
   const classes = useStyles();
   const checkout = useSelector((state) => state.userCart);
-  const user = JSON.parse(localStorage.getItem('user'))
-  
-  const history = useHistory()
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const history = useHistory();
   const dispatch = useDispatch();
   const cartId = checkout.id;
-  // const email = JSON.parse(localStorage.getItem("user")).user.email;
+  const email = JSON.parse(localStorage.getItem("user")).user.email;
 
   console.log("CHECKOUT ID ====>", checkout.id);
-
+  /* 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     dispatch(setCartCheckout(checkout.id)).then(() =>
       dispatch(updateCartStatus(checkout.id, user.user.email))
     );
-    history.push('/orderConfirmation')
-  }
+    history.push("/orderConfirmation");
+  }; */
 
-  // const sendOrder = async () => {
-  //   try {
-  //     await axios.put("http://localhost:3080/api/cart/status", {
-  //       cartId,
-  //       email,
-  //     });
-  //     enqueueSnackbar("La compra se ha realizado exitosamente", {
-  //       variant: "success",
-  //     });
-  //     history.push("/orderConfirmation");
-  //   } catch (err) {
-  //     enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
-  //   }
-  // };
+  const sendOrder = async () => {
+    try {
+      await axios.put("http://localhost:3080/api/cart/status", {
+        cartId,
+        email,
+      });
+      enqueueSnackbar("La compra se ha realizado exitosamente", {
+        variant: "success",
+      });
+
+      ;
+    } catch (err) {
+      enqueueSnackbar("No se pudo efectuar la compra", { variant: "error" });
+    }
+    
+    return history.push("/orderConfirmation")
+  };
 
   return (
     <Card className={classes.root}>
@@ -80,7 +83,7 @@ export default function CartCheckout({ product }) {
       </Box>
 
       <Box className={classes.checkoutBox}>
-        <form onSubmit={handleSubmit}>
+        <form onClick={sendOrder}>
           <Button
             type="submit"
             variant="contained"
@@ -92,4 +95,4 @@ export default function CartCheckout({ product }) {
       </Box>
     </Card>
   );
-  }
+}

@@ -131,6 +131,7 @@ const CartController = {
     //traerte todas las ordenes para ese cartId
     //sumar los subtotales de esas ordenes --> TOTAL --> hacer un map de los subtotales de la orden
     const { cartId } = req.body;
+    
     OrderModel.sum("subtotal", { where: { cartId } })
       .then((result) => {
         CartModel.update({ total: result }, { where: { id: cartId } }).then(
