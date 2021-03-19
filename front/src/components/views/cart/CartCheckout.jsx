@@ -4,9 +4,11 @@ import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 
 import Button from "@material-ui/core/Button";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import SimpleDialog from "./Payments";
 
 import useStyles from "./style";
+
 
 export default function CartCheckout({ product }) {
   const classes = useStyles();
@@ -17,11 +19,12 @@ export default function CartCheckout({ product }) {
   return (
     <Card className={classes.root}>
       <Box className={classes.container}>
-        <Box className={classes.blockLeft}></Box>
+        <Box className={classes.blockLeft}>
+          <SimpleDialog className={classes.paymentTypes} />
+        </Box>
         <Box className={classes.blockRight}>
           <Box className={classes.totals}> ${checkout.total}</Box>
           <Box className={classes.creditCards}>
-            <Box> Medios de pago</Box>
             <Box> ¡Cuotas sin interés con bancos seleccionados!</Box>
             <img
               src="https://cdn.iconscout.com/icon/premium/png-128-thumb/visa-27-565046.png"

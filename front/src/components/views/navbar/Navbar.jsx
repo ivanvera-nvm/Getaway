@@ -64,9 +64,6 @@ const Navbar = () => {
     dispatch(setProducts(filterProducts));
   }, [search]);
 
-  
-
-
   return (
     <div className={classes.stack}>
       <Box className={classes.navMain}>

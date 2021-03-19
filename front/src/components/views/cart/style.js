@@ -106,6 +106,7 @@ const useStyles = makeStyles({
   naranja: {
     height: "20px",
   },
+  paymentTypes: {},
 });
 
 export default useStyles;
