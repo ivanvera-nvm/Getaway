@@ -16,14 +16,14 @@ const CartController = {
 
   findOrCreateCart(req, res, next) {
     const { userId } = req.body;
-    
+
     CartModel.findOne({ where: { userId, status: "pending" } }).then((cart) => {
       if (!cart) {
         CartModel.create({ userId }).then((cart) => {
           return res.status(200).send(cart);
         });
       }
-      res.send(cart);
+      //res.send(cart);
     });
   },
 
@@ -135,6 +135,7 @@ const CartController = {
       .then((result) => {
         CartModel.update({ total: result }, { where: { id: cartId } }).then(
           (cart) => {
+            console.log(cart)
             res.send(cart).status(200);
           }
         );
@@ -145,10 +146,8 @@ const CartController = {
   updateStock(req, res, next) {
     //actualiza el stock por producto
     const { productId, productQuantity } = req.body;
-
     ProductModel.findOne({ where: { id: productId } })
       .then((product) => {
-        console.log(product);
         product.update({ stock: product.stock - productQuantity });
         console.log("PRODUCTO ACTUALIZADO", product);
         res.send("stock actualizado correctamente");
@@ -170,16 +169,30 @@ const CartController = {
   findFulfilledOrders(req, res, next) {
     const userId = req.params.userId;
 
-    CartModel.findOne({ where: { userId } })
-      .then((userCart) => {
-        if (userCart.status === "fulfilled") {
-          const { id } = userCart;
-          OrderModel.findAll({ where: { cartId: id } })
-            .then((userOrders) => res.send(userOrders))
-            .catch((err) => console.log(err));
-        } else {
-          res.send("Compra no finalizada");
-        }
+    CartModel.findAll({ where: { userId } })
+      .then((userCarts) => {
+        userCarts.map(cart => {
+          if (cart.status === 'fulfilled') {
+            const { id } = cart;
+            OrderModel.findAll({ where: { cartId: id } })
+              .then(userOrders => {
+                userOrders.map(order => {
+                  // AYUDA POR FAVOR
+                  let obj = []
+                  obj.push(order)
+                  return res.json(obj)
+                })
+              })
+              .catch(err => console.log(err))
+          }
+        })
+        // if (userCart.status === "fulfilled") {
+        //   OrderModel.findAll({ where: { cartId: id } })
+        //     .then((userOrders) => res.send(userOrders))
+        //     .catch((err) => console.log(err));
+        // } else {
+        //   res.send("Compra no finalizada");
+        // }
       })
       .catch((err) => next(err));
   },

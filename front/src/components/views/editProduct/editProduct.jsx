@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Image from "material-ui-image";
 import Button from "@material-ui/core/Button";
+import { useHistory } from 'react-router-dom'
 
 import { setProduct } from "../../../state/products";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +36,8 @@ const EditProduct = ({ id }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   React.useLayoutEffect(() => {
     dispatch(setProduct(id));
   }, [dispatch]);
@@ -62,7 +65,7 @@ const EditProduct = ({ id }) => {
         price,
         stock,
       })
-      .then((res) => console.log(res));
+      .then(() => history.push('/admin/listProducts'));
   };
 
   return (
