@@ -1,30 +1,14 @@
-<<<<<<< HEAD
-import {
-  IconButton,
-  Typography,
-  Avatar,
-  Badge,
-  Box,
-  InputBase,
-} from "@material-ui/core";
-
-import { setProducts } from "../../../state/products";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import axios from "axios";
-import React, { useState } from "react";
-=======
+import React,{useState} from "react"
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import InputBase from "@material-ui/core/InputBase";
-import axios from 'axios'
 
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Avatar from "@material-ui/core/Avatar";
-
->>>>>>> e3c7fe62db72befa2d6cb490576fb79ba90c77ec
-import { useHistory, NavLink } from "react-router-dom";
+import { useHistory, NavLink} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
 import SearchIcon from "@material-ui/icons/Search";
@@ -38,7 +22,7 @@ const Navbar = () => {
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [input, setInput] = useState("");
+ 
 
   const userOrders = useSelector((state) => state.userOrders);
 
@@ -75,20 +59,23 @@ const Navbar = () => {
         <form>
           <InputBase
             placeholder="Search…"
-            value={input}
+            
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
             inputProps={{ "aria-label": "search" }}
           />
+
           <SearchIcon />
         </form>
-        {(!user.user || user.user.access !== "admin") && (
+        
+        {(user.user && user.user.access !== "admin") && (
           <div className={classes.root}>
             <div>{total(userOrders)}</div>
           </div>
         )}
+        {(!user.user ) && <><ShoppingCartIcon /></>}
 
         {!user.user ? (
           <AccountCircle />
@@ -99,7 +86,7 @@ const Navbar = () => {
             <IconButton/>
                 
               ) : (
-                <div>{total(userOrders)}</div>
+              ""
               )}
             </div>
             <Box className={classes.userContainer}

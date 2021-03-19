@@ -26,25 +26,14 @@ const Cart = () => {
 
   const userOrders = useSelector((state) => state.userOrders);
   const user = useSelector((state) => state.user);
-
-<<<<<<< HEAD
-
-  
-  
-  const userId = !user.user ? 99 : user.user.id
- 
-  useEffect(() => {
-    axios
-      .post("http://localhost:3080/api/cart/new", { userId })
-=======
-  const userId = user.user.id;
+  console.log(user, "Estoy en CART");
+  const userId = 10;
 
   useEffect(() => {
     axios
       .post("http://localhost:3080/api/cart/new", { userId })
       .then((newCart) => console.log("carro creado"));
->>>>>>> e3c7fe62db72befa2d6cb490576fb79ba90c77ec
-  }, [userId, dispatch]);
+  }, []);
 
   const [state, setState] = useState({
     right: false,
@@ -61,10 +50,7 @@ const Cart = () => {
   };
 
   return (
-    
     <div>
-    {!user.user ? <>
-    
       {["right"].map((anchor) => (
         <React.Fragment key={anchor}>
           <Button onClick={toggleDrawer(anchor, true)}>
@@ -75,71 +61,6 @@ const Cart = () => {
             open={state[anchor]}
             onClose={toggleDrawer(anchor, false)}
           >
-            
-            <div
-              className={clsx(classes.list, {
-                [classes.fullList]: anchor === "top" || anchor === "bottom",
-              })}
-              role="presentation"
-              onClick={toggleDrawer(anchor, false)}
-              onKeyDown={toggleDrawer(anchor, false)}
-            >
-              <Divider />
-              {userOrders.lenght < 0 ? (
-                <div>
-                  <ListItem button key={"empty"}>
-                    <ListItemText primary={"The cart is empty :("} />
-                  </ListItem>
-                </div>
-              ) : (
-                <div>
-                  <List>
-                    <ListItem button key={"FULLFILLED"}>
-                      <ListItemText primary={`Órdenes de compra`} />
-                    </ListItem>
-                  </List>
-                  <List>
-                    {userOrders.map((order) => {
-                      return (
-                        <ListItem button key={"FULLFILLED"}>
-                          <ListItemText
-                            primary={`Order: ${order.id} - ${order.nameProduct[0]}  x${order.productQuantity}`}
-                          />
-                        </ListItem>
-                      );
-                    })}
-                  </List>
-                </div>
-              )}
-            </div>
-            <List>
-              <ListItem button key={"FULLFILLED"}>
-                <NavLink
-                  to={{
-                    pathname: "/cartDetails",
-                  }}
-                >
-                  <ListItemText primary={"Go to detail"} />
-                </NavLink>
-              </ListItem>
-            </List>
-          </Drawer>
-        </React.Fragment>
-      ))}
-
-    </> : <>
-    
-    {["right"].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>
-            <ShoppingCartIcon />
-          </Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            
             <div
               className={clsx(classes.list, {
                 [classes.fullList]: anchor === "top" || anchor === "bottom",
@@ -193,11 +114,6 @@ const Cart = () => {
           </Drawer>
         </React.Fragment>
       ))}
-
-    
-    
-    </> } 
-
     </div>
   );
 };
