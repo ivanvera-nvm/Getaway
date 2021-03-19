@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
@@ -32,7 +32,6 @@ import OrderContainer from "../orders/OrderContainer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
-
   const total = useSelector((state) => state.products).length;
 
   const dispatch = useDispatch();
@@ -41,23 +40,23 @@ export default function App() {
   };
 
   const user = getUser();
-  console.log(user, "Estoy en APP");
 
-  const product = useSelector(state => state.product);
-  
+
+  const product = useSelector((state) => state.product);
+
   useEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {
       dispatch(setUserCart(user.user.id));
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
-      dispatch(setProduct(product));
+ 
     } else {
       return function () {
         return null;
       };
     }
-  }, [dispatch,total,user,product]);
+  }, [dispatch, total, user, product]);
 
   return (
     <>

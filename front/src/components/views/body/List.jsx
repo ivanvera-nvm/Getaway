@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { setTotal } from "../../../state/totalProducts";
-import { setProducts } from "../../../state/products";
+import { setProducts, setProduct } from "../../../state/products";
 import Container from "@material-ui/core/Container";
 
 import ProductCard from "./ProductCard.jsx";
@@ -11,11 +11,12 @@ import Grid from "@material-ui/core/Grid";
 const List = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
+  const product = useSelector(state => state.product)
+
 
   useEffect(() => {
-    dispatch(setProducts()).catch((err) => {
-      console.log(err);
-    });
+    dispatch(setProducts())
+    dispatch(setProduct(product.id))
   }, [dispatch]);
   const totalProducts = products.length;
 

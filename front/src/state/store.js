@@ -12,7 +12,7 @@ import { ordersReducer, userOrdersReducer } from "./orders";
 import {userCartReducer, userCartCheckoutReducer} from './cart';
 
 const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+ /*  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger), */
   reducer: {
     user: userReducer,
     favs: favsReducer,

@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from "react"
+import React, { useState, useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Badge from "@material-ui/core/Badge";
@@ -6,11 +6,12 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import InputBase from "@material-ui/core/InputBase";
 import Avatar from "@material-ui/core/Avatar";
-import { useHistory, NavLink} from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../state/user";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Categories from "../categories/Categories";
 
 import axios from "axios";
 
@@ -19,13 +20,11 @@ import Cart from "../cart/Cart";
 import useStyles from "./style";
 import { setProducts } from "../../../state/products";
 
-
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
- 
 
   const userOrders = useSelector((state) => state.userOrders);
   const products = useSelector((state) => state.products);
@@ -81,7 +80,6 @@ const Navbar = () => {
         <form>
           <InputBase
             placeholder="Search…"
-            
             classes={{
               root: classes.inputRoot,
               input: classes.inputInput,
@@ -91,13 +89,17 @@ const Navbar = () => {
 
           <SearchIcon />
         </form>
-        
-        {(user.user && user.user.access !== "admin") && (
+
+        {user.user && user.user.access !== "admin" && (
           <div className={classes.root}>
             <div>{total(userOrders)}</div>
           </div>
         )}
-        {(!user.user ) && <><ShoppingCartIcon /></>}
+        {!user.user && (
+          <>
+            <ShoppingCartIcon />
+          </>
+        )}
 
         {!user.user ? (
           <AccountCircle />
@@ -105,10 +107,9 @@ const Navbar = () => {
           <>
             <div className={classes.root}>
               {!userOrders && user.user.access !== "admin" ? (
-            <IconButton/>
-                
+                <IconButton />
               ) : (
-              ""
+                ""
               )}
             </div>
             <Box
@@ -149,14 +150,16 @@ const Navbar = () => {
             Admin
           </NavLink>
         ) : (
-          <NavLink
-            exact
-            to="/cartDetails"
-            activeClassName="active"
-            className={classes.links}
-          >
-            Cart Details
-          </NavLink>
+          <>
+            <NavLink
+              exact
+              to="/cartDetails"
+              activeClassName="active"
+              className={classes.links}
+            >
+              Cart Details
+            </NavLink>
+          </>
         )}
 
         {!user.user ? (
@@ -193,7 +196,10 @@ const Navbar = () => {
           </>
         )}
       </Box>
-   
+
+      <Box className={classes.category}>
+    {/*   {  <Categories />} */}
+      </Box>
     </div>
   );
 };
