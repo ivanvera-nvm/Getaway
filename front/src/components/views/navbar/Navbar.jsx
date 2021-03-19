@@ -19,6 +19,7 @@ import Cart from "../cart/Cart";
 import useStyles from "./style";
 import { setProducts } from "../../../state/products";
 
+
 const Navbar = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -192,6 +193,7 @@ const Navbar = () => {
           </>
         )}
       </Box>
+   
     </div>
   );
 };
