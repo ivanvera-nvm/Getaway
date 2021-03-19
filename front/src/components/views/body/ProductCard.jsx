@@ -10,7 +10,8 @@ import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setProduct } from "../../../state/products";
 import axios from "axios";
 
 //MENSAJES
@@ -20,15 +21,15 @@ import { useSnackbar } from "notistack";
 import useStyles from "./style";
 
 export default function ProductCard({ product }) {
- 
   const { enqueueSnackbar } = useSnackbar();
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const classes = useStyles();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
   const addItem = async () => {
+    console.log("CLICK =====>");
     if (user.token) {
       try {
         await axios.post("http://localhost:3080/api/cart/product", {
@@ -36,25 +37,23 @@ export default function ProductCard({ product }) {
           cartId,
         });
         await axios.post(`http://localhost:3080/api/cart/submit`, { cartId });
-        enqueueSnackbar(`${product.name} agregado!`, { variant: 'success'});
-
-
+        enqueueSnackbar(`${product.name} agregado!`, { variant: "success" });
+        dispatch(setProduct(productId));
       } catch (err) {
         console.log(err);
       }
     } else {
-      enqueueSnackbar('Necesitas estar logueado!', { variant: 'error'});
+      enqueueSnackbar("Necesitas estar logueado!", { variant: "error" });
     }
   };
 
   return (
     <Card className={classes.root}>
-      
-        <CardMedia
-          className={classes.media}
-          image={product.image}
-          title={product.name}
-        />
+      <CardMedia
+        className={classes.media}
+        image={product.image}
+        title={product.name}
+      />
       <Link to={`/products/${product.id}`}>
         <Box className={classes.title}>{product.name}</Box>
       </Link>

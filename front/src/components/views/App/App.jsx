@@ -21,7 +21,7 @@ import List from "../body/List";
 import Cart from "../cart/Cart";
 import { fetchMe } from "../../../state/user";
 import { setUserOrders } from "../../../state/orders";
-import { setUser } from "../../../state/user";
+import { setProduct } from "../../../state/products";
 import { setUserCart } from "../../../state/cart";
 import { setTotal } from "../../../state/totalProducts";
 import CartList from "../cart/CartList";
@@ -43,6 +43,7 @@ export default function App() {
   const user = getUser();
   console.log(user, "Estoy en APP");
 
+  const product = useSelector(state => state.product);
   
   useEffect(() => {
     dispatch(fetchMe());
@@ -50,13 +51,13 @@ export default function App() {
       dispatch(setUserCart(user.user.id));
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
-      dispatch(setUser(user))
+      dispatch(setProduct(product));
     } else {
       return function () {
         return null;
       };
     }
-  }, [dispatch,total,user]);
+  }, [dispatch,total,user,product]);
 
   return (
     <>
