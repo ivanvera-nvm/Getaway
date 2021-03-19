@@ -82,7 +82,7 @@ const fn = async (req, res, next) => {
 
     Promise.all(products).then((a) => {
       let obj2 = help(a);
-      console.log("==========>", obj2);
+      //console.log("==========>", obj2);
       res.send(obj2);
     });
   } catch (err) {

@@ -22,7 +22,7 @@ import Cart from "../cart/Cart";
 import { fetchMe } from "../../../state/user";
 import { setUserOrders } from "../../../state/orders";
 import { setUser } from "../../../state/user";
-import { setUserCart } from "../../../state/cart";
+import { setUserCart, setHistoryOrders } from "../../../state/cart";
 import { setTotal } from "../../../state/totalProducts";
 import CartList from "../cart/CartList";
 
@@ -50,7 +50,8 @@ export default function App() {
       dispatch(setUserCart(user.user.id));
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
-      dispatch(setUser(user))
+      dispatch(setUser(user));
+      dispatch(setHistoryOrders(user.user.id));
     } else {
       return function () {
         return null;

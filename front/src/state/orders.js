@@ -12,6 +12,12 @@ export const setUserOrders = createAsyncThunk("SET_USER_ORDERS", (userID) => {
     .then((res) => res.data);
 });
 
+export const setHistoryOrders = createAsyncThunk("SET_HISTORY_ORDERS", (userID) => {
+  return axios
+    .get(`http://localhost:3080/api/order/${userID}/product`)
+    .then((res) => res.data);
+});
+
 export const ordersReducer = createReducer([], {
   [setOrders.fulfilled]: (state, action) => action.payload,
 });
@@ -19,4 +25,6 @@ export const ordersReducer = createReducer([], {
 export const userOrdersReducer = createReducer([], {
   [setUserOrders.fulfilled]: (state, action) => action.payload,
 });
+
+
 

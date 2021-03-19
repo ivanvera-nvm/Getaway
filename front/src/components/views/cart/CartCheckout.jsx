@@ -8,19 +8,31 @@ import { useSelector, useDispatch } from "react-redux";
 import SimpleDialog from "./Payments";
 
 import useStyles from "./style";
-
+import { setCartCheckout, updateCartStatus } from "../../../state/cart";
+import {useHistory} from 'react-router-dom'
 
 export default function CartCheckout({ product }) {
   const classes = useStyles();
   const checkout = useSelector((state) => state.userCart);
+  const user = useSelector((state) => state.user);
+  const history = useHistory()
+  const dispatch = useDispatch();
+  
+  console.log("CHECKOUT ID ====>", checkout.id);
 
-  console.log("CHECKOUT ====>", checkout);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(setCartCheckout(checkout.id)).then(() =>
+      dispatch(updateCartStatus(checkout.id, user.user.email))
+    );
+    history.push('/orderConfirmation')
+  };
 
   return (
     <Card className={classes.root}>
       <Box className={classes.container}>
         <Box className={classes.blockLeft}>
-          <SimpleDialog className={classes.paymentTypes} />
+          <SimpleDialog c lassName={classes.paymentTypes} />
         </Box>
         <Box className={classes.blockRight}>
           <Box className={classes.totals}> ${checkout.total}</Box>
@@ -46,9 +58,15 @@ export default function CartCheckout({ product }) {
       </Box>
 
       <Box className={classes.checkoutBox}>
-        <Button variant="contained" className={classes.checkoutButton}>
-          Comprar
-        </Button>
+        <form onSubmit={handleSubmit}>
+          <Button
+            type="submit"
+            variant="contained"
+            className={classes.checkoutButton}
+          >
+            Comprar
+          </Button>
+        </form>
       </Box>
     </Card>
   );
