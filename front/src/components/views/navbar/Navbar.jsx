@@ -4,7 +4,7 @@ import Badge from "@material-ui/core/Badge";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Box from "@material-ui/core/Box";
 import InputBase from "@material-ui/core/InputBase";
-import axios from 'axios'
+import axios from 'axios';
 
 import Avatar from "@material-ui/core/Avatar";
 
@@ -15,6 +15,7 @@ import { clearUser } from "../../../state/user";
 import Cart from "../cart/Cart";
 
 import useStyles from "./style";
+
 
 const Navbar = () => {
   const classes = useStyles();
@@ -155,6 +156,7 @@ const Navbar = () => {
           </>
         )}
       </Box>
+   
     </div>
   );
 };

@@ -61,11 +61,6 @@ const Profile = () => {
           <></>
         )}
 
-<Box className={classes.edit}>
-          <Button variant="contained" className={classes.buttonColor}>
-            Edit
-          </Button>
-        </Box>
       </Container>
     </>
   );
