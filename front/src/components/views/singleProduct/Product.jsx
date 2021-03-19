@@ -38,9 +38,11 @@ export default function Product({ id }) {
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
-  useEffect(() => {
+  console.log("PRODUCTO =====>>", productId);
+
+  if (!productId) {
     dispatch(setProduct(id));
-  }, []);
+  }
 
   const addItem = async () => {
     if (user.token) {

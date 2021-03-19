@@ -9,11 +9,12 @@ import Box from "@material-ui/core/Box";
 import TextField from "@material-ui/core/TextField";
 
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 
 import { useSnackbar } from "notistack";
-
+import { setUserOrders } from "../../../state/orders";
+import { setProduct } from "../../../state/products";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,18 +62,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard({ order }) {
   const classes = useStyles();
-  const user = useSelector((state) => state.user).token;
-  const cartId = useSelector(state=> state.userCart).id
+  const dispatch = useDispatch();
+
   const { enqueueSnackbar } = useSnackbar();
 
-  
-
   const removeItem = async (productId, cartId, productName) => {
-
     try {
-      await axios.delete(`http://localhost:3080/api/cart/${cartId}/${productId}`);
-      await axios.post(`http://localhost:3080/api/cart/submit`, {cartId});
-      enqueueSnackbar(`Se eliminó ${productName}`,{variant:"success"})
+      await axios.delete(
+        `http://localhost:3080/api/cart/${cartId}/${productId}`
+      );
+      await axios.post(`http://localhost:3080/api/cart/submit`, { cartId });
+      enqueueSnackbar(`Se eliminó ${productName}`, { variant: "success" });
+      dispatch(setProduct(productId));
     } catch (err) {
       console.log(err);
     }
