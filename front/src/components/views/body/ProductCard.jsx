@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -15,12 +15,10 @@ import { setProduct } from "../../../state/products";
 import axios from "axios";
 
 //MENSAJES
-
 import { useSnackbar } from "notistack";
-
 import useStyles from "./style";
 
-export default function ProductCard({ product}) {
+export default function ProductCard({ product }) {
   const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -28,14 +26,13 @@ export default function ProductCard({ product}) {
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
+  /* console.log('PRODUCT COMPONENTE PCard (PARENT: LiST)', product) */
 
   useEffect(() => {
     dispatch(setProduct(productId));
-  }, [productId]);
-
+  }, []);
 
   const addItem = async () => {
-    console.log("CLICK =====>");
     if (user.token) {
       try {
         await axios.post("http://localhost:3080/api/cart/product", {

@@ -41,7 +41,6 @@ export default function App() {
 
   const user = getUser();
 
-
   const product = useSelector((state) => state.product);
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export default function App() {
       dispatch(setUserCart(user.user.id));
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
- 
     } else {
       return function () {
         return null;

@@ -11,22 +11,21 @@ import Checkbox from "@material-ui/core/Checkbox";
 import ProductCard from "./ProductCard.jsx";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./style.js";
+import axios from "axios";
 
 import CategoriesList from "../categories/CategoriesList";
 
-const List = () => {
+const List = (ids) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
   const product = useSelector((state) => state.product);
-
   const totalProducts = products.length;
+  dispatch(setTotal(totalProducts));
 
   //funcion filtro
-  dispatch(setTotal(totalProducts));
   const [search, setSearch] = useState("");
-
   const handleChange = (event) => {
     setSearch(event.target.value.toLowerCase());
   };
@@ -42,8 +41,9 @@ const List = () => {
   useEffect(() => {
     dispatch(setProducts());
     dispatch(setProduct(product.id));
-  }, [dispatch]);
+  }, []);
 
+ 
   return (
     <React.Fragment>
       <CssBaseline />
@@ -61,9 +61,8 @@ const List = () => {
             />
             <SearchIcon />
           </form>
-       <CategoriesList/>
+          <CategoriesList />
         </Container>
-
         <Grid container spacing={2}>
           {filterProducts.map((product, i) => {
             return (
