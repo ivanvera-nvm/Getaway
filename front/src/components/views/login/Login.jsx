@@ -38,14 +38,14 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginRequest({ email: email.value, password: password.value }))
       .then((data) => {
-        !data.error
-          ? history.push("/")
-          : enqueueSnackbar("Error al logear", { variant: "error" });
+        if (!data.error) {
+          enqueueSnackbar("Logueado exitosamente", { variant: "success" });
+          history.push("/");
+        } else {
+          enqueueSnackbar("Este usuario no existe", { variant: "error" });
+        }
       })
-      .then((response) =>
-        enqueueSnackbar("Logueado exitosamente", { variant: "success" })
-      )
-      .catch((err) => alert("ESTE ES EL ERROR", err));
+      .catch((err) => enqueueSnackbar("Error al logear", { variant: "error" }));
   };
 
   const adminLogin = () => {
@@ -58,7 +58,7 @@ const Login = () => {
       .then((response) =>
         enqueueSnackbar("Logueado exitosamente", { variant: "success" })
       )
-      .catch((err) => alert("ESTE ES EL ERROR", err));
+      .catch((err) => alert("Error de logeo", err));
   };
 
   return (

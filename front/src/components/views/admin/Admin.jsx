@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
+import {Redirect, useHistory, Link} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -8,7 +8,15 @@ import useStyles from "./styles";
 
 const Admin = () => {
   const dispatch = useDispatch();
+  const history = useHistory()
   const user = useSelector((state) => state.user);
+
+ useEffect(() => {
+  (!user.user ||  user.user.access!== "admin" )&& history.push("/")
+    
+  }, [dispatch,history,user.user]);
+
+
   const classes = useStyles();
   return (
     <Container fixed alignitems="stretch">

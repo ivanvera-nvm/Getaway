@@ -1,10 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
 
 import Home from "../home/Home";
-import Body from "../body/Body";
-import Card from "../card/Card";
 import Footer from "../footer/Footer";
 import Navbar from "../navbar/Navbar";
 import Sidebar from "../sidebar/Sidebar";
@@ -23,6 +21,7 @@ import List from "../body/List";
 import Cart from "../cart/Cart";
 import { fetchMe } from "../../../state/user";
 import { setUserOrders } from "../../../state/orders";
+import { setUser } from "../../../state/user";
 import { setUserCart } from "../../../state/cart";
 import { setTotal } from "../../../state/totalProducts";
 import CartList from "../cart/CartList";
@@ -33,24 +32,31 @@ import OrderContainer from "../orders/OrderContainer";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function App() {
+
   const total = useSelector((state) => state.products).length;
 
   const dispatch = useDispatch();
   const getUser = () => {
     return JSON.parse(localStorage.getItem("user"));
   };
-  const user = getUser();
 
-  React.useEffect(() => {
+  const user = getUser();
+  console.log(user, "Estoy en APP");
+
+  
+  useEffect(() => {
     dispatch(fetchMe());
     if (user !== null) {
       dispatch(setUserCart(user.user.id));
       dispatch(setUserOrders(user.user.id));
       dispatch(setTotal(total));
+      dispatch(setUser(user))
     } else {
-      return null;
+      return function () {
+        return null;
+      };
     }
-  }, []);
+  }, [dispatch,total,user]);
 
   return (
     <>
@@ -58,8 +64,6 @@ export default function App() {
         <Navbar />
         <Switch>
           <Route exact path="/" component={Home}></Route>
-          <Route exact path="/card" component={Card} />
-          <Route exact path="/body" component={Body} />
           <Route exact path="/sidebar" component={Sidebar} />
           <Route exact path="/categories" component={Categories} />
           <Route exact path="/register" component={Register} />

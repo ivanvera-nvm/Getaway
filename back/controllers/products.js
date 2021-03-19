@@ -5,10 +5,29 @@ const { Op } = require("sequelize");
 
 const productController = {
   findAll(req, res, next) {
-    Product.findAll({ order: [["id", "ASC"]] })
-      .then((products) => res.status(200).json(products))
-      .catch((e) => next(e));
-  },
+    // console.log(req.query);
+    // if (!Object.keys(req.query).length) {
+      Product.findAll({ order: [["id", "ASC"]] })
+        .then((products) => {
+          return res.status(200).json(products);
+        })
+        .catch((e) => next(e));
+    // }
+    // else{
+    // const { name } = req.query;
+
+    // Product.findAll({
+    //   order: [["id", "ASC"]],
+    //   where: { name: { [Op.like]: `%${name}%` } },
+    // }
+    // )
+    //   .then((products) => {
+    //     console.log(products);
+    //     res.status(200).json(products);
+    //   })
+    //   .catch((e) => next(e));
+  // }
+},
 
   findById(req, res, next) {
     const { id } = req.params;
@@ -33,13 +52,19 @@ const productController = {
 
   findByKeyword(req, res, next) {
     const queryFilter = req.query.name;
-    Product.findAll({
-      where: {
-        [Op.like]: `%${queryFilter}%`,
-      },
-    })
-      .then((productByKeyword) => res.send(productByKeyword))
-      .catch(next);
+    const splited = queryFilter.split("%").join(' ');
+    console.log(splited);
+    
+      Product.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${splited}%`,
+          },
+        },
+      })
+        .then((productByKeyword) => res.send(productByKeyword))
+        .catch(next);
+   
   },
 
   findProductReviews(req, res, next) {
@@ -67,21 +92,14 @@ const productController = {
     const productId = req.params.id;
     console.log(productId);
 
-
-    Review.sum('rating', { where: { productId } })
-    .then(result => {
-      Review.findAndCountAll({where: {productId}})
-      .then((count) => {
-        console.log("sum de ratings", result, count.count)
-        let average = (result/ count.count)
-        console.log(average)
-        res.status(200).json({avg: average})
-      })
-   
-     
-    }) 
-    
-    
+    Review.sum("rating", { where: { productId } }).then((result) => {
+      Review.findAndCountAll({ where: { productId } }).then((count) => {
+        console.log("sum de ratings", result, count.count);
+        let average = result / count.count;
+        console.log(average);
+        res.status(200).json({ avg: average });
+      });
+    });
   },
 
   createProduct(req, res, next) {
@@ -105,9 +123,9 @@ const productController = {
       expiry,
       quantity,
     }).then((product) => {
-      product.setCategories(categories).then((products) => {
-        res.send(products);
-      });
+      product.setCategories(categories);
+      // console.log(Object.keys(product.__proto__));
+      res.status(201).send(product);
     });
   },
 

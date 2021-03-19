@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -30,20 +30,17 @@ import { useSnackbar } from "notistack";
 
 export default function Product({ id }) {
   const { enqueueSnackbar } = useSnackbar();
-
   const classes = useStyles();
-
   const history = useHistory();
-
   const user = useSelector((state) => state.user);
   const product = useSelector((state) => state.product);
   const dispatch = useDispatch();
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
-  if (!productId) {
+  useEffect(() => {
     dispatch(setProduct(id));
-  }
+  }, []);
 
   const addItem = async () => {
     if (user.token) {

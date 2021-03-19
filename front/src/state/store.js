@@ -5,7 +5,7 @@ import userReducer from "./user";
 import favsReducer from "./favs";
 import adminReducer from "./admin";
 import productsReducer from "./products";
-import { productReducer } from "./products";
+import { productReducer, adminProductsReducer } from "./products";
 import listUsersReducer from "./listUsers";
 import totalProductsReducer from "./totalProducts";
 import { ordersReducer, userOrdersReducer } from "./orders";
@@ -17,6 +17,7 @@ const store = configureStore({
     user: userReducer,
     favs: favsReducer,
     admin: adminReducer,
+    adminProducts: adminProductsReducer,
     products: productsReducer,
     product: productReducer,
     listUsers: listUsersReducer,
