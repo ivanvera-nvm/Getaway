@@ -41,6 +41,10 @@ export default function Product({ id }) {
   const cartId = useSelector((state) => state.userCart).id;
   const productId = product.id;
 
+  React.useLayoutEffect(()=> {
+    dispatch(setProduct(id))
+  }, [dispatch])
+
   if (!productId) {
     dispatch(setProduct(id));
   }

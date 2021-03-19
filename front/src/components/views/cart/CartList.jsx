@@ -51,7 +51,7 @@ const List = (props) => {
         backgroundColor="white"
         className={classes.root}
       >
-        <Box className={classes.cartTitle}>Your Cart</Box>
+        <Box className={classes.cartTitle}>Tu Carrito tiene {orders.length} item{orders.length===1? "":"s"}</Box>
         <Grid container spacing={2} className={classes.grid}>
           {user.user &&
             user.user.id &&

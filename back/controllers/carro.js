@@ -16,6 +16,7 @@ const CartController = {
 
   findOrCreateCart(req, res, next) {
     const { userId } = req.body;
+    
     CartModel.findOne({ where: { userId, status: "pending" } }).then((cart) => {
       if (!cart) {
         CartModel.create({ userId }).then((cart) => {

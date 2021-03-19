@@ -11,6 +11,9 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { Link } from "react-router-dom";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import EditIcon from '@material-ui/icons/Edit';
+import {useHistory } from "react-router-dom"
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,67 +43,84 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Products = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory()
+  const user = useSelector((state) => state.user);
+  const products =  useSelector((state) => state.products);
 
   React.useEffect(() => {
     dispatch(setProducts());
   }, [dispatch]);
-
-  const products = useSelector((state) => state.products);
+  
+  React.useEffect(() => {
+   (!user.user || user.user.access !== "admin") && history.push("/") &&  enqueueSnackbar("Ruta exclusiva para admin", { variant: "error" });
+   
+  }, [dispatch,history, user.access]);
 
   return (
     <>
-      <Fab  color="primary" aria-label="add">
-        <Link to="/admin/addProduct"><AddIcon /></Link>
-      </Fab>
-      <h1 align="center">Gestión de productos</h1>
-      {products.map((product) => (
-        <div className={classes.root}>
-          <Paper className={classes.paper}>
-            <Grid container spacing={2}>
-              <Grid item>
-                <ButtonBase className={classes.image}>
-                  <img
-                    className={classes.img}
-                    alt="complex"
-                    src={product.image}
-                  />
-                </ButtonBase>
-              </Grid>
-              <Grid item xs={12} sm container>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
-                    <Typography gutterBottom variant="subtitle1">
-                      {product.name}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Id: {product.id}
-                    </Typography>
-                  </Grid>
+      {user.user && user.user.access === "admin" ? (
+        <div>
+          <h1 align="center">Gestión de productos</h1>
+          <Fab color="primary" aria-label="add">
+            <Link to="/admin/addProduct">
+              <AddIcon />
+            </Link>
+          </Fab>
+          {products.map((product) => (
+            <div className={classes.root}>
+              <Paper className={classes.paper}>
+                <Grid container spacing={2}>
                   <Grid item>
-                    <DeleteIcon
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        console.log("CLICKK");
-                        dispatch(deleteProduct(product.id));
-                      }}
-                    />
-                    <Link to={`/admin/editProduct/${product.id}`}>
-                      <EditOutlinedIcon style={{ cursor: "pointer" }} />
-                    </Link>
+                    <ButtonBase className={classes.image}>
+                      <img
+                        className={classes.img}
+                        alt="complex"
+                        src={product.image}
+                      />
+                    </ButtonBase>
+                  </Grid>
+                  <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                      <Grid item xs>
+                        <Typography gutterBottom variant="subtitle1">
+                          {product.name}
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary">
+                          Id: {product.id}
+                        </Typography>
+                      </Grid>
+                      <Grid item>
+                        <DeleteIcon
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            console.log("CLICKK");
+                            dispatch(deleteProduct(product.id));
+                          }}
+                        />
+                        <Link to={`/admin/editProduct/${product.id}`}>
+                          <EditOutlinedIcon style={{ cursor: "pointer" }} />
+                        </Link>
+                      </Grid>
+                    </Grid>
+                    <Grid item>
+                      <Typography variant="subtitle1">
+                        ${product.price},00
+                      </Typography>
+                    </Grid>
                   </Grid>
                 </Grid>
-                <Grid item>
-                  <Typography variant="subtitle1">
-                    ${product.price},00
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Paper>
+              </Paper>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <div>
+          <h3 style={{ color: "red" }}>ADMIN PRIVATE PAGE</h3>
+        </div>
+      )}
     </>
   );
 };
