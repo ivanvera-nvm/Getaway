@@ -44,6 +44,3 @@ Post review:
     Logeado: Se muestra HOME - ADMIN - Logout (aunque falta crear la ruta tanto para front como para back, y su interaccion)
     y el icono del Carrito
 5. Al clikear en el carro se muestra el cartID y las respectivas ordersID
-
-*IMPORTANTE* como todavia el carrito esta incompleto, cuando creen uno nuevo, haganlo con el USER ID: 2, fijense: src=>state=>orders.js
-PD: Si ven alguna falta de ortografia corrijanla de inmediato asi no nos sangran los ojos. Con las tildes no sean exquisitos, tengo el teclado en ingles y me da pereza ir cambiando.  >:|
